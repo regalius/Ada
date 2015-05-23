@@ -1,11 +1,12 @@
 extends Control
 
-var references
-var prefabs
-var currents
+var references={
+	"rootNode":""
+}
+var prefabs ={}
+var currents = {}
 
 func _ready():
-	self.init()
 	pass
 	
 func init():
@@ -14,7 +15,11 @@ func init():
 	pass
 
 func initReferences():
+	references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)
 	pass
 
 func initConnections():
 	pass
+
+func initCurrents():
+	pass 

@@ -9,27 +9,28 @@ var references={
 	"rootNode": ""
 }
 
-var mapPath = ""
-var btnIndex = 1
-var bestCandy
-var unlocked
+var currents={
+	"mapIndex": {},
+	"bestCandy": 0,
+	"unlocked" : false,
+}
 
 func _ready():
 	# Initialization here
-	initReferences()
-	initConnections()
+	self.initReferences()
+	self.initConnections()
 	pass
-func init(path,unlock,candy, index):
-	self.setMapPath(path)
+	
+func init(mapIndex,unlock,candy):
+	self.setMapIndex(mapIndex)
 	self.setUnlocked(unlock)
 	self.setBestCandy(candy)
-	self.setIndex(index)
 	pass
 
 func initReferences():
 	references["levelBtn"] = self.get_node("level_button")
 	references["levelLbl"] = self.get_node("level_button/Label")
-	references["candyContainer"] = self.get_node("candyContainer")
+	references["candyContainer"] = self.get_node("candy_container")
 	references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)
 	references["guiRoot"] = references["rootNode"].get_node("gui_layer/canvas_item/gui_root")
 	pass
@@ -39,30 +40,28 @@ func initConnections():
 	pass
 
 func loadMap():
-	references["guiRoot"].buttonPressed("loadMap", [mapPath])
+	references["guiRoot"].buttonPressed("startLevel", [currents["mapIndex"]])
 	
 
-func setMapPath(path):
-	mapPath = path
-	pass
-	
-func getMapPath():
-	return mapPath
-	pass
+func setMapIndex(mapIndex):
+	currents["mapIndex"] = mapIndex
+	references["levelLbl"].set_text(str(currents["mapIndex"].levelIndex))
 
-func setIndex(index):
-	btnIndex = index;
-	references["levelLbl"].set_text(str(btnIndex))
-	
-func getIndex():
-	return btnIndex
+func getMapIndex():
+	return currents["mapIndex"]
 
 func setUnlocked(unlock):
-	unlocked = unlock
+	currents["unlocked"] = unlock
+	if not currents["unlocked"] :
+		references["candyContainer"].hide()
+		references["levelBtn"].set_disabled(true)
+	else:
+		references["candyContainer"].show()
+		references["levelBtn"].set_disabled(false)
 	pass
 
 func setBestCandy(candy):
-	bestCandy = candy
+	currents["bestCandy"] = candy
 	for candy in references["candyContainer"].get_children():
 		candy.set_disabled(true)
 	for i in range(candy):

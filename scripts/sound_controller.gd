@@ -19,10 +19,8 @@ func playMusic(path):
 	references["streamPlayer"].set_stream(stream)
 	references["streamPlayer"].set_loop(true)
 	references["streamPlayer"].play()
-	references["streamPlayer"].get_node("animation").play("delay")
 
 func stopMusic():
-	references["streamPlayer"].get_node("animation").play("fade_out")
 	references["streamPlayer"].stop()
 
 func muteMusic(mute):

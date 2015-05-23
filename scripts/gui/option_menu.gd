@@ -2,22 +2,12 @@
 extends "../abstract_gui.gd"
 
 
-func _ready():
-	# Initialization here
-	pass
 func init():
 	.init()
 	initButtonStates()
 	
 func initReferences():
-	references ={
-		"soundBtnOn":"",
-		"soundBtnOff":"",
-		"languageBtnEn":"",
-		"languageBtnIn":"",
-		"backBtn":"",
-		"rootNode":""
-	}
+	.initReferences()
 	references["soundBtnOn"] = self.get_node("center/menu/sound_menu/soundBtnGroup/soundbtn_on")
 	references["soundBtnOff"] = self.get_node("center/menu/sound_menu/soundBtnGroup/soundbtn_off")
 	references["languageBtnEn"] = self.get_node("center/menu/language_menu/languageBtnGroup/languagebtn_en")
@@ -35,15 +25,19 @@ func initConnections():
 	pass
 
 func initButtonStates():
-	if(references["rootNode"].getSettings("SOUND_ENABLED")):
+	if references["rootNode"].getSettings("SOUND_ENABLED"):
 		references["soundBtnOn"].set_disabled(true)
+		references["soundBtnOff"].set_disabled(false)
 	else:
 		references["soundBtnOff"].set_disabled(true)
+		references["soundBtnOn"].set_disabled(false)
 		
-	if(references["rootNode"].getSettings("LANGUAGE") == "en"):
+	if references["rootNode"].getSettings("LANGUAGE") == "en":
 		references["languageBtnEn"].set_disabled(true)
+		references["languageBtnIn"].set_disabled(false)
 	else:
 		references["languageBtnIn"].set_disabled(true)
+		references["languageBtnEn"].set_disabled(false)
 	pass
 
 func changeSettings(settingName, newValue, currentBtn):

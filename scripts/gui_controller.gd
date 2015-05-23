@@ -9,13 +9,15 @@ var references = {
 	"mainMenu" : "",
 	"levelMenu" : "",
 	"optionMenu" : "",
+	"resultMenu":"",
+	"dialogUI":"",
 	"gameUI" : "",
 	"rootNode":""
 }
 
 func _ready():
 	# Initialization here
-	initReferences()
+	self.initReferences()
 	pass
 	
 func init():
@@ -27,7 +29,9 @@ func initReferences():
 	references["mainMenu"] = self.get_node("mainmenu_root")
 	references["levelMenu"] = self.get_node("levelmenu_root")
 	references["optionMenu"] = self.get_node("optionmenu_root")
+	references["resultMenu"] = self.get_node("resultmenu_root")
 	references["gameUI"] = self.get_node("gameui_root")
+	references["dialogUI"] = self.get_node("dialogui_root")
 	references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)
 	pass
 
@@ -36,13 +40,27 @@ func buttonPressed(action, parameter):
 	if(action == "setCurrentGUI"):
 		self.setCurrentGUI(parameter[0])
 	elif(action == "quitGame"):
-		self.quitGame()
+		references["rootNode"].quitGame()
 	elif(action == "setLevelSection"):
 		references["levelMenu"].setLevelSection(parameter[0])
 	elif(action == "changeSettings"):
 		references["optionMenu"].changeSettings(parameter[0],parameter[1],parameter[2])
-	elif(action == "loadMap"):
-		references["rootNode"].startGame(parameter[0])
+	elif(action == "startLevel"):
+		references["rootNode"].startLevel(parameter[0])
+	elif action == "startNextLevel":
+		references["rootNode"].startLevel(references["rootNode"].getNextLevel())
+	elif action == "quitLevel":
+		references["rootNode"].quitLevel()
+	elif action == "showDialog":
+		self.showDialog(parameter[0],parameter[1])
+	elif action == "retryLevel":
+		references["rootNode"].references["gameController"].retryLevel()
+	elif action == "playSolverAlgorithm":
+		references["rootNode"].references["gameController"].playSolverAlgorithm(parameter[0])
+	elif action == "resetMap":
+		references["rootNode"].references["gameController"].resetMap()
+	elif action == "goToEditorMode":
+		references["rootNode"].showEditor()
 	pass
 
 
@@ -50,10 +68,28 @@ func setCurrentGUI(gui):
 	for scene in self.get_children():
 		scene.hide()
 	references[gui].show()
-	references["rootNode"].setCurrents("GUI", gui)
+	references["rootNode"].currents["GUI"] = gui
 	pass
+
+func getGUI(name):
+	return references[name]
+
+func pauseGame(state):
+	references["rootNode"].get_tree().set_pause(state)
+
+func showDialog(state, type):
+	references["rootNode"].get_tree().set_pause(state)
+	if state:
+		references["dialogUI"].setDialogType(type)
+		references["dialogUI"].show()
+	else:
+		references["dialogUI"].hide()
 	
-func quitGame():
-	OS.get_main_loop().quit()
-	pass
-	
+func showResultMenu(state,score,candy):
+	references["rootNode"].get_tree().set_pause(state)
+	if state:
+		references["resultMenu"].show()
+		references["resultMenu"].setScore(score)
+		references["resultMenu"].setCandy(candy)
+	else:
+		references["resultMenu"].hide()
