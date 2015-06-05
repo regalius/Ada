@@ -19,6 +19,7 @@ func init():
 	
 func initReferences():
 	.initReferences()
+	references["gameController"] = references["rootNode"].references["gameController"]
 	references["playBtn"] = self.get_node("top/top_right/play_btn")
 	references["backBtn"] = self.get_node("top/top_left/back_btn")
 	references["newFuncBtn"] = self.get_node("right/top_right/newfunc_btn")
@@ -32,9 +33,18 @@ func initCurrents():
 	}
 	
 func initConnections():
-	references["backBtn"].connect("pressed", self.get_parent(), "buttonPressed",["showDialog",[true,"levelMenu"]])
+	references["backBtn"].connect("pressed", references["guiRoot"], "showDialog",[true,self,"yesno",["levelMenu"]])
 	references["playBtn"].connect("pressed", self, "playSolverAlgorithm")
 	references["newFuncBtn"].connect("pressed", self, "createNewPieceContainer")
+
+func setPreviewMode(state):
+	if state:
+		references["backBtn"].disconnect("pressed", references["guiRoot"], "showDialog")
+		references["backBtn"].connect("pressed", references["guiRoot"], "showDialog",[true,self,"yesno",["previewMode"]])
+	else:
+		references["backBtn"].disconnect("pressed", references["guiRoot"], "showDialog")
+		references["backBtn"].connect("pressed", references["guiRoot"], "showDialog",[true,self,"yesno",["levelMenu"]])
+	
 
 func reset():
 	for pieceContainer in references["pieceContainers"].get_children():
@@ -77,9 +87,9 @@ func extractSolverAlgorithm():
 	currents["solverAlgorithm"] = tempAlgorithm
 	
 func playSolverAlgorithm():
-	if not references["rootNode"].references["gameController"].currents["HANDLE_SOLVER_ALGORITHM"]:
+	if not references["gameController"].currents["HANDLE_SOLVER_ALGORITHM"]:
 		self.extractSolverAlgorithm()
-		self.get_parent().buttonPressed("playSolverAlgorithm",[currents["solverAlgorithm"]])
+		references["gameController"].playSolverAlgorithm(currents["solverAlgorithm"])
 		references["playBtn"].disconnect("pressed", self, "playSolverAlgorithm")
 		references["playBtn"].connect("pressed", self, "resetMap")
 		var texture = ImageTexture.new()
@@ -87,10 +97,9 @@ func playSolverAlgorithm():
 		references["playBtn"].set_normal_texture(texture)
 		references["playBtn"].set_pressed_texture(texture)
 
-	
 func resetMap():
-	if not references["rootNode"].references["gameController"].currents["HANDLE_SOLVER_ALGORITHM"]:
-		self.get_parent().buttonPressed("resetMap","")
+	if not references["gameController"].currents["HANDLE_SOLVER_ALGORITHM"]:
+		references["gameController"].resetMap()
 		references["playBtn"].disconnect("pressed", self, "resetMap")
 		references["playBtn"].connect("pressed", self, "playSolverAlgorithm")
 		var texture = ImageTexture.new()

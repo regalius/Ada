@@ -21,16 +21,16 @@ func initReferences():
 	.initReferences()
 	references["prevBtn"] = self.get_node("bot_left/prev_btn")
 	references["nextBtn"] = self.get_node("bot_right/next_btn")
-	references["backBtn"] = self.get_node("top_right/back_btn")
+	references["backBtn"] = self.get_node("top_left/back_btn")
 	references["currentLbl"] = self.get_node("bot_center/screen_label/current_lbl")
 	references["maxLbl"] = self.get_node("bot_center/screen_label/max_lbl")
 	references["levelBtnContainer"] = self.get_node("top_center")
 	pass
 
 func initConnections():
-	references["backBtn"].connect("pressed", self.get_parent(), "buttonPressed",["setCurrentGUI",["mainMenu"]])
-	references["prevBtn"].connect("pressed", self.get_parent(), "buttonPressed", ["setLevelSection",["prev"]])
-	references["nextBtn"].connect("pressed", self.get_parent(), "buttonPressed", ["setLevelSection",["next"]])
+	references["backBtn"].connect("pressed", references["guiRoot"], "setCurrentGUI",["mainMenu"])
+	references["prevBtn"].connect("pressed", self, "setLevelSection",["prev"])
+	references["nextBtn"].connect("pressed", self, "setLevelSection",["next"])
 	pass
 
 func initCurrents():
@@ -42,15 +42,16 @@ func createLevelSelector():
 	var tempContainer
 	var tempLevel
 	var maxSectionIndex = 0
-	for container in references["rootNode"].mapReferences:
+	var mapReferences = references["rootNode"].getUserdata("mapReferences")
+	for container in mapReferences:
 		tempContainer = prefabs["levelContainer"].instance()
 		references["levelBtnContainer"].add_child(tempContainer)
 		tempContainer.hide()
-		tempContainer.init(container,references["rootNode"].mapReferences[container].title)
+		tempContainer.init(container,mapReferences[container].title)
 		currents["levelSelectorIndex"][container]={}
 		currents["levelSelectorIndex"][container]["container"] = tempContainer
-		for level in references["rootNode"].mapReferences[container]["levels"]:
-			var temp = references["rootNode"].mapReferences[container]["levels"][level] 
+		for level in mapReferences[container]["levels"]:
+			var temp = mapReferences[container]["levels"][level] 
 			tempLevel = prefabs["levelBtn"].instance()
 			tempContainer.references["container"].add_child(tempLevel)
 			tempLevel.init({"containerIndex":container,"levelIndex":level},temp["unlocked"],temp["bestCandy"])
@@ -65,18 +66,19 @@ func updateLevelSelector():
 	var tempContainer
 	var tempLevel
 	var maxSectionIndex = 0
-	for container in references["rootNode"].mapReferences:
+	var mapReferences = references["rootNode"].getUserdata("mapReferences")
+	for container in mapReferences:
 		if currents["levelSelectorIndex"][container]["container"] == null:
 			tempContainer = prefabs["levelContainer"].instance()
 			references["levelBtnContainer"].add_child(tempContainer)
 			tempContainer.hide()
-			tempContainer.init(container, references["rootNode"].mapReferences[container].title)
+			tempContainer.init(container, mapReferences[container].title)
 			currents["levelSelectorIndex"][container]["container"] = tempContainer
 		
-		currents["levelSelectorIndex"][container]["container"].init(container, references["rootNode"].mapReferences[container].title)
+		currents["levelSelectorIndex"][container]["container"].init(container, mapReferences[container].title)
 
-		for level in references["rootNode"].mapReferences[container]["levels"]:
-			var temp = references["rootNode"].mapReferences[container]["levels"][level] 
+		for level in mapReferences[container]["levels"]:
+			var temp = mapReferences[container]["levels"][level] 
 			if currents["levelSelectorIndex"][container][level] == null:
 				tempLevel = prefabs["levelBtn"].instance()
 				tempContainer.references["container"].add_child(tempLevel)

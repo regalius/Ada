@@ -17,22 +17,22 @@ var currents={
 
 func _ready():
 	# Initialization here
-	self.initReferences()
-	self.initConnections()
 	pass
 	
 func init(mapIndex,unlock,candy):
+	self.initReferences()
+	self.initConnections()
 	self.setMapIndex(mapIndex)
 	self.setUnlocked(unlock)
 	self.setBestCandy(candy)
 	pass
 
 func initReferences():
-	references["levelBtn"] = self.get_node("level_button")
-	references["levelLbl"] = self.get_node("level_button/Label")
+	references["levelBtn"] = self.get_node("level_btn")
+	references["levelLbl"] = self.get_node("level_btn/Label")
 	references["candyContainer"] = self.get_node("candy_container")
 	references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)
-	references["guiRoot"] = references["rootNode"].get_node("gui_layer/canvas_item/gui_root")
+	references["guiRoot"] = references["rootNode"].getGUIRoot()
 	pass
 
 func initConnections():
@@ -40,9 +40,8 @@ func initConnections():
 	pass
 
 func loadMap():
-	references["guiRoot"].buttonPressed("startLevel", [currents["mapIndex"]])
+	references["rootNode"].startLevel(currents["mapIndex"])
 	
-
 func setMapIndex(mapIndex):
 	currents["mapIndex"] = mapIndex
 	references["levelLbl"].set_text(str(currents["mapIndex"].levelIndex))

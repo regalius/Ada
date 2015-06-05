@@ -17,7 +17,7 @@ var textureLibrary = {
 	"move":"res://assets_dummy/gui/move_piece.png",
 	"turnLeft":"res://assets_dummy/gui/turn_left_piece.png",
 	"turnRight":"res://assets_dummy/gui/turn_right_piece.png",
-	"deliver":"res://assets_dummy/gui/deliver_piece.png",
+	"interact":"res://assets_dummy/gui/deliver_piece.png",
 #	"F1":"res://assets_dummy/gui/f1.png",
 #	"F2":"res://assets_dummy/gui/f2.png"
 }
@@ -32,7 +32,7 @@ func _ready():
 	pass
 
 func _input_event(event):
-	self.get_node("/root/game").references["inputController"]._input(event,self, "piece")
+	references["rootNode"].references["inputController"]._input(event,self, "gui")
 
 func init(act):
 	self.initReferences()
@@ -54,7 +54,7 @@ func get_drag_data(pos):
 		dragPreview.init(self.action)
 		self.set_drag_preview(dragPreview)
 		temp =action
-		references["cursor"].hide()
+#		references["cursor"].hide()
 		if type =="receiver":
 			self.setAction("")
 		return temp

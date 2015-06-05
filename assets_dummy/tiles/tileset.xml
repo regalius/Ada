@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="TileSet" subresource_count="4" version="1.1" version_name="Godot Engine v1.1.rc1.custom_build">
+<resource_file type="TileSet" subresource_count="5" version="1.1" version_name="Godot Engine v1.1.rc1.custom_build">
 	<ext_resource path="res://assets_dummy/tiles/grass.png" type="Texture"></ext_resource>
 	<ext_resource path="res://assets_dummy/tiles/path.png" type="Texture"></ext_resource>
 	<ext_resource path="res://assets_dummy/tiles/house.png" type="Texture"></ext_resource>
+	<ext_resource path="res://assets_dummy/tiles/teleporter.png" type="Texture"></ext_resource>
 	<main_resource>
 		<resource name="0/material"></resource>		<string name="0/name"> "1" </string>
 		<resource name="0/navigation"></resource>		<vector2 name="0/navigation_offset"> 64, 50 </vector2>
@@ -31,6 +32,15 @@
 		</array>
 		<vector2 name="2/tex_offset"> 0, 0 </vector2>
 		<resource name="2/texture" resource_type="Texture" path="res://assets_dummy/tiles/house.png">  </resource>
+		<resource name="3/material"></resource>		<string name="3/name"> "4" </string>
+		<resource name="3/navigation"></resource>		<vector2 name="3/navigation_offset"> 64, 50 </vector2>
+		<resource name="3/occluder"></resource>		<vector2 name="3/occluder_offset"> 64, 50 </vector2>
+		<rect2 name="3/region"> 0, 18, 128, 100 </rect2>
+		<vector2 name="3/shape_offset"> 0, 0 </vector2>
+		<array name="3/shapes" len="0" shared="false">
+		</array>
+		<vector2 name="3/tex_offset"> 0, 0 </vector2>
+		<resource name="3/texture" resource_type="Texture" path="res://assets_dummy/tiles/teleporter.png">  </resource>
 
 	</main_resource>
 </resource_file>

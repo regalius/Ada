@@ -1,0 +1,36 @@
+id,en,in
+OK ,OK,OK
+CANCEL,Cancel,Batal
+PLAY,Play,Main
+SETTING,Settings,Pengaturan
+EDITOR,Editor,Editor
+QUIT_DIALOG_TITLE,Quit Game,Keluar Permainan
+QUIT_DIALOG_LBL,Are you sure you want to quit ?,Keluar dari permainan sekarang ?
+YES,Yes,Ya
+NO,No,Tidak
+CREATE_NEW_FUNCTION,Create New Function,Buat Fungsi Baru
+LEVEL_DIALOG_TITLE,Level Menu,Menu Level
+LEVEL_DIALOG_LBL,Do you want to go back to level selection menu ?,Kembali ke menu pemilihan level ?
+RETRY,Retry,Coba lagi
+BACK,Back,Kembali
+CONTINUE,Continue,Lanjutkan
+LOAD,Load,Muat
+SAVE,Save,Simpan
+SOUND,Sound,Suara
+LANGUAGE,Language,Bahasa
+ON,On,Nyala
+OFF,Off,Mati
+RESTART_DIALOG_TITLE,Restart Game,Mulai ulang Permainan
+RESTART_DIALOG_LBL,"Changes will only take place on restart, would you like to restart ?","Perubahan yang diminta membutuhkan mulai ulang permainan, mulai ulang permainan ?"
+LOAD_MAP_DIALOG_TITLE,Load Map,Muat Peta
+LOAD_MAP_DIALOG_LBL,Are you sure you want to load map from file ? (Unsaved map will be lost),Muat peta sekarang ? (perubahan pada peta yang tidak disimpan akan hilang)
+SAVE_MAP_DIALOG_TITLE,Save Map,Simpan Peta
+SAVE_MAP_DIALOG_LBL,Are you sure you want to save map to file ?,Simpan peta ke file ?
+PLAY_WITHOUT_SAVE_DIALOG_TITLE,Play Without Saving,Mainkan Peta Tanpa Simpan
+PLAY_WITHOUT_SAVE_DIALOG_LBL,Are you sure you want to play without saving the map ?,Mainkan peta tanpa menyimpan terlebih dahulu ?
+PREVIEW_DIALOG_TITLE,Exit Preview Mode,Keluar Mode Preview
+PREVIEW_DIALOG_LBL,Are you sure you want to leave preview mode ?,Keluar dari mode preview ?
+front,front,depan
+back,back,belakang
+left,left,kiri
+right,right,kanan

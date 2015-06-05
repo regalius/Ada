@@ -8,6 +8,3 @@ extends TextureButton
 func _ready():
 	# Initialization here
 	pass
-
-func _input_event(event):
-	self.get_node("/root/game").references["inputController"]._input(event,self,"button")

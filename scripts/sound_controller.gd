@@ -30,5 +30,5 @@ func muteMusic(mute):
 		references["streamPlayer"].set_volume(1)
 		
 func playSFX(title, unique):
-	if(references["rootNode"].getSettings("SOUND_ENABLED")):
+	if references["rootNode"].getSettings("SOUND_ENABLED") == "On":
 		references["samplePlayer"].play(title, unique)

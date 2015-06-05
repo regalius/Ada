@@ -18,7 +18,8 @@ var currents = {
 	"HANDLE_SOLVER_ALGORITHM":false,
 	"LEVEL_COMPLETE":false,
 	"waitTime":50,
-	"levelData":""
+	"levelData":"",
+	"IS_PREVIEW_MODE": false
 }
 
 func _fixed_process(delta):
@@ -62,8 +63,12 @@ func initCurrents():
 		"waitTime":50,
 		"levelData":"",
 		"score":0,
-		"candy":0
+		"candy":0,
+		"IS_PREVIEW_MODE" : false
 	}
+
+func setPreviewMode(state):
+	currents["IS_PREVIEW_MODE"] = state
 
 func startLevel():
 	self.initCurrents()
@@ -72,18 +77,19 @@ func startLevel():
 	references["gameHUD"].init()
 	
 func quitLevel():
-	references["rootNode"].saveLevel(currents["score"],currents["candy"])
-	if currents["LEVEL_COMPLETE"]:
-		references["rootNode"].unlockLevel(references["rootNode"].getNextLevel())
+	if not currents["IS_PREVIEW_MODE"]:
+		references["rootNode"].saveLevel(currents["score"],currents["candy"])
+		if currents["LEVEL_COMPLETE"]:
+			references["rootNode"].unlockLevel(references["rootNode"].getNextLevel())
 	pass
 
-func retryLevel():	
+func retryLevel():
 	currents["LEVEL_COMPLETE"] = false
-	references["guiRoot"].showResultMenu(false,"","")
+	references["guiRoot"].showDialog(false,self,"gameResult","")
 	pass
 
 func playSolverAlgorithm(solverAlgorithm):
-	references["player"].resetCamera()
+	references["camera"].reset()
 	currents["solverAlgorithm"]= solverAlgorithm
 #	print(str(currents["solverAlgorithm"]))
 	currents["HANDLE_SOLVER_ALGORITHM"] = true
@@ -108,7 +114,7 @@ func fetchCurrentAction(link):
 			if isAction(act):
 				return act 
 
-func gameOver():	
+func gameOver():
 	currents["score"] = currents["actionIndex"]
 
 	if currents["actionIndex"] <= currents["levelData"]["candy"]["3"]:
@@ -120,10 +126,10 @@ func gameOver():
 	else:
 		currents["candy"] = 0
 		
-	references["guiRoot"].showResultMenu(true,currents["score"],currents["candy"])
+	references["guiRoot"].showDialog(true,self,"gameResult", [currents["score"],currents["candy"], currents["IS_PREVIEW_MODE"]])
 
 func isAction(action):
-	if action == "move" or action == "turnLeft" or action == "turnRight" or action == "deliver":
+	if action == "move" or action == "turnLeft" or action == "turnRight" or action == "interact":
 		return true
 	else:
 		return false
@@ -144,7 +150,7 @@ func handleSolverAlgorithm(delta):
 				currents["repeatIndex"] = 0
 				references["player"].doAction(act)
 #				print(act +" | pos: "+str(references["player"].currents["position"])+ " | newPos: "+ str(references["player"].currents["newpos"]))
-				if act == "deliver":
+				if act == "interact":
 					currents["LEVEL_COMPLETE"] = self.isGameOver()
 					if currents["LEVEL_COMPLETE"]:
 						self.gameOver()

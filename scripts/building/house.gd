@@ -1,21 +1,30 @@
 extends "../abstract_object.gd"
 
 func init(map, cellData):
+	defaultAttribute = {
+		"houseValue" : -1,
+		"direction" : "front"
+	}
+	
 	.init(map, cellData)
+	self.setType("house")
 	self.setHouseValue(currents["houseValue"])
 
 func initReferences():
 	.initReferences()
-	references={
-		"houseValueLbl":""
-	}
 	references["houseValueLbl"] = self.get_node("housevalue_lbl")
 
 func initCurrents():
 	.initCurrents()
+#	if objectAttribute.has("houseValue"):
 	currents["houseValue"] = objectAttribute["houseValue"]
+#	else:
+#		currents["houseValue"] = -1
 	currents["IS_DELIVERED"]= false
 	currents["CAN_DELIVER"]= true
+
+func interact(actor, nextPos):
+	self.receiveItem(true, nextPos)
 	
 func updateObject():
 	if not currents["IS_DELIVERED"] and currents["CAN_DELIVER"]== true:
@@ -23,7 +32,7 @@ func updateObject():
 			if currents["houseValue"] >0:
 				self.setHouseValue(currents["houseValue"]-1)
 			else:
-				self.receiveItem(false)
+				self.receiveItem(false,"")
 
 func resetObject():
 	self.setHouseValue(objectAttribute["houseValue"])
@@ -36,8 +45,9 @@ func setHouseValue(value):
 
 func receiveItem(received, playerNextPos):
 	if currents["CAN_DELIVER"]:
-		if received:			
+		if received:
 #map			print("housepos: " + str(currents["position"]) + " | playerpos: "+ str(playerNextPos) + " " + str(self.isPlayerPositionValid(playerNextPos)))
+
 			if self.isPlayerPositionValid(playerNextPos):
 				references["houseValueLbl"].set_text("YAY!")
 				currents["IS_DELIVERED"] = true

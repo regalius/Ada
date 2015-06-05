@@ -1,44 +1,42 @@
 
 extends "../abstract_gui.gd"
 
-var dialogType = {
-	"quit":{
-		"titleLbl":"Quit Game",
-		"textLbl":"Are you sure you want to quit ?",
-		"action":"quitGame",
-		"parameter":""
-	},
-	"levelMenu":{
-		"titleLbl":"Level Menu",
-		"textLbl":"Do you want to go back to level selection menu ?",
-		"action":"quitLevel",
-		"parameter":""
-	},
-}
+# member variables here, example:
+# var a=2
+# var b="textvar"
+
+func _ready():
+	# Initialization here
+	pass
 
 func init():
 	.init()
-	self.initCurrents()
+	for dialog in references["dialogContainer"].get_children():
+		dialog.init()
+	pass
 
 func initReferences():
 	.initReferences()
-	references["yesBtn"] = self.get_node("center/dialog/dialog_btn/yes_btn")
-	references["noBtn"] = self.get_node("center/dialog/dialog_btn/no_btn")
-	references["textLbl"] = self.get_node("center/dialog/dialog_lbl")
-	references["titleLbl"] = self.get_node("center/dialog/dialog_title")
-	
-func initCurrents():
-	currents={
-		"dialogType":""
-	}
-func initConnections():
-	references["noBtn"].connect("pressed", self.get_parent(), "buttonPressed",["showDialog",[false,""]])
+	references["dialogContainer"] = self.get_node("dialog_container")
+	references["yesno"] = self.get_node("dialog_container/yesnodialog_root")
+	references["alert"] = self.get_node("dialog_container/alertdialog_root")
+	references["option"] = self.get_node("dialog_container/optiondialog_root")
+	references["gameResult"] = self.get_node("dialog_container/resultdialog_root")
+	references["objectEdit"] = self.get_node("dialog_container/objecteditdialog_root")
+	references["levelDataEdit"] = self.get_node("dialog_container/leveldataeditdialog_root")
+	pass
 
-func setDialogType(type):
-	if type != currents["dialogType"]:
-		currents["dialogType"] = type
-		references["textLbl"].set_text(dialogType[type].textLbl)
-		references["titleLbl"].set_text(dialogType[type].titleLbl)
-		references["yesBtn"].disconnect("pressed", self.get_parent(), "buttonPressed")
-		references["yesBtn"].connect("pressed", self.get_parent(), "buttonPressed",[dialogType[type].action,dialogType[type].parameter])
+func initConnections():
+	pass
 	
+func setDialogType(sender, type, parameter):
+	for dialog in references["dialogContainer"].get_children():
+		dialog.hide()
+		
+	if references.has(type):
+		references[type].show()
+		references[type].enterDialog(sender, parameter)
+		currents["dialog"] = references[type]
+
+func getCurrentDialog():
+	return currents["dialog"]

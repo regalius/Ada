@@ -5,11 +5,11 @@ const MOTION_SPEED=160
 const OFFSET_X = 0
 const OFFSET_Y = 0
 
-const MAX_ZOOM = 1
-const MIN_ZOOM = 10
-const ZOOM_SPEED = .1
-const SLIDE_SPEED = 2
-const SLIDE_ACCELERATION = .05
+#const MAX_ZOOM = 1
+#const MIN_ZOOM = 10
+#const ZOOM_SPEED = .1
+#const SLIDE_SPEED = 2
+#const SLIDE_ACCELERATION = .05
 
 var references={
 	"map":"",
@@ -33,40 +33,41 @@ var currents={
 		"worldPosition":Vector2()
 	},
 	"ACTION_STATE":"idle",
-	"CAMERA_SLIDING":false,
-	"CAMERA_CAN_MOVE":true,
-	"zoomLevel":0,
-	"slideVector": Vector2(),
-	"slideSpeed":0
+#	"CAMERA_SLIDING":false,
+#	"CAMERA_CAN_MOVE":true,
+#	"zoomLevel":0,
+#	"slideVector": Vector2(),
+#	"slideSpeed":0
 }
 
 
 func _ready():
-	# Initialization here
+#	Initialization here
 #	self.set_fixed_process(true)
 	pass
 
 func _fixed_process(delta):
-	handleMovement(delta)
-	handleCameraSlide(delta)
-		
+	self.handleMovement(delta)
+#	handleCameraSlide(delta)
+	
 func init(mapRoot, position):
 	self.initReferences(mapRoot)
 	self.setPosition(position)
 	pass
-
+	
 func initReferences(mapRoot):
 	references["mapRoot"] = mapRoot
 	references["map"] = mapRoot.get_node("ground")
 	references["camera"] = self.get_node("camera")
+	references["sprite"] = self.get_node("sprite")
 	
 func moveTo(position):
-	if references["map"].get_cell(position.x,position.y) == references["mapRoot"].PATH_TILE_INDEX and not currents["ACTION_STATE"] == "moveTo":
+	if references["map"].get_cell(position.x,position.y) == references["mapRoot"].getTileIndex("path") and not currents["ACTION_STATE"] == "moveTo":
 		currents["newpos"].x= position.x
 		currents["newpos"].y= position.y
 		currents["newpos"].z= position.z
 		currents["newpos"].direction= position.direction
-		currents["newpos"]["worldPosition"]= self.getWorldPosition(Vector2(position.x,position.y))
+		currents["newpos"]["worldPosition"]= references["mapRoot"].getWorldPosition(Vector2(position.x,position.y))
 		currents["ACTION_STATE"] = "moveTo"
 	pass
 
@@ -95,21 +96,24 @@ func determineNextPos():
 func doAction(action):
 	if action=="move":
 		self.moveAction()
-	elif action=="deliver":
-		self.deliverItem()
+	elif action=="interact":
+		self.interact()
 	elif action=="turnLeft":
 		self.turn("left")
 	elif action=="turnRight":
 		self.turn("right")
+		
+	self.updateSprite(action)
 	pass
 
 func moveAction():
 	self.moveTo(self.determineNextPos())
 	
-func deliverItem():
+func interact():
 	var newPos = self.determineNextPos()
-	if references["mapRoot"].getObjectAt("house", newPos.x,newPos.y):
-		references["mapRoot"].getObjectAt("house", newPos.x,newPos.y).receiveItem(true, newPos)
+	var object = references["mapRoot"].getObjectAt(Vector2(newPos.x,newPos.y))
+	if object:
+		object.interact(self, newPos)
 		
 func turn(dir):
 	if currents["position"].direction == "front":
@@ -132,6 +136,7 @@ func turn(dir):
 			currents["position"].direction = "front"
 		else:
 			currents["position"].direction = "back"
+			
 	
 func handleMovement(delta):
 	if currents["ACTION_STATE"] == "moveTo":
@@ -161,17 +166,17 @@ func handleMovement(delta):
 			currents["position"].z = currents["newpos"].z
 			currents["position"].direction = currents["newpos"].direction
 
-func handleCameraSlide(delta):
-	if currents["CAMERA_SLIDING"]:
-		var moveVector = Vector2()
-		if currents["slideSpeed"] > 0 :
-			moveVector = currents["slideVector"] * currents["slideSpeed"]
-			references["camera"].set_pos(references["camera"].get_pos() - moveVector)
-			currents["slideSpeed"]-=SLIDE_ACCELERATION
+#func handleCameraSlide(delta):
+#	if currents["CAMERA_SLIDING"]:
+#		var moveVector = Vector2()
+#		if currents["slideSpeed"] > 0 :
+#			moveVector = currents["slideVector"] * currents["slideSpeed"]
+#			references["camera"].set_pos(references["camera"].get_pos() - moveVector)
+#			currents["slideSpeed"]-=SLIDE_ACCELERATION
 #			print("slideSpeed :"+str(currents["slideSpeed"])+" | moveVector : " + str(moveVector)+" | slideVector : "+ str(currents["slideVector"]))
-		else:
-			currents["CAMERA_SLIDING"] = false
-	pass
+#		else:
+#			currents["CAMERA_SLIDING"] = false
+#	pass
 
 func inRange(point1, point2, deviation):
 	if point2.x-deviation <= point1.x and point1.x <= point2.x+deviation and point2.y-deviation <= point1.y and point1.y <= point2.y+deviation :
@@ -179,48 +184,57 @@ func inRange(point1, point2, deviation):
 	else:
 		return false
 
-func zoomCamera(command):
-	if currents["CAMERA_CAN_MOVE"]:
-		currents["zoomLevel"] = references["camera"].get_zoom().x
-		if command =="in" and currents["zoomLevel"] > MAX_ZOOM:
-			currents["zoomLevel"] -= ZOOM_SPEED
-			references["camera"].set_zoom(Vector2(currents["zoomLevel"],currents["zoomLevel"]))
-			pass
-		elif command =="out" and currents["zoomLevel"] < MIN_ZOOM:
-			currents["zoomLevel"] += ZOOM_SPEED
-			references["camera"].set_zoom(Vector2(currents["zoomLevel"],currents["zoomLevel"]))
-			pass
+#func zoomCamera(command):
+#	if currents["CAMERA_CAN_MOVE"]:
+#		currents["zoomLevel"] = references["camera"].get_zoom().x
+#		if command =="in" and currents["zoomLevel"] > MAX_ZOOM:
+#			currents["zoomLevel"] -= ZOOM_SPEED
+#			references["camera"].set_zoom(Vector2(currents["zoomLevel"],currents["zoomLevel"]))
+#			pass
+#		elif command =="out" and currents["zoomLevel"] < MIN_ZOOM:
+#			currents["zoomLevel"] += ZOOM_SPEED
+#			references["camera"].set_zoom(Vector2(currents["zoomLevel"],currents["zoomLevel"]))
+#			pass
 
 
-func moveCamera(moveVector):
-	if currents["CAMERA_CAN_MOVE"]:
-		references["camera"].set_pos(references["camera"].get_pos() - moveVector)
-		currents["slideVector"] = Vector2(moveVector.x, moveVector.y)
+#func moveCamera(moveVector):
+#	if currents["CAMERA_CAN_MOVE"]:
+#		references["camera"].set_pos(references["camera"].get_pos() - moveVector)
+#		currents["slideVector"] = Vector2(moveVector.x, moveVector.y)
 
-func slideCamera():
-	if currents["CAMERA_CAN_MOVE"]:
-		currents["CAMERA_SLIDING"] = true
-		currents["slideSpeed"] = SLIDE_SPEED
+#func slideCamera():
+#	if currents["CAMERA_CAN_MOVE"]:
+#		currents["CAMERA_SLIDING"] = true
+#		currents["slideSpeed"] = SLIDE_SPEED
 
-func resetCamera():
-	if currents["CAMERA_CAN_MOVE"]:
-		references["camera"].set_pos(Vector2(0,0))
-
+#func resetCamera():
+#	if currents["CAMERA_CAN_MOVE"]:
+#		references["camera"].set_pos(Vector2(0,0))
+#
 
 func setPosition(position):
-	currents["position"].x = position.x
-	currents["position"].y = position.y
-	currents["position"].z = position.z
-	currents["position"].direction = position.direction
-	currents["position"]["worldPosition"] = self.getWorldPosition(Vector2(position.x,position.y))
-#	currents["newpos"] = currents["position"]
-	self.set_pos(currents["position"]["worldPosition"])
+	var cell = references["mapRoot"].getMapDataCell(position.x,position.y,position.z)
+	if cell != null:
+		var groundType = references["mapRoot"].getTileType(cell.groundType)
+		if groundType == "path":
+			currents["position"].x = position.x
+			currents["position"].y = position.y
+			currents["position"].z = position.z
+			currents["position"].direction = position.direction
+			currents["position"]["worldPosition"] = references["mapRoot"].getWorldPosition(Vector2(position.x,position.y))
+		#	currents["newpos"] = currents["position"]
+			self.set_pos(currents["position"]["worldPosition"])
+			self.updateSprite("idle")
+			return true
+	return false
+
+func updateSprite(action):
+	for sprite in references["sprite"].get_children():
+		sprite.hide()
+	references["sprite"].get_node(currents["position"].direction).show()
 
 func getPosition():
 	return currents["position"]
-
-func getWorldPosition(position):
-	return Vector2(references["map"].map_to_world(position, false ).x+OFFSET_X,references["map"].map_to_world(position, false ).y+OFFSET_Y)
 
 func getCurrentActionState():
 	return currents["ACTION_STATE"]
