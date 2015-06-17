@@ -19,17 +19,20 @@ func init():
 func initReferences():
 	references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)
 	references["guiRoot"] = references["rootNode"].getGUIRoot()
-	references["editorUI"] = references["guiRoot"].get_node("editorui_root")
+	references["editorUI"] = references["guiRoot"].get_node("gui_container/editorui_root")
 	
 func initConnections():
 	self.connect("pressed", self, "setActiveBrush")
 	pass
 
 func setActiveBrush():
-	references["editorUI"].setActiveBrush(brushMode, brushType)
+	references["editorUI"].setActiveBrush(self)
 
 func setbrushType(index):
 	brushType = index
 
-func getbrushType():
+func getBrushType():
 	return brushType
+
+func getBrushMode():
+	return brushMode

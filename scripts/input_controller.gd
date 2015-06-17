@@ -35,6 +35,7 @@ func handleMapInput(ev):
 		if ev.button_index == 1:
 			
 			if references["mapRoot"].isEditorMode():
+				references["selector"].setPosition(ev.pos)
 				if not ev.pressed and not currents["MAP_DRAG"]:
 					references["rootNode"].references["editorController"].handleBrushAction(ev.pos)
 
@@ -55,8 +56,8 @@ func handleMapInput(ev):
 		if references["mapRoot"].isEditorMode():
 			references["selector"].setPosition(ev.pos)
 		if currents["MAP_DRAG"] and currents["MOUSE_DRAG"]:
-			references["camera"].move(Vector2(ev.relative_x,ev.relative_y))
-		elif currents["MOUSE_DRAG"] and (abs(ev.relative_x) > 1 or abs(ev.relative_y) > 1) :
+			references["camera"].move(Vector2(ev.relative_x,ev.relative_y),true)
+		elif currents["MOUSE_DRAG"] and (abs(ev.relative_x) > 2 or abs(ev.relative_y) > 2) :
 			currents["MAP_DRAG"]=true
 
 func _input(ev, node, nodeName):

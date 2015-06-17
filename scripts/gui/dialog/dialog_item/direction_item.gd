@@ -33,4 +33,4 @@ func changeValue():
 func setValue(value):
 	if value == "front" or value == "right" or value == "back" or value == "left":
 		.setValue(value)
-		references["btn"].get_node("label").set_text(TranslationServer.tr(currents["value"]))
+		references["btn"].set_text(TranslationServer.tr(currents["value"]))

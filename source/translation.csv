@@ -34,3 +34,8 @@ front,front,depan
 back,back,belakang
 left,left,kiri
 right,right,kanan
+TRUE,TRUE,Benar
+FALSE,FALSE,Salah
+YAY,YAY !,YAY !
+OOPS,OOPS!,UPS !
+FOREVER,Forever,Selamanya

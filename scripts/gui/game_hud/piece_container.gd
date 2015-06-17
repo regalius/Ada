@@ -37,8 +37,8 @@ func initReferences():
 	references["pieceContainer"] = self.get_node("container_root/container")
 	references["titleLbl"] = self.get_node("label_root/title_lbl")
 	references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)
-	references["gameUIRoot"] = references["rootNode"].get_node("gui_layer/canvas_item/gui_root/gameui_root")
-	references["pieceContainerScroll"] = references["gameUIRoot"].get_node("right/piececontainer_scroll")
+	references["gameUIRoot"] = references["rootNode"].get_node("gui_layer/canvas_item/gui_root/gui_container/gameui_root")
+#	references["pieceContainerScroll"] = references["gameUIRoot"].get_node("right/piececontainer_scroll")
 	
 func reset():
 	for piece in references["pieceContainer"].get_children():
@@ -52,6 +52,7 @@ func setTitle(title):
 	
 func setLink(link):
 	containerLink = link
+	self.set_name(link)
 
 func setActionArray(value, index):
 	actionArray[index] = value
@@ -68,5 +69,5 @@ func getActionArray():
 func getPieceContainer():
 	return references["pieceContainer"]
 
-func _input_event(event):
-	references["pieceContainerScroll"]._input_event(event)
+#func _input_event(event):
+#	references["pieceContainerScroll"]._input_event(event)

@@ -15,27 +15,36 @@ var references = {
 	"editorUI":"",
 	"rootNode":""
 }
-
+var currents = {
+	"GUI":""
+}
 func _ready():
 	# Initialization here
-	self.initReferences()
 	pass
 	
 func init():
-	self.setCurrentGUI("mainMenu")
-	for gui in self.get_children():
+	self.initReferences()
+	for gui in references["guiContainer"].get_children():
 		gui.init()
+	self.setCurrentGUI("mainMenu")
+	self.initConnections()
 		
 func initReferences():
-	references["mainMenu"] = self.get_node("mainmenu_root")
-	references["levelMenu"] = self.get_node("levelmenu_root")
-	references["optionMenu"] = self.get_node("optionmenu_root")
-	references["resultMenu"] = self.get_node("resultmenu_root")
-	references["gameUI"] = self.get_node("gameui_root")
-	references["editorUI"] = self.get_node("editorui_root")
-	references["dialogUI"] = self.get_node("dialogui_root")
+	references["guiContainer"] = self.get_node("gui_container")
+	references["mainMenu"] = references["guiContainer"].get_node("mainmenu_root")
+	references["levelMenu"] = references["guiContainer"].get_node("levelmenu_root")
+	references["optionMenu"] = references["guiContainer"].get_node("optionmenu_root")
+	references["resultMenu"] = references["guiContainer"].get_node("resultmenu_root")
+	references["gameUI"] = references["guiContainer"].get_node("gameui_root")
+	references["editorUI"] = references["guiContainer"].get_node("editorui_root")
+	references["conversationUI"] = references["guiContainer"].get_node("conversationui_root")
+	references["dialogUI"] = references["guiContainer"].get_node("dialogui_root")
 	references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)
+	references["backBtn"] = self.get_node("top_left/back_btn")
 	pass
+
+func initConnections():
+	references["backBtn"].connect("pressed",self, "backAction")
 
 #func buttonPressed(action, parameter):
 #	references["rootNode"].references["soundController"].playSFX("click",true)
@@ -71,10 +80,10 @@ func initReferences():
 
 
 func setCurrentGUI(gui):
-	for scene in self.get_children():
+	for scene in references["guiContainer"].get_children():
 		scene.hide()
 	references[gui].show()
-	references["rootNode"].currents["GUI"] = gui
+	currents["GUI"] = gui
 	pass
 
 func getGUI(name):
@@ -83,8 +92,9 @@ func getGUI(name):
 func pauseGame(state):
 	references["rootNode"].get_tree().set_pause(state)
 
+
 func showDialog(state, sender, type, parameter):
-	references["rootNode"].get_tree().set_pause(state)
+	self.pauseGame(state)
 	if state:
 		references["dialogUI"].setDialogType(sender, type, parameter)
 		references["dialogUI"].show()
@@ -92,3 +102,25 @@ func showDialog(state, sender, type, parameter):
 		references["dialogUI"].getCurrentDialog().exitDialog()
 		references["dialogUI"].hide()
 	
+func showConversation(state, sender, conversationDict):
+	self.pauseGame(state)
+	if state:
+		references["conversationUI"].show()
+		references["conversationUI"].startConversation(sender, conversationDict)
+	else:
+		references["conversationUI"].hide()
+		
+		
+
+func backAction():
+	if currents["GUI"] == "mainMenu":
+		self.showDialog(true,self, "yesno",["quit"])
+	elif currents["GUI"] == "levelMenu":
+		self.setCurrentGUI("mainMenu")
+	elif currents["GUI"] == "gameUI":
+		if references["gameUI"].isPreviewMode():
+			self.showDialog(true,self,"yesno",["previewMode"])
+		else:
+			self.showDialog(true,self,"yesno",["levelMenu"])
+	elif currents["GUI"] == "editorUI":
+		references["rootNode"].quitEditor()

@@ -32,7 +32,8 @@ func initReferences():
 func addNewPiece(funcLink):
 	var tempPiece = prefabs["piece"].instance()
 	references["funcPieceContainer"].add_child(tempPiece)
-	tempPiece.init(funcLink)
+	tempPiece.setAction(funcLink)
+	tempPiece.init()
 	if references["funcPieceContainer"].get_columns() < 10:
 		references["funcPieceContainer"].set_columns(references["funcPieceContainer"].get_columns()+1)
 

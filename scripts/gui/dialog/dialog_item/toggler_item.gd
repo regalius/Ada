@@ -40,6 +40,6 @@ func setValue(value):
 func setInitialValue(val1,val2):
 	currents["val1"] = val1
 	currents["val2"] = val2
-	references["btn1"].get_node("label").set_text(TranslationServer.tr(currents["val1"]))
-	references["btn2"].get_node("label").set_text(TranslationServer.tr(currents["val2"]))
+	references["btn1"].set_text(TranslationServer.tr(currents["val1"]))
+	references["btn2"].set_text(TranslationServer.tr(currents["val2"]))
 	pass

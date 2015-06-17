@@ -1,23 +1,17 @@
 
-extends TextureButton
+extends "../button.gd"
 
 # member variables here, example:
 # var a=2
 # var b="textvar"
-var references={
-	"cursor":"",
-	"rootNode":""
-}
 var prefabs = {
 	"piece":preload("res://gui/game_hud/piece.scn")
 }
 var textureLibrary = {
-	"empty":"res://assets_dummy/gui/piece_empty.png",
-	"bg":"res://assets_dummy/gui/piece_bg.png",
-	"move":"res://assets_dummy/gui/move_piece.png",
-	"turnLeft":"res://assets_dummy/gui/turn_left_piece.png",
-	"turnRight":"res://assets_dummy/gui/turn_right_piece.png",
-	"interact":"res://assets_dummy/gui/deliver_piece.png",
+	"move":"res://assets/gui/button/icon/move.png",
+	"turnLeft":"res://assets/gui/button/icon/turn_left.png",
+	"turnRight":"res://assets/gui/button/icon/turn_right.png",
+	"interact":"res://assets/gui/button/icon/interact.png",
 #	"F1":"res://assets_dummy/gui/f1.png",
 #	"F2":"res://assets_dummy/gui/f2.png"
 }
@@ -28,18 +22,15 @@ export var IS_DRAG_PREVIEW = false
 
 func _ready():
 	# Initialization here
-	self.init("")
+	self.init()
 	pass
 
 func _input_event(event):
 	references["rootNode"].references["inputController"]._input(event,self, "gui")
 
-func init(act):
+func init():
 	self.initReferences()
-	if act =="" and self.action !="":
-		self.setAction(action)
-	else:
-		self.setAction(act)
+	self.setAction(action)
 
 func initReferences():
 	if not IS_DRAG_PREVIEW:
@@ -51,7 +42,8 @@ func get_drag_data(pos):
 	if action !="":
 		var dragPreview = prefabs["piece"].instance()
 		dragPreview.IS_DRAG_PREVIEW = true
-		dragPreview.init(self.action)
+		dragPreview.setAction(self.action)
+		dragPreview.init()
 		self.set_drag_preview(dragPreview)
 		temp =action
 #		references["cursor"].hide()
@@ -68,26 +60,29 @@ func setAction(act):
 	var texture = ImageTexture.new()
 	action = act
 	if act !="":
-		texture.load(textureLibrary["bg"])
-		self.set_normal_texture(texture)
 		if textureLibrary.has(act):
 			var iconTexture = ImageTexture.new()
 			iconTexture.load(textureLibrary[act])
-			self.get_node("icon").set_texture(iconTexture)
-			self.get_node("icon").show()
-			self.get_node("label").hide()
+			self.set_button_icon(iconTexture)
+			self.set_text("")
 		else:
-			self.get_node("label").set_text(act)
-			self.get_node("label").show()
-			self.get_node("icon").hide()
+			self.set_text(act)
+			self.set_button_icon(null)
 			pass
+		self.set_disabled(false)
 	else:
-		texture.load(textureLibrary["empty"])	
-		self.set_normal_texture(texture)
-		self.get_node("icon").hide()
-		self.get_node("label").hide()
+		self.set_button_icon(null)
+		self.set_text("")
+		self.set_disabled(true)
+	self.set_focus_mode(Control.FOCUS_NONE)
 	
-
+func setFocus(state):
+	if state:
+		self.set_focus_mode(Control.FOCUS_ALL)
+		self.grab_focus()
+	else:
+		self.set_focus_mode(Control.FOCUS_NONE)
+	
 func getAction():
 	return action
 

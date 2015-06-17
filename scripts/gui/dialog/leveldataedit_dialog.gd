@@ -19,9 +19,7 @@ func _ready():
 
 func initReferences():
 	.initReferences()
-	references["playerx"] = self.get_node("itemscroll_container/item_container/player_x")
-	references["playery"] = self.get_node("itemscroll_container/item_container/player_y")
-	references["playerdirection"] = self.get_node("itemscroll_container/item_container/player_dir")
+	references["playerPos"] = self.get_node("itemscroll_container/item_container/player_position")
 	references["candy1"] = self.get_node("itemscroll_container/item_container/candy_1")
 	references["candy2"] = self.get_node("itemscroll_container/item_container/candy_2")
 	references["candy3"] = self.get_node("itemscroll_container/item_container/candy_3")
@@ -39,23 +37,17 @@ func enterDialog(sender,parameter):
 	self.displayData()
 	
 func displayData():
-	references["playerx"].init("Player X", currents["playerData"].x)
-	references["playery"].init("Player Y", currents["playerData"].y)
-	references["playerdirection"].init("Player Direction", currents["playerData"].direction)
+	references["playerPos"].init("Player", currents["playerData"])
 	references["candy1"].init("Candy 1", currents["levelData"].candy["1"])
 	references["candy2"].init("Candy 2", currents["levelData"].candy["2"])
 	references["candy3"].init("Candy 3", currents["levelData"].candy["3"])
-	pass
 	
 func saveData():
-	currents["playerData"].x = references["playerx"].getValue()
-	currents["playerData"].y = references["playery"].getValue()
-	currents["playerData"].direction = references["playerdirection"].getValue()
+	currents["playerData"] = references["playerPos"].getValue()
 	currents["levelData"].candy["1"] = references["candy1"].getValue()
 	currents["levelData"].candy["2"] = references["candy2"].getValue()
 	currents["levelData"].candy["3"] = references["candy3"].getValue()
 	currents["sender"].saveLevelData(currents["playerData"], currents["levelData"])
-	pass
 	
 func setPlayerData(playerData):
 	if not playerData.empty():

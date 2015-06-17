@@ -50,9 +50,10 @@ func _fixed_process(delta):
 	self.handleMovement(delta)
 #	handleCameraSlide(delta)
 	
-func init(mapRoot, position):
+func init(mapRoot):
 	self.initReferences(mapRoot)
-	self.setPosition(position)
+	currents["position"]= {"x":0,"y":0,"z":0,"direction":"front"}
+	self.setPosition(currents["position"], true)
 	pass
 	
 func initReferences(mapRoot):
@@ -60,6 +61,7 @@ func initReferences(mapRoot):
 	references["map"] = mapRoot.get_node("ground")
 	references["camera"] = self.get_node("camera")
 	references["sprite"] = self.get_node("sprite")
+	references["animation"] = self.get_node("animation")
 	
 func moveTo(position):
 	if references["map"].get_cell(position.x,position.y) == references["mapRoot"].getTileIndex("path") and not currents["ACTION_STATE"] == "moveTo":
@@ -74,11 +76,11 @@ func moveTo(position):
 func determineNextPos():
 	var newPos={}
 	if currents["position"].direction == "front":
-		newPos["x"] = currents["position"].x-1
+		newPos["x"] = currents["position"].x+1
 		newPos["y"] = currents["position"].y
 		pass
 	elif currents["position"].direction == "back":
-		newPos["x"] = currents["position"].x+1
+		newPos["x"] = currents["position"].x-1
 		newPos["y"] = currents["position"].y
 		pass
 	elif currents["position"].direction == "left":
@@ -103,7 +105,7 @@ func doAction(action):
 	elif action=="turnRight":
 		self.turn("right")
 		
-	self.updateSprite(action)
+	self.updateSprite("idle")
 	pass
 
 func moveAction():
@@ -113,29 +115,30 @@ func interact():
 	var newPos = self.determineNextPos()
 	var object = references["mapRoot"].getObjectAt(Vector2(newPos.x,newPos.y))
 	if object:
+		self.onInteract(object.getType())
 		object.interact(self, newPos)
 		
 func turn(dir):
 	if currents["position"].direction == "front":
 		if dir=="left":
-			currents["position"].direction = "left"
-		else:
 			currents["position"].direction = "right"
+		else:
+			currents["position"].direction = "left"
 	elif currents["position"].direction == "back":
 		if dir=="left":
-			currents["position"].direction = "right"
-		else:
 			currents["position"].direction = "left"
+		else:
+			currents["position"].direction = "right"
 	elif currents["position"].direction == "left":
 		if dir=="left":
-			currents["position"].direction = "back"
-		else:
 			currents["position"].direction = "front"
+		else:
+			currents["position"].direction = "back"
 	elif currents["position"].direction == "right":
 		if dir=="left":
-			currents["position"].direction = "front"
-		else:
 			currents["position"].direction = "back"
+		else:
+			currents["position"].direction = "front"
 			
 	
 func handleMovement(delta):
@@ -166,72 +169,39 @@ func handleMovement(delta):
 			currents["position"].z = currents["newpos"].z
 			currents["position"].direction = currents["newpos"].direction
 
-#func handleCameraSlide(delta):
-#	if currents["CAMERA_SLIDING"]:
-#		var moveVector = Vector2()
-#		if currents["slideSpeed"] > 0 :
-#			moveVector = currents["slideVector"] * currents["slideSpeed"]
-#			references["camera"].set_pos(references["camera"].get_pos() - moveVector)
-#			currents["slideSpeed"]-=SLIDE_ACCELERATION
-#			print("slideSpeed :"+str(currents["slideSpeed"])+" | moveVector : " + str(moveVector)+" | slideVector : "+ str(currents["slideVector"]))
-#		else:
-#			currents["CAMERA_SLIDING"] = false
-#	pass
-
 func inRange(point1, point2, deviation):
 	if point2.x-deviation <= point1.x and point1.x <= point2.x+deviation and point2.y-deviation <= point1.y and point1.y <= point2.y+deviation :
 		return true
 	else:
 		return false
 
-#func zoomCamera(command):
-#	if currents["CAMERA_CAN_MOVE"]:
-#		currents["zoomLevel"] = references["camera"].get_zoom().x
-#		if command =="in" and currents["zoomLevel"] > MAX_ZOOM:
-#			currents["zoomLevel"] -= ZOOM_SPEED
-#			references["camera"].set_zoom(Vector2(currents["zoomLevel"],currents["zoomLevel"]))
-#			pass
-#		elif command =="out" and currents["zoomLevel"] < MIN_ZOOM:
-#			currents["zoomLevel"] += ZOOM_SPEED
-#			references["camera"].set_zoom(Vector2(currents["zoomLevel"],currents["zoomLevel"]))
-#			pass
-
-
-#func moveCamera(moveVector):
-#	if currents["CAMERA_CAN_MOVE"]:
-#		references["camera"].set_pos(references["camera"].get_pos() - moveVector)
-#		currents["slideVector"] = Vector2(moveVector.x, moveVector.y)
-
-#func slideCamera():
-#	if currents["CAMERA_CAN_MOVE"]:
-#		currents["CAMERA_SLIDING"] = true
-#		currents["slideSpeed"] = SLIDE_SPEED
-
-#func resetCamera():
-#	if currents["CAMERA_CAN_MOVE"]:
-#		references["camera"].set_pos(Vector2(0,0))
-#
-
-func setPosition(position):
-	var cell = references["mapRoot"].getMapDataCell(position.x,position.y,position.z)
-	if cell != null:
-		var groundType = references["mapRoot"].getTileType(cell.groundType)
-		if groundType == "path":
-			currents["position"].x = position.x
-			currents["position"].y = position.y
-			currents["position"].z = position.z
-			currents["position"].direction = position.direction
-			currents["position"]["worldPosition"] = references["mapRoot"].getWorldPosition(Vector2(position.x,position.y))
-		#	currents["newpos"] = currents["position"]
-			self.set_pos(currents["position"]["worldPosition"])
-			self.updateSprite("idle")
-			return true
+func setPosition(position, ignore):
+	var groundType = "null"
+	if not ignore:
+		var cell = references["mapRoot"].getMapDataCell(position.x,position.y,position.z)
+		if cell != null:
+			groundType = references["mapRoot"].getTileType(cell.groundType)
+	
+	if groundType == "path" or ignore:
+		currents["position"].x = position.x
+		currents["position"].y = position.y
+		currents["position"].z = position.z
+		currents["position"].direction = position.direction
+		currents["position"]["worldPosition"] = references["mapRoot"].getWorldPosition(Vector2(position.x,position.y))
+	#	currents["newpos"] = currents["position"]
+		self.set_pos(currents["position"]["worldPosition"])
+		self.updateSprite("idle")
+		return true
 	return false
 
-func updateSprite(action):
-	for sprite in references["sprite"].get_children():
-		sprite.hide()
-	references["sprite"].get_node(currents["position"].direction).show()
+func updateSprite(state):
+	references["animation"].play(state+"_"+currents["position"].direction)
+
+func onInteract(type):
+	if type == "house":
+		pass
+	elif type == "teleporter":
+		pass
 
 func getPosition():
 	return currents["position"]

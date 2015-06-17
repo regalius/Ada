@@ -23,6 +23,8 @@ func init(root):
 	self.initReferences(root)
 	self.initCurrents()
 	history.clear()
+#	references["mapRoot"].resetMap()
+	references["camera"].set_zoom(references["camera"].INITIAL_ZOOM)
 	references["rootNode"].set_fixed_process(true)
 	pass
 
@@ -33,7 +35,7 @@ func initReferences(root):
 	references["rootNode"] = root
 	references["mapRoot"] = root.get_node("world_root/map_root")
 	references["guiRoot"] =  root.get_node("gui_layer/canvas_item/gui_root")
-	references["editorUI"] = references["guiRoot"].get_node("editorui_root")
+	references["editorUI"] = references["guiRoot"].get_node("gui_container/editorui_root")
 	references["map"] = references["mapRoot"].get_node("ground")
 	references["camera"] = references["mapRoot"].currents["camera"]
 	pass
@@ -84,7 +86,7 @@ func modifyLevelData():
 	pass
 	
 func saveLevelData(playerData,levelData):
-	if references["mapRoot"].getPlayer().setPosition(playerData):
+	if references["mapRoot"].getPlayer().setPosition(playerData,false):
 		references["mapRoot"].setPlayerData(playerData)
 	references["mapRoot"].setLevelData(levelData)
 	references["guiRoot"].showDialog(false, self, "levelDataEdit", "")

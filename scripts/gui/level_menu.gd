@@ -21,14 +21,12 @@ func initReferences():
 	.initReferences()
 	references["prevBtn"] = self.get_node("bot_left/prev_btn")
 	references["nextBtn"] = self.get_node("bot_right/next_btn")
-	references["backBtn"] = self.get_node("top_left/back_btn")
 	references["currentLbl"] = self.get_node("bot_center/screen_label/current_lbl")
 	references["maxLbl"] = self.get_node("bot_center/screen_label/max_lbl")
 	references["levelBtnContainer"] = self.get_node("top_center")
 	pass
 
 func initConnections():
-	references["backBtn"].connect("pressed", references["guiRoot"], "setCurrentGUI",["mainMenu"])
 	references["prevBtn"].connect("pressed", self, "setLevelSection",["prev"])
 	references["nextBtn"].connect("pressed", self, "setLevelSection",["next"])
 	pass
@@ -60,6 +58,8 @@ func createLevelSelector():
 		maxSectionIndex+=1
 		
 	currents["maxSectionIndex"] = maxSectionIndex -1
+	
+	self.updateNavigationBtn()
 
 
 func updateLevelSelector():
@@ -90,27 +90,31 @@ func updateLevelSelector():
 		
 	currents["maxSectionIndex"] = maxSectionIndex -1
 	
+	self.updateNavigationBtn()
+
+func updateNavigationBtn():
+	references["prevBtn"].hide()
+	references["nextBtn"].hide()
+			
+	if currents["sectionIndex"] < currents["maxSectionIndex"]:
+		references["nextBtn"].show()
+	elif currents["sectionIndex"] > 0:
+		references["prevBtn"].show()
+			
+
 
 func setLevelSection(command):
-	for container in references["levelBtnContainer"].get_children():
-		container.hide()
-	
 	if command == "prev":
 		currents["sectionIndex"]-=1
 	else:
 		currents["sectionIndex"]+=1
-	
-	if references["levelBtnContainer"].get_child(currents["sectionIndex"]):
-		references["levelBtnContainer"].get_child(currents["sectionIndex"]).show()
 		
-		if(currents["sectionIndex"] == 0):
-			references["prevBtn"].hide()
-			references["nextBtn"].show()
-		elif (currents["sectionIndex"] == currents["maxSectionIndex"]):
-			references["nextBtn"].hide()
-			references["prevBtn"].show()
-		else:
-			references["prevBtn"].show()
-			references["nextBtn"].show()	
+	for container in references["levelBtnContainer"].get_children():
+		container.hide()
+		
+	self.updateNavigationBtn()
+	var nextSection = references["levelBtnContainer"].get_child(currents["sectionIndex"])
+	if nextSection != null :
+		nextSection.show()
 		references["currentLbl"].set_text(str(currents["sectionIndex"]+1))
 	pass

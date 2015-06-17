@@ -13,6 +13,7 @@ func initReferences():
 	.initReferences()
 	references["object"] = self.get_node("object")
 	references["house"] = references["object"].get_node("house")
+	references["teleporter"] = references["object"].get_node("teleporter")
 	references["saveBtn"] = self.get_node("confirm_btn/save_btn")
 	references["cancelBtn"] = self.get_node("confirm_btn/cancel_btn")
 	pass
@@ -44,6 +45,7 @@ func saveAttribute():
 	var objectAttribute={}
 	var objectNodes = references[currents["object"]].get_node("item_container").get_children() 
 	for item in objectNodes:
+		print(str(item.getName()))
 		objectAttribute[str(item.getName())] = item.getValue()
 	currents["cellEdited"].objectAttribute = objectAttribute
 	currents["sender"].saveAttribute(currents["cellEdited"])

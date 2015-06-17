@@ -17,18 +17,20 @@ func initCurrents():
 func initReferences():
 	.initReferences()
 	references["editorController"] = references["rootNode"].references["editorController"]
-	references["backBtn"] = self.get_node("top_left/back_btn")
 	references["filenameEdit"] = self.get_node("top_center/center/savebox/container/lineedit_container/filename_edit")
 	references["loadBtn"] = self.get_node("top_center/center/savebox/container/btn_container/container/load_btn")
 	references["saveBtn"] = self.get_node("top_center/center/savebox/container/btn_container/container/save_btn")
 	references["playBtn"] = self.get_node("top_center/center/savebox/container/btn_container/container/play_btn")
+	references["toolBox"] = self.get_node("right/center/toolbox_root")
 	references["levelDataEditBtn"] = self.get_node("left/center/propertybox/item_container/container/leveldataedit_btn")
 	references["toggleObjectBtn"] =  self.get_node("left/center/propertybox/item_container/container/toggleobject_btn")
 	references["undoBtn"] =  self.get_node("left/center/propertybox/item_container/container/undo_btn")
 	 
-func setActiveBrush(mode, index):
-	currents["brushType"] = index
-	currents["brushMode"] = mode
+func setActiveBrush(brushBtn):
+	currents["brushType"] = brushBtn.getBrushType()
+	currents["brushMode"] = brushBtn.getBrushMode()
+	references["toolBox"].resetButton()
+	brushBtn.set_disabled(true)
 	references["editorController"].setActiveBrush(currents["brushMode"],currents["brushType"])
 
 func initConnections():
@@ -38,7 +40,6 @@ func initConnections():
 	references["loadBtn"].connect("pressed",self,"loadMap")
 	references["saveBtn"].connect("pressed",self,"saveMap")
 	references["playBtn"].connect("pressed",self,"playMap")
-	references["backBtn"].connect("pressed", references["rootNode"], "quitEditor")
 	pass
 
 func loadMap():

@@ -49,7 +49,7 @@ func setPreviewMode(state):
 	
 	
 func startNextLevel():
-	references["rootNode"].startLevel(references["rootNode"].getNextLevel())
+	currents["sender"].startNextLevel()
 	
 func setScore(score):
 	currents["score"] = score
@@ -59,5 +59,5 @@ func setCandy(num):
 	currents["candy"] = num
 	for candy in references["candyContainer"].get_children():
 		candy.set_disabled(true)
-	for i in range(currents["candy"]):
-		references["candyContainer"].get_child(i).set_disabled(false)
+	for i in range(1, currents["candy"]):
+		references["candyContainer"].get_node(str(i)).set_disabled(false)

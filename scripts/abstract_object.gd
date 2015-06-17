@@ -22,7 +22,7 @@ func init(map, cellData):
 	pass
 
 func initReferences():
-	references["sprite"] = self.get_node("sprite")
+	references["animation"] = self.get_node("animation")
 	pass
 
 func destroy(map):
@@ -66,12 +66,10 @@ func setObjectAttribute(attribute):
 		objectAttribute = attribute
 	else:
 		objectAttribute = defaultAttribute
-
-	self.resetObject()
-	
+		
 	if currents.has("position"):
 		self.setPosition(currentMap, {"x": currents["position"].x,"y": currents["position"].y, "z": currents["position"].z, "objectAttribute": objectAttribute})
-
+	self.resetObject()
 	pass
 	
 func getObjectAttribute():
@@ -81,9 +79,8 @@ func setType(what):
 	type = what
 
 func updateSprite(state):
-	for sprite in references["sprite"].get_children():
-		sprite.hide()
-	references["sprite"].get_node(currents["position"].direction).show()
+	if currents.has("position"):
+		references["animation"].play(state+"_"+str(currents["position"].direction))
 
 func getType():
 	return type

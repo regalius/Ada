@@ -21,5 +21,5 @@ func initReferences():
 
 func setPosition(position):
 	var mapPos = references["mapRoot"].getMapPosition(position)
-	if mapPos.x >=0 and mapPos.y >=0:
+	if mapPos.x >=0 and mapPos.y >=0 and mapPos.x < references["mapRoot"].MAP_MAX_X and mapPos.y < references["mapRoot"].MAP_MAX_Y :
 		self.set_pos(references["mapRoot"].getWorldPosition(mapPos))

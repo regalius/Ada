@@ -4,10 +4,9 @@ extends Node2D
 const MAP_MAX_X = 64
 const MAP_MAX_Y = 64
 
-var file = File.new()
-
 var prefabs = {
-	"house":preload('res://object/building/house.scn')
+	"house":preload('res://object/building/house.scn'),
+	"teleporter":preload('res://object/building/teleporter.scn')
 }
 
 var tileIndex = ["grass","path","house","teleporter"]
@@ -45,14 +44,17 @@ func _fixed_process(delta):
 	currents["camera"]._fixed_process(delta)
 	pass
 	
-func init(root, path, editorMode):
-	self.initReferences(root, editorMode)
-	self.initCurrents(path, editorMode)
+func init(root):
+	self.initReferences(root)
 	self.initGrid()
+	references["grid"].hide()
 #	self.saveMapToFile("workshopdefault")
 	pass
 
-func initReferences(root, editorMode):
+func loadMap(path, editorMode):
+	self.initCurrents(path, editorMode)
+
+func initReferences(root):
 	references["rootNode"] = root
 	references["ground"] = self.get_node("ground")
 	references["grid"] = self.get_node("grid")
@@ -63,12 +65,15 @@ func initReferences(root, editorMode):
 	references["selector"] = self.get_node("selector")
 	references["inputController"] = root.references["inputController"]
 
-
 func initCurrents(path, editorMode):
 	currents["IS_EDITOR_MODE"] = editorMode
+	currents["mapSize"] = Vector2(0,0)
 	self.setEditorMode(editorMode)
-	
-	self.loadMapFromFile(path)
+	references["player"].init(self)
+#	self.loadMapFromFile(path)
+	self.ohoho()
+	references["playerCam"].init(self)
+	references["editorCam"].init(self)
 #	self.ohoho()
 
 func initGrid():
@@ -77,17 +82,72 @@ func initGrid():
 			references["grid"].set_cell(x,y,0)
 
 func ohoho():
+
+#	var conversTest ={
+#		0:{"text":"Ini Teks 1 Lho",
+#			"actor":"ada",
+#			"emotion":"normal",
+#			"currentAction":[["showFocusedItem",[true,"house"]]],
+#			"nextAction":[["showFocusedItem",[false,"house"]],["goTo",[1]]]
+#		},
+#		1:{
+#			"text":"Ini Teks 2 Lho",
+#			"actor":"ada",
+#			"emotion":"normal",
+#			"currentAction":[["showFocusedItem",[true,"teleporter"]]],
+#			"nextAction":[["showFocusedItem",[false,"teleporter"]],["endConversation",""]]
+#		}
+#	}
+#	references["guiRoot"].showConversation(true,conversTest)
+	
 	currents["map"].playerData = {"x":4,"y":2,"z":0,"direction":"front"}
 	currents["map"].levelData = {
 		"candy":{
-			"1": 20,
-			"2": 18,
-			"3": 16
-		}
+					"1": 20,
+					"2": 18,
+					"3": 16
+				},
+		"startConversation":{
+							0:{"text":"Hello everyone! Can I use when creating TileMap advance Tile specify the animation to start when the scene is automatically start? I do not ...",
+								"actor":"ada",
+								"emotion":"normal",
+								"currentAction":[["showFocusedItem",[true,"house"]]],
+								"nextAction":[["showFocusedItem",[false,"house"]],["goTo",[1]]]
+							},
+							1:{
+								"text":"Ini Teks 2 Lho",
+								"actor":"ada",
+								"emotion":"normal",
+								"currentAction":[["showFocusedItem",[true,"teleporter"]]],
+								"nextAction":[["showFocusedItem",[false,"teleporter"]],["goTo",[2]]]
+							},
+							2:{
+								"text":"Ini Teks 3 Lho",
+								"actor":"lino",
+								"emotion":"normal",
+								"currentAction":[],
+								"nextAction":[["endConversation",""]]
+							}
+						},
+		"finishConversation":{
+							0:{"text":"Finish",
+								"actor":"ada",
+								"emotion":"normal",
+								"currentAction":[["showFocusedItem",[true,"house"]]],
+								"nextAction":[["showFocusedItem",[false,"house"]],["goTo",[1]]]
+							},
+							1:{
+								"text":"Ini Teks 2 Lho",
+								"actor":"ada",
+								"emotion":"normal",
+								"currentAction":[["showFocusedItem",[true,"teleporter"]]],
+								"nextAction":[["showFocusedItem",[false,"teleporter"]],["endConversation",""],["showResultMenu",[""]]]
+							}
+						}
 	}
 	currents["map"].mapData=[
 		{x=0,y=2,z=0,groundType= 1,objectAttribute={}},
-		{x=0,y=1,z=0,groundType= 2,objectAttribute={"houseValue" : 6, "direction": "left"}},
+#		{x=0,y=1,z=0,groundType= 2,objectAttribute={"houseValue" : 6, "direction": "left"}},
 		{x=1,y=1,z=0,groundType= 0,objectAttribute={}},
 		{x=2,y=1,z=0,groundType= 1,objectAttribute={}},
 		{x=3,y=1,z=0,groundType= 0,objectAttribute={}},
@@ -111,11 +171,13 @@ func ohoho():
 		{x=3,y=5,z=0,groundType= 0,objectAttribute={}},
 		{x=4,y=5,z=0,groundType= 0,objectAttribute={}},
 		{x=0,y=6,z=0,groundType= 0,objectAttribute={}},
-		{x=1,y=6,z=0,groundType= 2,objectAttribute={"houseValue" : 16, "direction": "back"}},
+#		{x=1,y=6,z=0,groundType= 2,objectAttribute={"houseValue" : 16, "direction": "back"}},
 		{x=2,y=6,z=0,groundType= 1,objectAttribute={}},
 		{x=3,y=6,z=0,groundType= 0,objectAttribute={}},
 		{x=4,y=6,z=0,groundType= 0,objectAttribute={}},
 	]
+	
+	self.loadMapData()
 
 func setPreviewMode(state):
 	if state:
@@ -136,10 +198,21 @@ func loadMapData():
 	self.clearMap()
 	for cell in currents["map"].mapData:
 		references["ground"].set_cell(cell.x,cell.y,cell.groundType)
+		if cell.x+1 > currents["mapSize"].x:
+			currents["mapSize"].x = cell.x+1
+		if cell.y+1 > currents["mapSize"].y:
+			currents["mapSize"].y = cell.y+1
+		
 		self.spawnObject(cell)
-
-	references["player"].init(self,currents["map"].playerData)
 	
+	if currents["mapSize"] == Vector2(0,0) or self.isEditorMode():
+		currents["mapSize"] = Vector2(MAP_MAX_X,MAP_MAX_Y)
+
+	
+	references["playerCam"].setMaxPos(self.getMapSize(), references["ground"].get_cell_size())
+	references["editorCam"].setMaxPos(self.getMapSize(), references["ground"].get_cell_size())
+	
+	references["player"].setPosition(currents["map"].playerData, false)
 	self.showObjects(currents["SHOW_OBJECT"])
 	
 func saveMapData():
@@ -267,7 +340,9 @@ func updateWorld():
 			objects[type][key].updateObject()
 
 func resetMap():
-	references["player"].setPosition(currents["map"].playerData)
+	references["player"].setPosition(currents["map"].playerData, false)
+	references["playerCam"].reset()
+	references["editorCam"].reset()
 	for type in objects:
 		for key in objects[type]:
 			objects[type][key].resetObject()
@@ -277,7 +352,6 @@ func setEditorMode(state):
 	currents["IS_EDITOR_MODE"] = state
 	if currents["IS_EDITOR_MODE"]:
 		currents["camera"] = references["editorCam"]
-		currents["SHOW_OBJECT"] = false
 		references["selector"].show()
 		references["grid"].show()
 
@@ -361,6 +435,9 @@ func getTileType(index):
 
 func getTileIndex(type):
 	return tileIndex.find(type)
+
+func getMapSize():
+	return currents["mapSize"]
 
 func isEditorMode():
 	return currents["IS_EDITOR_MODE"]

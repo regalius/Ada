@@ -7,7 +7,7 @@ var references={
 
 func _ready():
 	# Initialization here
-	set_process_input(true)
+	self.set_process_input(true)
 	self.initReferences()
 	self.show()
 	pass

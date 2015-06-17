@@ -45,7 +45,6 @@ func initConnections():
 	pass
 
 func changeSection(command):
-	references["guiRoot"].buttonPressed("","")
 	if command == "prev":
 		self.setToSection(currents["sectionIndex"]-1)
 	elif command == "next":
@@ -63,7 +62,13 @@ func setToSection(index):
 	
 	for pagination in references["paginationContainer"].get_children():
 		pagination.set_disabled(false)
+		
 	references["paginationContainer"].get_child(index).set_disabled(true)
 
 	currents["sectionIndex"] = index
+
+func resetButton():
+	for container in references["sectionContainer"].get_children():
+		for btn in container.get_children():
+			btn.set_disabled(false)
 	

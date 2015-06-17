@@ -35,18 +35,20 @@ func _fixed_process(delta):
 func init(root):
 	self.initReferences(root)
 	references["rootNode"].set_fixed_process(true)
+	references["camera"].set_zoom(references["camera"].INITIAL_ZOOM)
 	self.startLevel()
 	pass
 
 func end(root):
-	references["rootNode"].set_fixed_process(false)
 	self.quitLevel()
+	references["rootNode"].set_fixed_process(false)	
 		
 func initReferences(root):
 	references["rootNode"] = root
 	references["mapRoot"] = root.get_node("world_root/map_root")
 	references["guiRoot"] =  root.get_node("gui_layer/canvas_item/gui_root")
-	references["gameHUD"] = references["guiRoot"].get_node("gameui_root")
+	references["gameHUD"] = references["guiRoot"].get_node("gui_container/gameui_root")
+	references["conversationUI"] = references["guiRoot"].get_node("gui_container/conversationui_root")
 	references["map"] = references["mapRoot"].get_node("ground")
 	references["player"] = references["mapRoot"].get_node("object/Player")
 	references["camera"] = references["player"].get_node("camera")
@@ -72,9 +74,12 @@ func setPreviewMode(state):
 
 func startLevel():
 	self.initCurrents()
-	references["animation"].play("camera_start")
 	currents["levelData"] = references["mapRoot"].getLevelData()
 	references["gameHUD"].init()
+	references["mapRoot"].resetMap()
+	references["animation"].queue("camera_start")
+	if currents["levelData"].has("startConversation"):
+		references["guiRoot"].showConversation(true, self, currents["levelData"].startConversation)
 	
 func quitLevel():
 	if not currents["IS_PREVIEW_MODE"]:
@@ -87,6 +92,12 @@ func retryLevel():
 	currents["LEVEL_COMPLETE"] = false
 	references["guiRoot"].showDialog(false,self,"gameResult","")
 	pass
+
+func startNextLevel():
+	references["rootNode"].startLevel(references["rootNode"].getNextLevel())
+
+func showResultMenu():
+	references["guiRoot"].showDialog(true,self,"gameResult", [currents["score"],currents["candy"], currents["IS_PREVIEW_MODE"]])
 
 func playSolverAlgorithm(solverAlgorithm):
 	references["camera"].reset()
@@ -106,6 +117,7 @@ func fetchCurrentAction(link):
 		if self.isAction(action):
 			if currents["actionIndex"] == currents["repeatIndex"]:
 #				print(str(i)+" Link: "+ str(link)+" action: "+action + " actionIndex: " + str(currents["actionIndex"]) + " | repeatIndex: " + str(currents["repeatIndex"]))
+				references["gameHUD"].setFocusedPiece(link,i)
 				currents["actionIndex"]+=1
 				return action
 			currents["repeatIndex"]+=1
@@ -125,8 +137,11 @@ func gameOver():
 		currents["candy"] = 1
 	else:
 		currents["candy"] = 0
-		
-	references["guiRoot"].showDialog(true,self,"gameResult", [currents["score"],currents["candy"], currents["IS_PREVIEW_MODE"]])
+
+	if currents["levelData"].has("finishConversation"):
+		references["guiRoot"].showConversation(true, self, currents["levelData"].finishConversation)
+	else:
+		self.showResultMenu()
 
 func isAction(action):
 	if action == "move" or action == "turnLeft" or action == "turnRight" or action == "interact":
@@ -157,4 +172,4 @@ func handleSolverAlgorithm(delta):
 				references["mapRoot"].updateWorld()
 			else:
 				currents["HANDLE_SOLVER_ALGORITHM"] = false
-
+				references["gameHUD"].setFocusedPiece("null",-1)
