@@ -56,6 +56,13 @@ func init(mapRoot):
 	self.setPosition(currents["position"], true)
 	pass
 	
+func startGame():
+	references["camera"].set_zoom(references["camera"].INITIAL_ZOOM)
+	
+	references["animation"].seek(0,true)
+	references["animation"].play("camera_start")
+	self.updateSprite("idle")
+	
 func initReferences(mapRoot):
 	references["mapRoot"] = mapRoot
 	references["map"] = mapRoot.get_node("ground")
@@ -104,7 +111,6 @@ func doAction(action):
 		self.turn("left")
 	elif action=="turnRight":
 		self.turn("right")
-		
 	self.updateSprite("idle")
 	pass
 
@@ -195,7 +201,17 @@ func setPosition(position, ignore):
 	return false
 
 func updateSprite(state):
-	references["animation"].play(state+"_"+currents["position"].direction)
+	var animName = state+"_"+currents["position"].direction
+	var curAnim = references["animation"].get_current_animation()
+	if curAnim != animName:
+		if curAnim.split("_")[0] == state:
+			var curAnimTime = references["animation"].get_current_animation_pos()
+			references["animation"].stop(true)
+			references["animation"].queue(animName)
+			references["animation"].seek(curAnimTime,true)
+		else:
+			references["animation"].queue(animName)
+			
 
 func onInteract(type):
 	if type == "house":

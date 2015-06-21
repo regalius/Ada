@@ -50,7 +50,6 @@ func receiveItem(received, playerNextPos):
 	if currents["CAN_DELIVER"]:
 		if received:
 #map			print("housepos: " + str(currents["position"]) + " | playerpos: "+ str(playerNextPos) + " " + str(self.isPlayerPositionValid(playerNextPos)))
-
 			if self.isPlayerPositionValid(playerNextPos):
 				references["houseValueLbl"].set_text(TranslationServer.tr("YAY"))
 				currents["IS_DELIVERED"] = true

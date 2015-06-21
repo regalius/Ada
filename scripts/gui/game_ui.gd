@@ -14,7 +14,6 @@ func init():
 	}
 	self.initCurrents()
 	.init()
-	self.resetGUI()
 	
 	
 func initReferences():
@@ -47,6 +46,10 @@ func reset():
 			pieceContainer.reset()
 	references["toolbar"].reset()
 	currents["solverAlgorithm"] = {}
+	
+	var texture = ImageTexture.new()
+	texture.load("res://assets/gui/button/icon/play.png")
+	references["playBtn"].set_button_icon(texture)
 
 func createNewPieceContainer():
 	if currents["pieceContainerIndex"] <= MAX_FUNCTION: 
@@ -56,13 +59,6 @@ func createNewPieceContainer():
 		references["toolbar"].addNewPiece("F" + str(currents["pieceContainerIndex"]))
 		currents["pieceContainerIndex"]+=1
 	pass
-
-	
-func resetGUI():
-	self.reset()
-	var texture = ImageTexture.new()
-	texture.load("res://assets/gui/button/icon/play.png")
-	references["playBtn"].set_button_icon(texture)
 	
 func extractSolverAlgorithm():
 	var tempAlgorithm = {}

@@ -10,6 +10,10 @@ func _ready():
 	# Initialization here
 	pass
 
+func init():
+	self.initCurrents()
+	.init()
+
 func initCurrents():
 	currents["brushType"] = -1
 	currents["brushMode"] = "paint"
@@ -40,6 +44,10 @@ func initConnections():
 	references["loadBtn"].connect("pressed",self,"loadMap")
 	references["saveBtn"].connect("pressed",self,"saveMap")
 	references["playBtn"].connect("pressed",self,"playMap")
+	pass
+
+func reset():
+	references["toolBox"].reset()
 	pass
 
 func loadMap():

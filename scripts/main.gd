@@ -279,7 +279,7 @@ func startLevel(mapIndex):
 		var unlocked = userdata.mapReferences[str(mapIndex.containerIndex)]["levels"][str(mapIndex.levelIndex)].unlocked
 		if unlocked and self.loadMap(path, false):
 			references["guiRoot"].setCurrentGUI("gameUI")
-			references["soundController"].playMusic(userdata.fileReferences["ingameMusic"])
+			self.playMusic("ingameMusic")
 			references["gameController"].init(self)
 			references["inputController"].init(self)
 			currents["controller"] = references["gameController"]
@@ -296,7 +296,8 @@ func quitLevel():
 	references["guiRoot"].getGUI("levelMenu").updateLevelSelector()
 	references["guiRoot"].setCurrentGUI("levelMenu")
 	currents["MAP_STARTED"] = false
-
+	self.playMusic("mainMenuMusic")
+	
 func retryLevel():
 	references["gameController"].retryLevel()
 
@@ -345,6 +346,7 @@ func startEditor():
 	references["guiRoot"].setCurrentGUI("editorUI")
 	currents["controller"] = references["editorController"]
 	currents["MAP_STARTED"] = true
+	self.playMusic("ingameMusic")
 	pass
 
 func quitEditor():
@@ -354,6 +356,7 @@ func quitEditor():
 	currents["controller"] = null
 	self.unloadMap()
 	currents["MAP_STARTED"] = false
+	self.playMusic("mainMenuMusic")
 	pass
 
 func quitGame():

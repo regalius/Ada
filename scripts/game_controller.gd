@@ -2,8 +2,6 @@ var references = {
 	"mapRoot":"",
 	"guiRoot":"",
 	"player": "",
-	"camera":"",
-	"animation":"",
 	"map":"",
 	"gameHUD":"",
 	"rootNode":""
@@ -35,7 +33,6 @@ func _fixed_process(delta):
 func init(root):
 	self.initReferences(root)
 	references["rootNode"].set_fixed_process(true)
-	references["camera"].set_zoom(references["camera"].INITIAL_ZOOM)
 	self.startLevel()
 	pass
 
@@ -51,8 +48,6 @@ func initReferences(root):
 	references["conversationUI"] = references["guiRoot"].get_node("gui_container/conversationui_root")
 	references["map"] = references["mapRoot"].get_node("ground")
 	references["player"] = references["mapRoot"].get_node("object/Player")
-	references["camera"] = references["player"].get_node("camera")
-	references["animation"] = references["player"].get_node("animation")
 	pass
 
 func initCurrents():
@@ -77,10 +72,9 @@ func startLevel():
 	currents["levelData"] = references["mapRoot"].getLevelData()
 	references["gameHUD"].init()
 	references["mapRoot"].resetMap()
-	references["animation"].queue("camera_start")
-	if currents["levelData"].has("startConversation"):
-		references["guiRoot"].showConversation(true, self, currents["levelData"].startConversation)
-	
+	references["player"].startGame()
+	self.handleConversationEvent({"start":1})
+
 func quitLevel():
 	if not currents["IS_PREVIEW_MODE"]:
 		references["rootNode"].saveLevel(currents["score"],currents["candy"])
@@ -100,7 +94,7 @@ func showResultMenu():
 	references["guiRoot"].showDialog(true,self,"gameResult", [currents["score"],currents["candy"], currents["IS_PREVIEW_MODE"]])
 
 func playSolverAlgorithm(solverAlgorithm):
-	references["camera"].reset()
+	references["mapRoot"].resetMap()
 	currents["solverAlgorithm"]= solverAlgorithm
 #	print(str(currents["solverAlgorithm"]))
 	currents["HANDLE_SOLVER_ALGORITHM"] = true
@@ -137,11 +131,13 @@ func gameOver():
 		currents["candy"] = 1
 	else:
 		currents["candy"] = 0
-
-	if currents["levelData"].has("finishConversation"):
-		references["guiRoot"].showConversation(true, self, currents["levelData"].finishConversation)
-	else:
+		
+	if self.handleConversationEvent({"gameover":1}) == null:
 		self.showResultMenu()
+#	if currents["levelData"].has("finishConversation"):
+#		references["guiRoot"].showConversation(true, self, currents["levelData"].finishConversation)
+#	else:
+#		
 
 func isAction(action):
 	if action == "move" or action == "turnLeft" or action == "turnRight" or action == "interact":
@@ -173,3 +169,23 @@ func handleSolverAlgorithm(delta):
 			else:
 				currents["HANDLE_SOLVER_ALGORITHM"] = false
 				references["gameHUD"].setFocusedPiece("null",-1)
+
+func handleConversationEvent(condition):
+	var currentConversation = null
+	for conversation in currents["levelData"].conversation:
+		if currentConversation == null:
+			var isTargetedConversation = true 
+			for param in condition: 
+				if isTargetedConversation:
+					if conversation.condition.has(param):
+						if not condition[param] ==conversation.condition[param]:
+							isTargetedConversation = false
+					else:
+						isTargetedConversation = false
+			if isTargetedConversation:
+				currentConversation= conversation
+				
+	if currentConversation != null:
+		references["guiRoot"].showConversation(true, self, currentConversation.data)
+	
+	return currentConversation

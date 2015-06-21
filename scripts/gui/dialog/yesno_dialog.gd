@@ -44,6 +44,12 @@ var dialogType = {
 		"accept":"quitPreviewMode",
 		"refuse": "closeDialog"
 	},
+	"editorMode":{
+		"titleLbl":TranslationServer.tr("EDITOR_DIALOG_TITLE"),
+		"textLbl":TranslationServer.tr("EDITOR_DIALOG_LBL"),
+		"accept":"quitEditorMode",
+		"refuse": "closeDialog"
+	},
 	"restart":{
 		"titleLbl":TranslationServer.tr("RESTART_DIALOG_TITLE"),
 		"textLbl":TranslationServer.tr("RESTART_DIALOG_LBL"),
@@ -93,6 +99,8 @@ func doAction(action):
 		references["rootNode"].restartGame()
 	elif action == "quitPreviewMode":
 		references["rootNode"].quitPreviewMode()
+	elif action == "quitEditorMode":
+		references["rootNode"].quitEditor()
 	elif action == "loadMap":
 		currents["sender"].loadMap(true,"")
 	elif action == "saveMap":

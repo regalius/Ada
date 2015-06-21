@@ -107,43 +107,57 @@ func ohoho():
 					"2": 18,
 					"3": 16
 				},
-		"startConversation":{
-							0:{"text":"Hello everyone! Can I use when creating TileMap advance Tile specify the animation to start when the scene is automatically start? I do not ...",
-								"actor":"ada",
-								"emotion":"normal",
-								"currentAction":[["showFocusedItem",[true,"house"]]],
-								"nextAction":[["showFocusedItem",[false,"house"]],["goTo",[1]]]
-							},
-							1:{
-								"text":"Ini Teks 2 Lho",
-								"actor":"ada",
-								"emotion":"normal",
-								"currentAction":[["showFocusedItem",[true,"teleporter"]]],
-								"nextAction":[["showFocusedItem",[false,"teleporter"]],["goTo",[2]]]
-							},
-							2:{
-								"text":"Ini Teks 3 Lho",
-								"actor":"lino",
-								"emotion":"normal",
-								"currentAction":[],
-								"nextAction":[["endConversation",""]]
+		"conversation":[{
+							"condition":{"start":1},
+							"data":{
+									0:{"text":"Hello everyone! Can I use when creating TileMap advance Tile specify the animation to start when the scene is automatically start? I do not ...",
+										"name":"Ada",
+										"actor":"ada",
+										"emotion":"normal",
+										"currentAction":[["showFocusedItem",[true,"house"]]],
+										"nextAction":{1:[["showFocusedItem",[false,"house"]],["goTo",[1]]]}
+									},
+									1:{
+										"text":"Ini Teks 2 Lho",
+										"name":"Ada",
+										"actor":"ada",
+										"emotion":"normal",
+										"currentAction":[["showFocusedItem",[true,"teleporter"]]],
+										"nextAction":{1:[["showFocusedItem",[false,"teleporter"]],["goTo",[2]]]}
+									},
+									2:{
+										"text":"Ini Teks 3 Lho",
+										"name":"???",
+										"actor":"lino",
+										"emotion":"normal",
+										"currentAction":[],
+										"nextAction":{	"YES":[["goTo",[0]]],
+														"NO":[["endConversation",""]]
+													}
+									}
 							}
 						},
-		"finishConversation":{
-							0:{"text":"Finish",
-								"actor":"ada",
-								"emotion":"normal",
-								"currentAction":[["showFocusedItem",[true,"house"]]],
-								"nextAction":[["showFocusedItem",[false,"house"]],["goTo",[1]]]
-							},
-							1:{
-								"text":"Ini Teks 2 Lho",
-								"actor":"ada",
-								"emotion":"normal",
-								"currentAction":[["showFocusedItem",[true,"teleporter"]]],
-								"nextAction":[["showFocusedItem",[false,"teleporter"]],["endConversation",""],["showResultMenu",[""]]]
+						{
+							"condition": {"gameover":1},
+							"data":{
+										0:{"text":"Finish",
+											"name":"Ada",
+											"actor":"ada",
+											"emotion":"normal",
+											"currentAction":[["showFocusedItem",[true,"house"]]],
+											"nextAction":[["showFocusedItem",[false,"house"]],["goTo",[1]]]
+										},
+										1:{
+											"text":"Ini Teks 2 Lho",
+											"name":"Lino",
+											"actor":"lino",
+											"emotion":"normal",
+											"currentAction":[["showFocusedItem",[true,"teleporter"]]],
+											"nextAction":[["showFocusedItem",[false,"teleporter"]],["endConversation",""],["showResultMenu",[""]]]
+										}
 							}
 						}
+					]
 	}
 	currents["map"].mapData=[
 		{x=0,y=2,z=0,groundType= 1,objectAttribute={}},

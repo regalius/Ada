@@ -123,4 +123,7 @@ func backAction():
 		else:
 			self.showDialog(true,self,"yesno",["levelMenu"])
 	elif currents["GUI"] == "editorUI":
-		references["rootNode"].quitEditor()
+		if references["rootNode"].getCurrentController().isSaved():
+			references["rootNode"].quitEditor()
+		else:
+			self.showDialog(true,self,"yesno",["editorMode"])

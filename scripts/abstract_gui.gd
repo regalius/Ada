@@ -13,6 +13,7 @@ func _ready():
 func init():
 	self.initReferences()
 	self.initConnections()
+	self.reset()
 	pass
 
 func initReferences():
@@ -25,3 +26,6 @@ func initConnections():
 
 func initCurrents():
 	pass 
+	
+func reset():
+	pass

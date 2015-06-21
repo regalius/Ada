@@ -26,6 +26,7 @@ func init(root):
 #	references["mapRoot"].resetMap()
 	references["camera"].set_zoom(references["camera"].INITIAL_ZOOM)
 	references["rootNode"].set_fixed_process(true)
+	references["editorUI"].init()
 	pass
 
 func end(root):
@@ -41,7 +42,8 @@ func initReferences(root):
 	pass
 
 func initCurrents():
-	currents["brushType"] = 0
+	currents["brushType"] = -1
+	currents["brushMode"] = "paint"
 	currents["filename"] = ""
 	currents["SAVED"] = true
 	pass
@@ -159,3 +161,6 @@ func setActiveBrush(mode, type):
 
 func getActiveBrush():
 	return currents["brushType"]
+
+func isSaved():
+	return currents["SAVED"]

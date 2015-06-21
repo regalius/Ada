@@ -71,4 +71,7 @@ func resetButton():
 	for container in references["sectionContainer"].get_children():
 		for btn in container.get_children():
 			btn.set_disabled(false)
-	
+
+func reset():
+	self.resetButton()
+	references["sectionContainer"].get_child(0).get_node("delete_btn").setActiveBrush()
