@@ -42,19 +42,22 @@ func resetObject():
 func setHouseValue(value):
 	currents["houseValue"] = value
 	if currents["houseValue"] > -1:
+		references["houseValueLbl"].show()
 		references["houseValueLbl"].set_text(str(currents["houseValue"]))
 	else:
-		references["houseValueLbl"].set_text("FOREVER !")
+		references["houseValueLbl"].hide()
 
 func receiveItem(received, playerNextPos):
 	if currents["CAN_DELIVER"]:
 		if received:
 #map			print("housepos: " + str(currents["position"]) + " | playerpos: "+ str(playerNextPos) + " " + str(self.isPlayerPositionValid(playerNextPos)))
 			if self.isPlayerPositionValid(playerNextPos):
-				references["houseValueLbl"].set_text(TranslationServer.tr("YAY"))
+				references["houseValueLbl"].show()
+				references["houseValueLbl"].set_text(TranslationServer.tr("HOUSE_RECEIVED"))
 				currents["IS_DELIVERED"] = true
 		else:
-			references["houseValueLbl"].set_text(TranslationServer.tr("OOPS"))
+			references["houseValueLbl"].show()
+			references["houseValueLbl"].set_text(TranslationServer.tr("HOUSE_FAILED"))
 			currents["CAN_DELIVER"] = false
 
 func isPlayerPositionValid(playerNextPos):

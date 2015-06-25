@@ -55,9 +55,10 @@ func setLifeTime(time):
 	currents["lifeTime"]=time
 	if currents["IS_ALIVE"]:
 		if currents["lifeTime"] > -1:
+			references["lifeTimeLbl"].show()
 			references["lifeTimeLbl"].set_text(str(currents["lifeTime"]))
 		else:
-			references["lifeTimeLbl"].set_text(TranslationServer.tr("FOREVER"))
+			references["lifeTimeLbl"].hide()
 	
 func setTeleportPosition(pos):
 	currents["teleportPosition"] = pos
@@ -66,9 +67,10 @@ func setDeadTime(time):
 	currents["deadTime"]=time
 	if not currents["IS_ALIVE"]:
 		if currents["deadTime"] > -1:
+			references["lifeTimeLbl"].show()
 			references["lifeTimeLbl"].set_text(str(currents["deadTime"]))
 		else:
-			references["lifeTimeLbl"].set_text(TranslationServer.tr("FOREVER"))
+			references["lifeTimeLbl"].hide()
 	
 func setAlive(state):
 	currents["IS_ALIVE"] = state

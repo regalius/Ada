@@ -18,7 +18,7 @@ func init():
 
 func initReferences():
 	references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)
-	references["guiRoot"] = references["rootNode"].references["guiRoot"]
+	references["guiRoot"] = references["rootNode"].get_node("gui_layer/canvas_item/gui_root")
 	pass
 
 func initConnections():

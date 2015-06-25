@@ -16,7 +16,9 @@ var references = {
 	"rootNode":""
 }
 var currents = {
-	"GUI":""
+	"GUI":"",
+	"CONVERSATION_ON":false,
+	"DIALOG_ON":false
 }
 func _ready():
 	# Initialization here
@@ -39,6 +41,7 @@ func initReferences():
 	references["editorUI"] = references["guiContainer"].get_node("editorui_root")
 	references["conversationUI"] = references["guiContainer"].get_node("conversationui_root")
 	references["dialogUI"] = references["guiContainer"].get_node("dialogui_root")
+	references["tutorialUI"] = references["guiContainer"].get_node("tutorial_root")
 	references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)
 	references["backBtn"] = self.get_node("top_left/back_btn")
 	pass
@@ -90,10 +93,14 @@ func getGUI(name):
 	return references[name]
 
 func pauseGame(state):
+#	if not state and currents["CONVERSATION_ON"]:
+#		references["rootNode"].get_tree().set_pause(true)
+#	else:
 	references["rootNode"].get_tree().set_pause(state)
 
 
 func showDialog(state, sender, type, parameter):
+	currents["DIALOG_ON"] = state
 	self.pauseGame(state)
 	if state:
 		references["dialogUI"].setDialogType(sender, type, parameter)
@@ -103,6 +110,7 @@ func showDialog(state, sender, type, parameter):
 		references["dialogUI"].hide()
 	
 func showConversation(state, sender, conversationDict):
+	currents["CONVERSATION_ON"] = state
 	self.pauseGame(state)
 	if state:
 		references["conversationUI"].show()
@@ -110,8 +118,13 @@ func showConversation(state, sender, conversationDict):
 	else:
 		references["conversationUI"].hide()
 		
+func showTutorial(state,sender, tutorialArray):
+	if state:
+		references["tutorialUI"].show()
+		references["tutorialUI"].startTutorial(sender,tutorialArray)
+	else:
+		references["tutorialUI"].hide()
 		
-
 func backAction():
 	if currents["GUI"] == "mainMenu":
 		self.showDialog(true,self, "yesno",["quit"])

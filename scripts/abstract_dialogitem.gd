@@ -35,7 +35,7 @@ func setName(val):
 		val == varName
 
 	if references.has("nameLbl"):
-		references["nameLbl"].set_text(val)
+		references["nameLbl"].set_text(TranslationServer.tr(val))
 
 func getName():
 	return varName

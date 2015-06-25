@@ -8,7 +8,6 @@ QUIT_DIALOG_TITLE,Quit Game,Keluar Permainan
 QUIT_DIALOG_LBL,Are you sure you want to quit ?,Keluar dari permainan sekarang ?
 YES,Yes,Ya
 NO,No,Tidak
-CREATE_NEW_FUNCTION,Create New Function,Buat Fungsi Baru
 LEVEL_DIALOG_TITLE,Level Menu,Menu Level
 LEVEL_DIALOG_LBL,Do you want to go back to level selection menu ?,Kembali ke menu pemilihan level ?
 RETRY,Retry,Coba lagi
@@ -16,28 +15,114 @@ BACK,Back,Kembali
 CONTINUE,Continue,Lanjutkan
 LOAD,Load,Muat
 SAVE,Save,Simpan
-SOUND,Sound,Suara
-LANGUAGE,Language,Bahasa
-ON,On,Nyala
-OFF,Off,Mati
+Sound,Sound,Suara
+Language,Language,Bahasa
+On,On,Nyala
+Off,Off,Mati
 RESTART_DIALOG_TITLE,Restart Game,Mulai ulang Permainan
 RESTART_DIALOG_LBL,"Changes will only take place on restart, would you like to restart ?","Perubahan yang diminta membutuhkan mulai ulang permainan, mulai ulang permainan ?"
 LOAD_MAP_DIALOG_TITLE,Load Map,Muat Peta
 LOAD_MAP_DIALOG_LBL,Are you sure you want to load map from file ? (Unsaved map will be lost),Muat peta sekarang ? (perubahan pada peta yang tidak disimpan akan hilang)
 SAVE_MAP_DIALOG_TITLE,Save Map,Simpan Peta
 SAVE_MAP_DIALOG_LBL,Are you sure you want to save map to file ?,Simpan peta ke file ?
-PLAY_WITHOUT_SAVE_DIALOG_TITLE,Play Without Saving,Mainkan Peta Tanpa Simpan
+PLAY_WITHOUT_SAVE_DIALOG_TITLE,Play Without Saving?,Mainkan Peta Tanpa Simpan?
 PLAY_WITHOUT_SAVE_DIALOG_LBL,Are you sure you want to play without saving the map ?,Mainkan peta tanpa menyimpan terlebih dahulu ?
 PREVIEW_DIALOG_TITLE,Exit Preview Mode,Keluar Mode Preview
 PREVIEW_DIALOG_LBL,Are you sure you want to leave preview mode ?,Keluar dari mode preview ?
 EDITOR_DIALOG_TITLE,Quit Without Saving,Keluar Tanpa Simpan ?
-EDITOR_DIALOG_LBL,Quit editor and discard any changes to map ?,
-front,front,depan
-back,back,belakang
-left,left,kiri
-right,right,kanan
-TRUE,TRUE,Benar
-FALSE,FALSE,Salah
-YAY,YAY !,YAY !
-OOPS,OOPS!,UPS !
-FOREVER,Forever,Selamanya
+EDITOR_DIALOG_LBL,Quit editor and discard any changes to map ?,Keluar editor dan abaikan semua perubahan ?
+HOUSE_RECEIVED,YAY !,YAY !
+HOUSE_FAILED,OOPS!,UPS !
+TUTORIAL_PLAY_BTN,PLAY IT!,MAINKAN!
+TUTORIAL_REWIND_BTN,OOPS! REWIND!,UPS! ULANGI YUK!
+TUTORIAL_GRAB_PIECE_1,GRAB,AMBIL PIECE
+TUTORIAL_GRAB_PIECE_2,PIECE, 
+TUTORIAL_DROP_PIECE_1,DROP,TARUH
+TUTORIAL_DROP_PIECE_2,HERE,DISINI
+TUTORIAL_CREATE_FUNCTION,CREATE NEW FUNCTION,BUAT FUNGSI BARU
+TUTORIAL_EDITOR_TOOLBAR_1,TOOLBAR,TOOLBAR
+TUTORIAL_EDITOR_TOOLBAR_2,MAP ATTRIBUTE EDITOR,EDITOR ATRIBUT PETA
+TUTORIAL_EDITOR_TOOLBAR_3,SHOW/HIDE OBJECT,TAMPIL/SEMBUNYIKAN OBJEK
+TUTORIAL_EDITOR_TOOLBAR_4,UNDO,ULANGI
+TUTORIAL_EDITOR_TOOLBOX_1,TOOLBOX,TOOLBOX
+TUTORIAL_EDITOR_TOOLBOX_2,DELETE TILE,HAPUS TILE
+TUTORIAL_EDITOR_TOOLBOX_3,MODIFY OBJECT ATTRIBUTE,MODIFIKASI ATRIBUT OBJEK
+TUTORIAL_EDITOR_FILEBOX_1,FILEBOX,FILEBOX
+STRANGE_FLYING_CAT,Strange Flying Cat,Kucing Terbang Yang Aneh
+YOUNG_WITCH,Young Witch,Penyihir Muda
+CONVERSATION_BASIC1_START0,"Hello, you must be the witch in-training Ada, right ?",
+CONVERSATION_BASIC1_START1,"Yup! and you are, Mr. Cat ? *Pat*",
+CONVERSATION_BASIC1_START2,"Hey, hey stop treating me like I'm a little kitten, would' ya?",
+CONVERSATION_BASIC1_START3,"I'm Lino,a witch cat, and I'm 150 years old! From now on, we'll be partner, I'll be your navigator and also your mentor!",
+CONVERSATION_BASIC1_START4,"Is that so? Cool! I'm counting on you then, Lino !",
+CONVERSATION_BASIC1_START5,"Okay, since it's your first day here, we'll start with the basics!",
+CONVERSATION_BASIC1_START6,"As delivery witches, our task is to deliver candies to every forest sprite's houses, forest sprites likes candy very much so we deliver candy to them in exchange for their blessings for our land's prosperity",
+CONVERSATION_BASIC1_START7,This is how forest sprite's house looks like.,
+CONVERSATION_BASIC1_START8,To complete our task you'll command your magic broom to perform actions.,
+CONVERSATION_BASIC1_START9,"In order to command your magic broom,you'll grab a piece from command bar bellow...",
+CONVERSATION_BASIC1_START10,...then drop them to function container on the right side,
+CONVERSATION_BASIC1_START11,Move command will make your magic broom move forward,
+CONVERSATION_BASIC1_START12,Interact command will make your magic broom to stop for a while so you can interact with object in front of you (i.e. delivering candy to a house),
+CONVERSATION_BASIC1_START13,"When you're done, press PLAY button and your magic broom will perform actions as you planned before.",
+CONVERSATION_BASIC1_START14,Let's give it a try shall we ?,
+CONVERSATION_BASIC1_START14_1,Okay!,
+CONVERSATION_BASIC1_START14_2,"Sorry, can you repeat your explanation?",
+CONVERSATION_BASIC1_START15,Let's goo! Delivery Witch Ada reporting for duty!,
+CONVERSATION_BASIC1_END0,So that's it?,
+CONVERSATION_BASIC1_END1,"Yup, good job! easy peasy wasn't it?",
+CONVERSATION_BASIC1_END2,Yup! and I'm ready for more!,
+CONVERSATION_BASIC1_END3,"Now now, that's the spirit, young lady! Let's move on to next area then!",
+CONVERSATION_BASIC2_START0,"Hm, there's intersection in this area and houses are located on the roadside, so I'll introduce you with some new commands ",
+CONVERSATION_BASIC2_START1,The Left command will make your magic broom turns to the left (counter clockwise)...,
+CONVERSATION_BASIC2_START2,...while Right command will make it turns to the right (clockwise).,
+CONVERSATION_BASIC2_START3,"Oh! I also noticed there's a house with numbers on its top, that means we'll need to deliver candy to them before the timer runs out, or else, forest sprites will be angry to us...",
+CONVERSATION_BASIC2_START4,Eh? that's scary! what if I failed to deliver candy to any one of them and they're angry? what am I going to do ?!,
+CONVERSATION_BASIC2_START5,"Don't worry ! just press the REWIND button, I'll revert back the time with my time magic !",
+CONVERSATION_BASIC2_START6,"Oh, I'm so glad having you as my partner here, Lino!",
+CONVERSATION_BASIC2_START7,"And remember, we need to deliver candies to ALL houses in the area, got it ?",
+CONVERSATION_BASIC2_START7_1,Yup! let's do this !,
+CONVERSATION_BASIC2_START7_2,Err.. explain it one more time maybe?,
+CONVERSATION_BASIC2_START8,"Hmm, lemme get this straight, first, we can turn either left or right with LEFT and RIGHT command, second, in order to do a delivery for houses on the roadside we need to turn either left or right before interacting with them...",
+CONVERSATION_BASIC2_START9,"...third, we'll need to deliver candies to houses with timer before the timer runs out ?, fourth, You'll revert back the time for me when I press the rewind button ? ",
+CONVERSATION_BASIC2_START10,Yup! you got it! Good luck!,
+CONVERSATION_BASIC2_START11,"Okay then, lets do it!",
+CONVERSATION_BASIC2_END0,Done!,
+CONVERSATION_BASIC2_END1,Good job! let's move to the next area then!,
+CONVERSATION_BASIC3_START0,"Eh, what's that, Lino ?",
+CONVERSATION_BASIC3_START1,"That's teleporter, a hole that splices time and space. how uncommon a teleporter spawned near a village vicinity like this",
+CONVERSATION_BASIC3_START2,"A teleporter, huh ? So what did it do ?",
+CONVERSATION_BASIC3_START3,"In short, it will let you travel from one position to another position in a speed of light when you interact with it, we should use it for our advantage !",
+CONVERSATION_BASIC3_START4,"Ah, so how do we know where will this teleporter leads us to ?",
+CONVERSATION_BASIC3_START5,"No, we don't, we'll only know when we've tried it ourself. It can also leads us to Netherworld where every demons live too !",
+CONVERSATION_BASIC3_START6,Eh! so you were trying to kill me when you say 'we should use it' ?,
+CONVERSATION_BASIC3_START7,"Hahaha, no, no I was kidding for the Netherworld part ! It will need a very very huge teleporter hole to lead us to Netherworld, small teleporter like this won't travel that far !",
+CONVERSATION_BASIC3_START8,Linoo!!,
+CONVERSATION_BASIC3_START9,"Hahaha, c'mon, where's your sense of humor? ",
+CONVERSATION_BASIC3_START10,"Oh by the way, some teleporter may have a finite amount of lifetime before it goes dead, you can't interact with dead teleporter like this...",
+CONVERSATION_BASIC3_START11,"... and some teleporter might be regaining its energy and came to life again after some time,so we need to really pay attention to numbers on top of it",
+CONVERSATION_BASIC3_START12,"And you can use your time magic to revert back the time when we got stuck inside the teleporter, can you ? ",
+CONVERSATION_BASIC3_START13,"Yup! my time magic can still work without exception, all you need to do is just press the rewind button anytime you want. Got it ?",
+CONVERSATION_BASIC3_START13_1,Yup!,
+CONVERSATION_BASIC3_START13_2,"One more time,please...",
+CONVERSATION_BASIC3_START14,Sweet! lets go try that one immediately,
+CONVERSATION_BASIC3_END0,Woohoo! what a ride in there !,
+CONVERSATION_BASIC3_END1,Hahaha...,
+CONVERSATION_FUNCTION1_START0,"Look at those distance, Lino! I don't think my function container can handle that much command! What should we do ?",
+CONVERSATION_FUNCTION1_START1,"Hm, looks like it's time to teach you about functions.. We've been using main function all the time, correct ?",
+CONVERSATION_FUNCTION1_START2,"Yup! but it can only contain up to 10 commands, I don't think we can finish this area with only 10 commands !",
+CONVERSATION_FUNCTION1_START3,"Well, we won't do it with only 10 commands ! you'll need to create new functions and then link those to your existing main function!",
+CONVERSATION_FUNCTION1_START4,"To create a new function, you've got to press the ADD NEW FUNCTION button...",
+CONVERSATION_FUNCTION1_START5,There'll be a new F1 piece bellow your normal command bar..,
+CONVERSATION_FUNCTION1_START6,Yup! and then ?,
+CONVERSATION_FUNCTION1_START7,"Then you'll use it to link your newly created Function 1 to your existing Main Function, shall we try it now ?",
+CONVERSATION_FUNCTION1_START7_1,Sure!,
+CONVERSATION_FUNCTION1_START7_2,"Ah.. explain it one more time, please!",
+CONVERSATION_FUNCTION1_END0,"Ah! so that's how,thanks again, Lino !",
+CONVERSATION_FUNCTION1_END1,"Nevermind, lets continue to the next area !",
+CONVERSATION_LOOPING1_START0,"Hey, Ada, did you know that we can also loop through function ?",
+CONVERSATION_LOOPING1_START1,"Eh, how to do it ?",
+CONVERSATION_LOOPING1_START2,"Simply, link its respective piece to its own function container, lets try it!",
+CONVERSATION_LOOPING1_END0,"Ah, that's handy!",
+CONVERSATION_EDITOR_START0,"Welcome to editor mode ! In this mode you can create map as you wish! you can also share your maps, share it with your friends, and challenge him/her to solve your map !",
+CONVERSATION_EDITOR_START1,Wow ! This looks fun ! I'd make a map that no one could ever beat !,
+CONVERSATION_EDITOR_START2,Have fun !,

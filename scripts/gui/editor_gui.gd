@@ -25,6 +25,8 @@ func initReferences():
 	references["loadBtn"] = self.get_node("top_center/center/savebox/container/btn_container/container/load_btn")
 	references["saveBtn"] = self.get_node("top_center/center/savebox/container/btn_container/container/save_btn")
 	references["playBtn"] = self.get_node("top_center/center/savebox/container/btn_container/container/play_btn")
+	references["tutorialBtn"] = self.get_node("top_right/tutorial_btn")
+	references["conversationBtn"] = self.get_node("top_right/conversation_btn")
 	references["toolBox"] = self.get_node("right/center/toolbox_root")
 	references["levelDataEditBtn"] = self.get_node("left/center/propertybox/item_container/container/leveldataedit_btn")
 	references["toggleObjectBtn"] =  self.get_node("left/center/propertybox/item_container/container/toggleobject_btn")
@@ -44,6 +46,8 @@ func initConnections():
 	references["loadBtn"].connect("pressed",self,"loadMap")
 	references["saveBtn"].connect("pressed",self,"saveMap")
 	references["playBtn"].connect("pressed",self,"playMap")
+	references["tutorialBtn"].connect("pressed",references["editorController"],"showTutorial")
+	references["conversationBtn"].connect("pressed",references["editorController"],"showConversation")
 	pass
 
 func reset():

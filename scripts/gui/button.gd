@@ -10,8 +10,6 @@ func _ready():
 
 func init():
 	self.initReferences()
-	self.initCurrents()
-	self.initConnections()
 
 func initReferences():
 	references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)

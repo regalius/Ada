@@ -23,6 +23,7 @@ func initReferences():
 	references["candy1"] = self.get_node("itemscroll_container/item_container/candy_1")
 	references["candy2"] = self.get_node("itemscroll_container/item_container/candy_2")
 	references["candy3"] = self.get_node("itemscroll_container/item_container/candy_3")
+	references["maxFunction"] = self.get_node("itemscroll_container/item_container/max_func")
 	references["saveBtn"] = self.get_node("confirm_btn/save_btn")
 	references["cancelBtn"] = self.get_node("confirm_btn/cancel_btn")
 
@@ -41,12 +42,14 @@ func displayData():
 	references["candy1"].init("Candy 1", currents["levelData"].candy["1"])
 	references["candy2"].init("Candy 2", currents["levelData"].candy["2"])
 	references["candy3"].init("Candy 3", currents["levelData"].candy["3"])
+	references["maxFunction"].init("Max Function", currents["levelData"].maxFunction)
 	
 func saveData():
 	currents["playerData"] = references["playerPos"].getValue()
 	currents["levelData"].candy["1"] = references["candy1"].getValue()
 	currents["levelData"].candy["2"] = references["candy2"].getValue()
 	currents["levelData"].candy["3"] = references["candy3"].getValue()
+	currents["levelData"].maxFunction = references["maxFunction"].getValue()
 	currents["sender"].saveLevelData(currents["playerData"], currents["levelData"])
 	
 func setPlayerData(playerData):
@@ -57,20 +60,15 @@ func setPlayerData(playerData):
 		
 func setLevelData(levelData):
 	if not levelData.empty():
-		currents["levelData"] = {
-									"candy":{
-										"1": levelData["candy"]["1"],
-										"2": levelData["candy"]["2"],
-										"3": levelData["candy"]["3"]
-									}
-								}
+		currents["levelData"] = levelData
 	else:
 		currents["levelData"] = {
 									"candy":{
 										"1": 0,
 										"2": 0,
 										"3": 0
-									}
+									},
+									"maxFunction":0
 								}
 	
 func getPlayerData():

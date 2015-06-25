@@ -40,7 +40,7 @@ func createLevelSelector():
 	var tempContainer
 	var tempLevel
 	var maxSectionIndex = 0
-	var mapReferences = references["rootNode"].getUserdata("mapReferences")
+	var mapReferences = references["rootNode"].getUserdata().mapReferences
 	for container in mapReferences:
 		tempContainer = prefabs["levelContainer"].instance()
 		references["levelBtnContainer"].add_child(tempContainer)
@@ -66,7 +66,7 @@ func updateLevelSelector():
 	var tempContainer
 	var tempLevel
 	var maxSectionIndex = 0
-	var mapReferences = references["rootNode"].getUserdata("mapReferences")
+	var mapReferences = references["rootNode"].getUserdata().mapReferences
 	for container in mapReferences:
 		if currents["levelSelectorIndex"][container]["container"] == null:
 			tempContainer = prefabs["levelContainer"].instance()
@@ -98,9 +98,9 @@ func updateNavigationBtn():
 			
 	if currents["sectionIndex"] < currents["maxSectionIndex"]:
 		references["nextBtn"].show()
-	elif currents["sectionIndex"] > 0:
+	if currents["sectionIndex"] > 0:
 		references["prevBtn"].show()
-			
+	
 
 
 func setLevelSection(command):

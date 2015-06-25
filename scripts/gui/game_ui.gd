@@ -19,6 +19,7 @@ func init():
 func initReferences():
 	.initReferences()
 	references["gameController"] = references["rootNode"].references["gameController"]
+	references["tutorialUI"] = references["rootNode"].get_node("gui_layer/canvas_item/gui_root/gui_container/tutorial_root")
 	references["playBtn"] = self.get_node("top/top_right/play_btn")
 	references["newFuncBtn"] = self.get_node("right/top_right/newfunc_btn")
 	references["pieceContainers"] = self.get_node("right/bot_right/piececontainer_scroll/piece_containers")
@@ -28,7 +29,9 @@ func initCurrents():
 	currents = {
 		"solverAlgorithm":{},
 		"pieceContainerIndex":1,
-		"previewMode":false
+		"tutorialStep":0,
+		"previewMode":false,
+		"tutorial":false
 	}
 	
 func initConnections():
@@ -37,7 +40,7 @@ func initConnections():
 
 func setPreviewMode(state):
 	currents["previewMode"] = state
-
+	
 func reset():
 	for pieceContainer in references["pieceContainers"].get_children():
 		if pieceContainer.getLink() != "M":
@@ -58,6 +61,10 @@ func createNewPieceContainer():
 		tempPieceContainer.init("Function "+ str(currents["pieceContainerIndex"]),"F" + str(currents["pieceContainerIndex"]))
 		references["toolbar"].addNewPiece("F" + str(currents["pieceContainerIndex"]))
 		currents["pieceContainerIndex"]+=1
+		
+		if references["tutorialUI"].getCurrentStep() == "create_new_function":
+			print("masuk lho")
+			references["tutorialUI"].goToNextStep()
 	pass
 	
 func extractSolverAlgorithm():
@@ -79,27 +86,42 @@ func playSolverAlgorithm():
 		self.extractSolverAlgorithm()
 		references["gameController"].playSolverAlgorithm(currents["solverAlgorithm"])
 		references["playBtn"].disconnect("pressed", self, "playSolverAlgorithm")
-		references["playBtn"].connect("pressed", self, "resetMap")
+		references["playBtn"].connect("pressed", self, "rewindSolverAlgorithm")
 		var texture = ImageTexture.new()
 		texture.load("res://assets/gui/button/icon/rewind.png")
 		references["playBtn"].set_button_icon(texture)
+		
+		
+		if references["tutorialUI"].getCurrentStep() == "play_solver_algorithm":
+			references["tutorialUI"].goToNextStep()
 
 func setFocusedPiece(funcLink, index):
 	if currents.has("focusPiece"):
 		currents["focusPiece"].setFocus(false)
 	if references["pieceContainers"].get_node(funcLink) != null:
-		currents["focusPiece"] = references["pieceContainers"].get_node(funcLink).getPieceContainer().get_child(index)
+		var i = 0
+		for children in references["pieceContainers"].get_node(funcLink).getPieceContainer().get_children():
+			if children.getAction()!="":
+				if i == index:
+					currents["focusPiece"] = children
+				i+=1
+#		currents["focusPiece"] = references["pieceContainers"].get_node(funcLink).getPieceContainer().get_child(index)
 		currents["focusPiece"].setFocus(true)
 	pass
 
-func resetMap():
-	if not references["gameController"].currents["HANDLE_SOLVER_ALGORITHM"]:
-		references["gameController"].resetMap()
-		references["playBtn"].disconnect("pressed", self, "resetMap")
-		references["playBtn"].connect("pressed", self, "playSolverAlgorithm")
-		var texture = ImageTexture.new()
-		texture.load("res://assets/gui/button/icon/play.png")
-		references["playBtn"].set_button_icon(texture)
+func rewindSolverAlgorithm():
+	references["gameController"].rewindSolverAlgorithm()
+	references["playBtn"].disconnect("pressed", self, "rewindSolverAlgorithm")
+	references["playBtn"].connect("pressed", self, "playSolverAlgorithm")
+	var texture = ImageTexture.new()
+	texture.load("res://assets/gui/button/icon/play.png")
+	references["playBtn"].set_button_icon(texture)
+	
+	if references["tutorialUI"].getCurrentStep() == "rewind_solver_algorithm":
+		references["tutorialUI"].goToNextStep()
 
 func isPreviewMode():
 	return currents["previewMode"]
+	
+func setMaxFunction(value):
+	MAX_FUNCTION = value

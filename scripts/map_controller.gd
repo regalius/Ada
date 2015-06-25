@@ -70,8 +70,9 @@ func initCurrents(path, editorMode):
 	currents["mapSize"] = Vector2(0,0)
 	self.setEditorMode(editorMode)
 	references["player"].init(self)
-#	self.loadMapFromFile(path)
-	self.ohoho()
+	self.loadMapFromFile(path)
+#	self.ohoho()
+#	self.ihihi()
 	references["playerCam"].init(self)
 	references["editorCam"].init(self)
 #	self.ohoho()
@@ -82,24 +83,6 @@ func initGrid():
 			references["grid"].set_cell(x,y,0)
 
 func ohoho():
-
-#	var conversTest ={
-#		0:{"text":"Ini Teks 1 Lho",
-#			"actor":"ada",
-#			"emotion":"normal",
-#			"currentAction":[["showFocusedItem",[true,"house"]]],
-#			"nextAction":[["showFocusedItem",[false,"house"]],["goTo",[1]]]
-#		},
-#		1:{
-#			"text":"Ini Teks 2 Lho",
-#			"actor":"ada",
-#			"emotion":"normal",
-#			"currentAction":[["showFocusedItem",[true,"teleporter"]]],
-#			"nextAction":[["showFocusedItem",[false,"teleporter"]],["endConversation",""]]
-#		}
-#	}
-#	references["guiRoot"].showConversation(true,conversTest)
-	
 	currents["map"].playerData = {"x":4,"y":2,"z":0,"direction":"front"}
 	currents["map"].levelData = {
 		"candy":{
@@ -107,92 +90,169 @@ func ohoho():
 					"2": 18,
 					"3": 16
 				},
-		"conversation":[{
+		"maxFunction":2,
+#		"tutorial":["grab_piece.move","drop_piece.move.F1.6","grab_piece.turnLeft","drop_piece.turnLeft.M.7","grab_piece.turnRight","drop_piece.turnRight.M.3","grab_piece.interact","drop_piece.interact.M.4","play_solver_algorithm"],
+#		"conversation":[{
+#							"condition":{"start":1},
+#							"data":{
+#									0:{"text":"Hello everyone! Can I use when creating TileMap advance Tile specify the animation to start when the scene is automatically start? I do not ...",
+#										"name":"Ada",
+#										"actor":"ada",
+#										"emotion":"normal",
+#										"currentAction":[["showFocusedItem",[true,"house"]]],
+#										"nextAction":{1:[["showFocusedItem",[false,"house"]],["goTo",[1]]]}
+#									},
+#									1:{
+#										"text":"Ini Teks 2 Lho",
+#										"name":"Ada",
+#										"actor":"ada",
+#										"emotion":"normal",
+#										"currentAction":[["showFocusedItem",[true,"teleporter"]]],
+#										"nextAction":{1:[["showFocusedItem",[false,"teleporter"]],["goTo",[2]]]}
+#									},
+#									2:{
+#										"text":"Howdy, my name is Lino",
+#										"name":"Strange Flying Cat",
+#										"actor":"lino",
+#										"emotion":"normal",
+#										"currentAction":[],
+#										"nextAction":{1:[["showFocusedItem",[false,"teleporter"]],["goTo",[3]]]}
+#									},
+#									3:{
+#										"text":"So you want me to repeat my explanation?",
+#										"name":"Lino",
+#										"actor":"lino",
+#										"emotion":"normal",
+#										"currentAction":[],
+#										"nextAction":{	"Yes, please !":[["goTo",[2]]],
+#														"No, I got it":[["endConversation",""]],
+#														"Fuck Off":[["endConversation",""]]
+#													}
+#									}
+#							}
+#						},
+#						{
+#							"condition": {"gameover":1},
+#							"data":{
+#										
+#									0:{"text":"Hello everyone! Can I use when creating TileMap advance Tile specify the animation to start when the scene is automatically start? I do not ...",
+#										"name":"Ada",
+#										"actor":"ada",
+#										"emotion":"normal",
+#										"currentAction":[["showFocusedItem",[true,"house"]]],
+#										"nextAction":{1:[["showFocusedItem",[false,"house"]],["goTo",[1]]]}
+#									},
+#									1:{
+#										"text":"Ini Teks 2 Lho",
+#										"name":"Ada",
+#										"actor":"ada",
+#										"emotion":"normal",
+#										"currentAction":[["showFocusedItem",[true,"teleporter"]]],
+#										"nextAction":{1:[["showFocusedItem",[false,"teleporter"]],["goTo",[2]]]}
+#									},
+#									2:{
+#										"text":"Howdy, my name is Lino",
+#										"name":"Strange Flying Cat",
+#										"actor":"lino",
+#										"emotion":"normal",
+#										"currentAction":[],
+#										"nextAction":{1:[["showFocusedItem",[false,"teleporter"]],["goTo",[3]]]}
+#									},
+#									3:{
+#										"text":"So you want me to repeat my explanation?",
+#										"name":"Lino",
+#										"actor":"lino",
+#										"emotion":"normal",
+#										"currentAction":[],
+#										"nextAction":{1:[["endConversation",""],["showResultMenu",[""]]]}
+#									}
+#							}
+#						}
+#					]
+	}
+	currents["map"].mapData=[
+#		{x=0,y=2,z=0,groundType= 1,objectAttribute={}},
+#		{x=0,y=1,z=0,groundType= 2,objectAttribute={"houseValue" : 6, "direction": "left"}},
+#		{x=1,y=1,z=0,groundType= 0,objectAttribute={}},
+#		{x=2,y=1,z=0,groundType= 1,objectAttribute={}},
+#		{x=3,y=1,z=0,groundType= 0,objectAttribute={}},
+#		{x=4,y=1,z=0,groundType= 0,objectAttribute={}},
+#		{x=1,y=2,z=0,groundType= 1,objectAttribute={}},
+#		{x=2,y=2,z=0,groundType= 1,objectAttribute={}},
+#		{x=3,y=2,z=0,groundType= 1,objectAttribute={}},
+#		{x=4,y=2,z=0,groundType= 1,objectAttribute={}},
+#		{x=0,y=3,z=0,groundType= 0,objectAttribute={}},
+#		{x=1,y=3,z=0,groundType= 0,objectAttribute={}},
+#		{x=2,y=3,z=0,groundType= 1,objectAttribute={}},
+#		{x=4,y=3,z=0,groundType= 0,objectAttribute={}},
+#		{x=0,y=4,z=0,groundType= 0,objectAttribute={}},
+#		{x=1,y=4,z=0,groundType= 0,objectAttribute={}},
+#		{x=2,y=4,z=0,groundType= 1,objectAttribute={}},
+#		{x=3,y=4,z=0,groundType= 0,objectAttribute={}},
+#		{x=4,y=4,z=0,groundType= 0,objectAttribute={}},
+#		{x=0,y=5,z=0,groundType= 0,objectAttribute={}},
+#		{x=1,y=5,z=0,groundType= 0,objectAttribute={}},
+#		{x=2,y=5,z=0,groundType= 1,objectAttribute={}},
+#		{x=3,y=5,z=0,groundType= 0,objectAttribute={}},
+#		{x=4,y=5,z=0,groundType= 0,objectAttribute={}},
+#		{x=0,y=6,z=0,groundType= 0,objectAttribute={}},
+#		{x=1,y=6,z=0,groundType= 2,objectAttribute={"houseValue" : 16, "direction": "back"}},
+#		{x=2,y=6,z=0,groundType= 1,objectAttribute={}},
+#		{x=3,y=6,z=0,groundType= 0,objectAttribute={}},
+#		{x=4,y=6,z=0,groundType= 0,objectAttribute={}},
+	]
+	
+	self.loadMapData()
+
+func ihihi():
+	currents["map"].levelData.tutorial =["create_new_function","grab_piece.move","drop_piece.move.F1.1",
+	"grab_piece.turnRight","drop_piece.turnRight.F1.2","grab_piece.interact","drop_piece.interact.F1.3",
+	"grab_piece.turnLeft","drop_piece.turnLeft.F1.4","grab_piece.move","drop_piece.move.F1.5","grab_piece.interact","drop_piece.interact.F1.6",
+	"grab_piece.F1","drop_piece.F1.F1.7","grab_piece.F1","drop_piece.F1.M.1","play_solver_algorithm"]
+	currents["map"].levelData.conversation = [{
 							"condition":{"start":1},
 							"data":{
-									0:{"text":"Hello everyone! Can I use when creating TileMap advance Tile specify the animation to start when the scene is automatically start? I do not ...",
-										"name":"Ada",
-										"actor":"ada",
-										"emotion":"normal",
-										"currentAction":[["showFocusedItem",[true,"house"]]],
-										"nextAction":{1:[["showFocusedItem",[false,"house"]],["goTo",[1]]]}
-									},
-									1:{
-										"text":"Ini Teks 2 Lho",
-										"name":"Ada",
-										"actor":"ada",
-										"emotion":"normal",
-										"currentAction":[["showFocusedItem",[true,"teleporter"]]],
-										"nextAction":{1:[["showFocusedItem",[false,"teleporter"]],["goTo",[2]]]}
-									},
-									2:{
-										"text":"Ini Teks 3 Lho",
-										"name":"???",
+									"skipAction":[],
+									0:{"text":"CONVERSATION_LOOPING1_START0",
+										"name":"Lino",
 										"actor":"lino",
 										"emotion":"normal",
 										"currentAction":[],
-										"nextAction":{	"YES":[["goTo",[0]]],
-														"NO":[["endConversation",""]]
-													}
+										"nextAction":{1:[["goTo",[1]]]}
+									},
+									1:{
+										"text":"CONVERSATION_LOOPING1_START1",
+										"name":"Ada",
+										"actor":"ada",
+										"emotion":"normal",
+										"currentAction":[],
+										"nextAction":{1:[["goTo",[2]]]}
+									},
+									2:{
+										"text":"CONVERSATION_LOOPING1_START2",
+										"name":"Lino",
+										"actor":"lino",
+										"emotion":"normal",
+										"currentAction":[],
+										"nextAction":{1:[["endConversation",""]]}
 									}
 							}
 						},
 						{
 							"condition": {"gameover":1},
 							"data":{
-										0:{"text":"Finish",
-											"name":"Ada",
-											"actor":"ada",
-											"emotion":"normal",
-											"currentAction":[["showFocusedItem",[true,"house"]]],
-											"nextAction":[["showFocusedItem",[false,"house"]],["goTo",[1]]]
-										},
-										1:{
-											"text":"Ini Teks 2 Lho",
-											"name":"Lino",
-											"actor":"lino",
-											"emotion":"normal",
-											"currentAction":[["showFocusedItem",[true,"teleporter"]]],
-											"nextAction":[["showFocusedItem",[false,"teleporter"]],["endConversation",""],["showResultMenu",[""]]]
-										}
+									"skipAction":[["showResultMenu",[""]]],
+									0:{"text":"CONVERSATION_LOOPING1_END0",
+										"name":"Ada",
+										"actor":"ada",
+										"emotion":"happy",
+										"currentAction":[],
+										"nextAction":{1:[["endConversation",""],["showResultMenu",[""]]]}
+									}
 							}
 						}
 					]
-	}
-	currents["map"].mapData=[
-		{x=0,y=2,z=0,groundType= 1,objectAttribute={}},
-#		{x=0,y=1,z=0,groundType= 2,objectAttribute={"houseValue" : 6, "direction": "left"}},
-		{x=1,y=1,z=0,groundType= 0,objectAttribute={}},
-		{x=2,y=1,z=0,groundType= 1,objectAttribute={}},
-		{x=3,y=1,z=0,groundType= 0,objectAttribute={}},
-		{x=4,y=1,z=0,groundType= 0,objectAttribute={}},
-		{x=1,y=2,z=0,groundType= 1,objectAttribute={}},
-		{x=2,y=2,z=0,groundType= 1,objectAttribute={}},
-		{x=3,y=2,z=0,groundType= 1,objectAttribute={}},
-		{x=4,y=2,z=0,groundType= 1,objectAttribute={}},
-		{x=0,y=3,z=0,groundType= 0,objectAttribute={}},
-		{x=1,y=3,z=0,groundType= 0,objectAttribute={}},
-		{x=2,y=3,z=0,groundType= 1,objectAttribute={}},
-		{x=4,y=3,z=0,groundType= 0,objectAttribute={}},
-		{x=0,y=4,z=0,groundType= 0,objectAttribute={}},
-		{x=1,y=4,z=0,groundType= 0,objectAttribute={}},
-		{x=2,y=4,z=0,groundType= 1,objectAttribute={}},
-		{x=3,y=4,z=0,groundType= 0,objectAttribute={}},
-		{x=4,y=4,z=0,groundType= 0,objectAttribute={}},
-		{x=0,y=5,z=0,groundType= 0,objectAttribute={}},
-		{x=1,y=5,z=0,groundType= 0,objectAttribute={}},
-		{x=2,y=5,z=0,groundType= 1,objectAttribute={}},
-		{x=3,y=5,z=0,groundType= 0,objectAttribute={}},
-		{x=4,y=5,z=0,groundType= 0,objectAttribute={}},
-		{x=0,y=6,z=0,groundType= 0,objectAttribute={}},
-#		{x=1,y=6,z=0,groundType= 2,objectAttribute={"houseValue" : 16, "direction": "back"}},
-		{x=2,y=6,z=0,groundType= 1,objectAttribute={}},
-		{x=3,y=6,z=0,groundType= 0,objectAttribute={}},
-		{x=4,y=6,z=0,groundType= 0,objectAttribute={}},
-	]
 	
-	self.loadMapData()
-
 func setPreviewMode(state):
 	if state:
 		self.resetMap()

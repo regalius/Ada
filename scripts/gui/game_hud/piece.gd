@@ -19,6 +19,8 @@ var textureLibrary = {
 export var action = ""
 export var type = "transmitter"
 export var IS_DRAG_PREVIEW = false
+var funcLink = ""
+var pieceIndex = 0
 
 func _ready():
 	# Initialization here
@@ -35,6 +37,7 @@ func init():
 func initReferences():
 	if not IS_DRAG_PREVIEW:
 		references["rootNode"] = self.get_node("/root").get_child(self.get_node("/root").get_child_count()-1)
+		references["tutorialUI"] = references["rootNode"].get_node("gui_layer/canvas_item/gui_root/gui_container/tutorial_root")
 		references["cursor"] = references["rootNode"].get_node("gui_layer/canvas_item/Cursor")
 
 func get_drag_data(pos):
@@ -46,6 +49,8 @@ func get_drag_data(pos):
 		dragPreview.init()
 		self.set_drag_preview(dragPreview)
 		temp =action
+		if references["tutorialUI"].getCurrentStep() == "grab_piece."+action:
+			references["tutorialUI"].goToNextStep()
 #		references["cursor"].hide()
 		if type =="receiver":
 			self.setAction("")
@@ -54,10 +59,15 @@ func get_drag_data(pos):
 func drop_data(pos, data):
 	if type=="receiver":
 		self.setAction(data)
-	
+		if references["tutorialUI"].getCurrentStep() == "drop_piece." + action + "." + funcLink + "." + str(pieceIndex):
+			print("drop_piece." + action + "." + funcLink + "." + str(pieceIndex))
+			references["tutorialUI"].goToNextStep()
 
+func linkPiece(link,index):
+	funcLink = link 
+	pieceIndex = index
+	
 func setAction(act):
-	var texture = ImageTexture.new()
 	action = act
 	if act !="":
 		if textureLibrary.has(act):

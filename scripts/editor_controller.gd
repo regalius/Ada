@@ -11,6 +11,33 @@ var currents = {
 	"brushType":-1,
 	"brushMode":"paint"
 }
+var tutorialArray = ["editor_tutorial"]
+var conversationDict ={
+						"skipAction":[["endConversation",""]],
+						0:{	"text":"CONVERSATION_EDITOR_START0",
+							"name":"Lino",
+							"actor":"lino",
+							"emotion":"normal",
+							"currentAction":[],
+							"nextAction":{1:[["goTo",[1]]]}
+						},
+						1:{
+							"text":"CONVERSATION_EDITOR_START1",
+							"name":"Ada",
+							"actor":"ada",
+							"emotion":"happy",
+							"currentAction":[],
+							"nextAction":{1:[["goTo",[2]]]}
+						},
+						2:{
+							"text":"CONVERSATION_EDITOR_START2",
+							"name":"Lino",
+							"actor":"lino",
+							"emotion":"happy",
+							"currentAction":[],
+							"nextAction":{1:[["endConversation",""]]}
+						}
+}
 
 var history = []
 
@@ -27,6 +54,10 @@ func init(root):
 	references["camera"].set_zoom(references["camera"].INITIAL_ZOOM)
 	references["rootNode"].set_fixed_process(true)
 	references["editorUI"].init()
+	if references["rootNode"].getUserdata().TUTORIAL_ON:
+		self.showConversation()
+		self.showTutorial()
+		references["rootNode"].getUserdata().TUTORIAL_ON = false
 	pass
 
 func end(root):
@@ -37,6 +68,7 @@ func initReferences(root):
 	references["mapRoot"] = root.get_node("world_root/map_root")
 	references["guiRoot"] =  root.get_node("gui_layer/canvas_item/gui_root")
 	references["editorUI"] = references["guiRoot"].get_node("gui_container/editorui_root")
+	references["tutorialUI"] = references["guiRoot"].get_node("gui_container/tutorial_root")
 	references["map"] = references["mapRoot"].get_node("ground")
 	references["camera"] = references["mapRoot"].currents["camera"]
 	pass
@@ -164,3 +196,9 @@ func getActiveBrush():
 
 func isSaved():
 	return currents["SAVED"]
+	
+func showTutorial():
+	references["guiRoot"].showTutorial(true,self,tutorialArray)
+
+func showConversation():
+	references["guiRoot"].showConversation(true,self,conversationDict)

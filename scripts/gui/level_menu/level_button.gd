@@ -62,6 +62,6 @@ func setBestCandy(candy):
 	currents["bestCandy"] = candy
 	for candy in references["candyContainer"].get_children():
 		candy.set_disabled(true)
-	for i in range(1, candy):
-		references["candyContainer"].get_node(str(i)).set_disabled(false)
+	for i in range(0, candy):
+		references["candyContainer"].get_node(str(i+1)).set_disabled(false)
 	pass

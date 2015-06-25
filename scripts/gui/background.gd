@@ -13,8 +13,20 @@ func _ready():
 	pass
 
 func changeStyle(what):
-	if what == "Default":
-		self.get_node("baloon").hide()
-	elif what == "Baloon":
+	self.get_node("baloon_right").hide()
+	self.get_node("baloon_bot").hide()
+	self.get_node("baloon_top").hide()
+	self.get_node("baloon_left").hide()
+	self.get_node("baloon").hide()
+	if what == "Baloon":
 		self.get_node("baloon").show()
+	elif what == "BaloonRight":
+		self.get_node("baloon_right").show()
+	elif what == "BaloonLeft":
+		self.get_node("baloon_left").show()	
+	elif what == "BaloonTop":
+		self.get_node("baloon_top").show()
+	elif what == "BaloonBot":
+		self.get_node("baloon_bot").show()
+
 	style = what

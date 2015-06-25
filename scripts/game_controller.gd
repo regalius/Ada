@@ -3,22 +3,13 @@ var references = {
 	"guiRoot":"",
 	"player": "",
 	"map":"",
-	"gameHUD":"",
+	"gameUI":"",
 	"rootNode":""
 }
 
 const ACTION_WAIT_TIME =50
 
-var currents = {
-	"solverAlgorithm":{},
-	"actionIndex":0,
-	"repeatIndex":0,
-	"HANDLE_SOLVER_ALGORITHM":false,
-	"LEVEL_COMPLETE":false,
-	"waitTime":50,
-	"levelData":"",
-	"IS_PREVIEW_MODE": false
-}
+var currents = {}
 
 func _fixed_process(delta):
 	if not currents["LEVEL_COMPLETE"]:
@@ -44,7 +35,7 @@ func initReferences(root):
 	references["rootNode"] = root
 	references["mapRoot"] = root.get_node("world_root/map_root")
 	references["guiRoot"] =  root.get_node("gui_layer/canvas_item/gui_root")
-	references["gameHUD"] = references["guiRoot"].get_node("gui_container/gameui_root")
+	references["gameUI"] = references["guiRoot"].get_node("gui_container/gameui_root")
 	references["conversationUI"] = references["guiRoot"].get_node("gui_container/conversationui_root")
 	references["map"] = references["mapRoot"].get_node("ground")
 	references["player"] = references["mapRoot"].get_node("object/Player")
@@ -70,16 +61,21 @@ func setPreviewMode(state):
 func startLevel():
 	self.initCurrents()
 	currents["levelData"] = references["mapRoot"].getLevelData()
-	references["gameHUD"].init()
+	references["gameUI"].init()
+	references["gameUI"].setMaxFunction(currents["levelData"].maxFunction)
 	references["mapRoot"].resetMap()
 	references["player"].startGame()
 	self.handleConversationEvent({"start":1})
+	self.handleTutorial()
 
 func quitLevel():
 	if not currents["IS_PREVIEW_MODE"]:
 		references["rootNode"].saveLevel(currents["score"],currents["candy"])
 		if currents["LEVEL_COMPLETE"]:
 			references["rootNode"].unlockLevel(references["rootNode"].getNextLevel())
+	references["guiRoot"].showConversation(false, self, "")
+	references["guiRoot"].showTutorial(false,self,"")
+
 	pass
 
 func retryLevel():
@@ -104,14 +100,19 @@ func playSolverAlgorithm(solverAlgorithm):
 func resetMap():
 	references["mapRoot"].resetMap()
 
+func rewindSolverAlgorithm():
+	currents["HANDLE_SOLVER_ALGORITHM"] = false
+	currents["actionIndex"] = 0
+	currents["repeatIndex"] = 0
+	self.resetMap()
+
 func fetchCurrentAction(link):
 	var index = 0
 	for i in range(index, currents["solverAlgorithm"][link].size()):
 		var action =currents["solverAlgorithm"][link][str(i)]
 		if self.isAction(action):
 			if currents["actionIndex"] == currents["repeatIndex"]:
-#				print(str(i)+" Link: "+ str(link)+" action: "+action + " actionIndex: " + str(currents["actionIndex"]) + " | repeatIndex: " + str(currents["repeatIndex"]))
-				references["gameHUD"].setFocusedPiece(link,i)
+				references["gameUI"].setFocusedPiece(link,i)
 				currents["actionIndex"]+=1
 				return action
 			currents["repeatIndex"]+=1
@@ -131,7 +132,7 @@ func gameOver():
 		currents["candy"] = 1
 	else:
 		currents["candy"] = 0
-		
+				
 	if self.handleConversationEvent({"gameover":1}) == null:
 		self.showResultMenu()
 #	if currents["levelData"].has("finishConversation"):
@@ -168,24 +169,29 @@ func handleSolverAlgorithm(delta):
 				references["mapRoot"].updateWorld()
 			else:
 				currents["HANDLE_SOLVER_ALGORITHM"] = false
-				references["gameHUD"].setFocusedPiece("null",-1)
+				references["gameUI"].setFocusedPiece("null",-1)
 
 func handleConversationEvent(condition):
-	var currentConversation = null
-	for conversation in currents["levelData"].conversation:
-		if currentConversation == null:
-			var isTargetedConversation = true 
-			for param in condition: 
-				if isTargetedConversation:
-					if conversation.condition.has(param):
-						if not condition[param] ==conversation.condition[param]:
+	if currents["levelData"].has("conversation"):
+		var currentConversation = null
+		for conversation in currents["levelData"].conversation:
+			if currentConversation == null:
+				var isTargetedConversation = true 
+				for param in condition: 
+					if isTargetedConversation:
+						if conversation.condition.has(param):
+							if not condition[param] ==conversation.condition[param]:
+								isTargetedConversation = false
+						else:
 							isTargetedConversation = false
-					else:
-						isTargetedConversation = false
-			if isTargetedConversation:
-				currentConversation= conversation
-				
-	if currentConversation != null:
-		references["guiRoot"].showConversation(true, self, currentConversation.data)
-	
-	return currentConversation
+				if isTargetedConversation:
+					currentConversation = conversation
+					
+		if currentConversation != null:
+			references["guiRoot"].showConversation(true, self, currentConversation.data)
+			
+		return currentConversation
+
+func handleTutorial():
+	if currents["levelData"].has("tutorial"):
+		references["guiRoot"].showTutorial(true,self,currents["levelData"].tutorial)

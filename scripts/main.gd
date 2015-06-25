@@ -1,7 +1,9 @@
 
 extends Control
 
-const USER_MAP_PATH = 	{	"X11":"user://",
+const USER_MAP_PATH = 	{	
+							"X11":"user://",
+#							"X11":"res://map/map_data/",
 							"Android":"/storage/sdcard0/com.pixcap.ada/"
 #							"Android":"user://"
 						}
@@ -130,26 +132,58 @@ func _init():
 							"mainMenuMusic" : "res://assets/music/mainmenu.ogg",
 							"ingameMusic" : "res://assets/music/ingame.ogg"
 						},
+		"TUTORIAL_ON":true,
 		"mapReferences":	{
-							"1": {
-								"title":"Procedural",
+							1: {
+								"title":"Basics",
 								"levels":{
-									"1":{
-										"title":"Procedural 1",
+									1:{
+										"title":"Basics 1",
 										"bestCandy":0,
 										"bestScore":0,
 										"unlocked":true,
-										"path":"res://map/map_data/procedural1.acdmap"
+										"path":"res://map/map_data/basic1.acdmap"
 									},
-									"2":{
-										"title":"Procedural 2",
+									2:{
+										"title":"Basics 2",
 										"bestCandy":0,
 										"bestScore":0,
 										"unlocked": false,
-										"path":"res://map/map_data/procedural2.acdmap"
+										"path":"res://map/map_data/basic2.acdmap"
+									},
+									3:{
+										"title":"Basics 3",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked": false,
+										"path":"res://map/map_data/basic3.acdmap"
 									}
 								}
-							}
+							},
+							2: {
+								"title":"Function",
+								"levels":{
+									1:{
+										"title":"Function 1",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked":true,
+										"path":"res://map/map_data/function1.acdmap"
+									}
+								}
+							},
+							3: {
+								"title":"Loop",
+								"levels":{
+									1:{
+										"title":"Loop 1",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked":true,
+										"path":"res://map/map_data/looping1.acdmap"
+									}
+								}
+							},
 						}
 	}
 
@@ -275,8 +309,8 @@ func startLevel(mapIndex):
 	if currents["MAP_STARTED"]:
 		self.quitLevel()
 	if mapIndex != null:
-		var path = userdata.mapReferences[str(mapIndex.containerIndex)]["levels"][str(mapIndex.levelIndex)].path
-		var unlocked = userdata.mapReferences[str(mapIndex.containerIndex)]["levels"][str(mapIndex.levelIndex)].unlocked
+		var path = userdata.mapReferences[mapIndex.containerIndex]["levels"][mapIndex.levelIndex].path
+		var unlocked = userdata.mapReferences[mapIndex.containerIndex]["levels"][mapIndex.levelIndex].unlocked
 		if unlocked and self.loadMap(path, false):
 			references["guiRoot"].setCurrentGUI("gameUI")
 			self.playMusic("ingameMusic")
@@ -303,13 +337,14 @@ func retryLevel():
 
 func unlockLevel(mapIndex):
 	if mapIndex != null:
-		userdata.mapReferences[str(mapIndex.containerIndex)]["levels"][str(mapIndex.levelIndex)].unlocked = true
+		print(mapIndex)
+		userdata.mapReferences[mapIndex.containerIndex]["levels"][mapIndex.levelIndex].unlocked = true
 
 func saveLevel(score,candy):
-	if score > userdata.mapReferences[str(currents["map"].containerIndex)]["levels"][str(currents["map"].levelIndex)].bestScore:
-		userdata.mapReferences[str(currents["map"].containerIndex)]["levels"][str(currents["map"].levelIndex)].score = score
-	if candy > userdata.mapReferences[str(currents["map"].containerIndex)]["levels"][str(currents["map"].levelIndex)].bestCandy:
-		userdata.mapReferences[str(currents["map"].containerIndex)]["levels"][str(currents["map"].levelIndex)].bestCandy = candy
+	if score > userdata.mapReferences[currents["map"].containerIndex]["levels"][currents["map"].levelIndex].bestScore:
+		userdata.mapReferences[currents["map"].containerIndex]["levels"][currents["map"].levelIndex].score = score
+	if candy > userdata.mapReferences[currents["map"].containerIndex]["levels"][currents["map"].levelIndex].bestCandy:
+		userdata.mapReferences[currents["map"].containerIndex]["levels"][currents["map"].levelIndex].bestCandy = candy
 
 func startPreviewMode():
 	references["soundController"].playMusic(userdata.fileReferences["ingameMusic"])
@@ -340,10 +375,10 @@ func quitPreviewMode():
 	
 
 func startEditor():
-	self.loadMap("res://map/map_data/editordefault.acdmap", true)
+	self.loadMap("res://map/map_data/developer_base.acdmap", true)
+	references["guiRoot"].setCurrentGUI("editorUI")
 	references["editorController"].init(self)
 	references["inputController"].init(self)
-	references["guiRoot"].setCurrentGUI("editorUI")
 	currents["controller"] = references["editorController"]
 	currents["MAP_STARTED"] = true
 	self.playMusic("ingameMusic")
@@ -357,6 +392,7 @@ func quitEditor():
 	self.unloadMap()
 	currents["MAP_STARTED"] = false
 	self.playMusic("mainMenuMusic")
+	self.writeToFile("user://config/userdata.acd", userdata)
 	pass
 
 func quitGame():
@@ -370,10 +406,10 @@ func restartGame():
 #======================================
 
 func getNextLevel():
-	if int(currents["map"].levelIndex) < userdata.mapReferences[str(currents["map"].containerIndex)].size():
-		return  {"containerIndex":currents["map"].containerIndex,"levelIndex":str(int(currents["map"].levelIndex)+1)}
+	if int(currents["map"].levelIndex) < userdata.mapReferences[currents["map"].containerIndex].levels.size():
+		return  {"containerIndex":currents["map"].containerIndex,"levelIndex":int(currents["map"].levelIndex)+1}
 	elif int(currents["map"].containerIndex) < userdata.mapReferences.size():
-		return  {"containerIndex":int(currents["map"].containerIndex)+1,"levelIndex":"1"}
+		return  {"containerIndex":int(currents["map"].containerIndex)+1,"levelIndex":1}
 	else: 
 		return null
 
@@ -381,8 +417,8 @@ func getSettings(name):
 	return settings[name]
 	pass
 
-func getUserdata(name):
-	return userdata[name]
+func getUserdata():
+	return userdata
 
 func _fixed_process(delta):
 	currents["controller"]._fixed_process(delta)

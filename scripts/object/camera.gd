@@ -72,7 +72,7 @@ func zoom(command):
 
 func move(moveVector,slide):
 	if currents["CAMERA_CAN_MOVE"]:
-		var newPos= self.thresholdPosition(self.get_pos() - moveVector * MOVE_SPEED * currents["zoomLevel"])
+		var newPos= self.thresholdPosition(self.get_pos() - moveVector * MOVE_SPEED)
 		self.set_pos(newPos)
 		if slide:
 			currents["slideVector"] = Vector2(moveVector.x, moveVector.y)

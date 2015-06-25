@@ -4,7 +4,7 @@ extends "../../abstract_dialog.gd"
 
 func initReferences():
 	.initReferences()
-	references["textLbl"] = self.get_node("text_container/text_lbl")
+	references["textLbl"] = self.get_node("text_lbl")
 	references["okBtn"] = self.get_node("btn_container/ok_btn")
 	
 func initConnections():

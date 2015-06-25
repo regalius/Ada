@@ -32,6 +32,8 @@ func init(title, link):
 		self.setLink(link)
 	else :
 		self.setLink(containerLink)
+	
+	self.linkPiece()
 
 func initReferences():
 	references["pieceContainer"] = self.get_node("container_root/container")
@@ -71,3 +73,9 @@ func getPieceContainer():
 
 #func _input_event(event):
 #	references["pieceContainerScroll"]._input_event(event)
+
+func linkPiece():
+	var index = 1
+	for piece in references["pieceContainer"].get_children():
+		piece.linkPiece(containerLink,index)
+		index+=1
