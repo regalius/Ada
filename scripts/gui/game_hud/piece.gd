@@ -54,11 +54,13 @@ func get_drag_data(pos):
 #		references["cursor"].hide()
 		if type =="receiver":
 			self.setAction("")
+		references["rootNode"].references["soundController"].playSFX("click",false)
 		return temp
 	
 func drop_data(pos, data):
 	if type=="receiver":
 		self.setAction(data)
+		references["rootNode"].references["soundController"].playSFX("click",false)
 		if references["tutorialUI"].getCurrentStep() == "drop_piece." + action + "." + funcLink + "." + str(pieceIndex):
 			print("drop_piece." + action + "." + funcLink + "." + str(pieceIndex))
 			references["tutorialUI"].goToNextStep()

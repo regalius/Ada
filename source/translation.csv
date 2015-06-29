@@ -126,3 +126,8 @@ CONVERSATION_LOOPING1_END0,"Ah, that's handy!",
 CONVERSATION_EDITOR_START0,"Welcome to editor mode ! In this mode you can create map as you wish! you can also share your maps, share it with your friends, and challenge him/her to solve your map !",
 CONVERSATION_EDITOR_START1,Wow ! This looks fun ! I'd make a map that no one could ever beat !,
 CONVERSATION_EDITOR_START2,Have fun !,
+TRIVIA_0,"Bill Gates, founder of Microsoft earns $1,000 every 4 seconds.","Bill Gates, pemilik dari Microsoft berpenghasilan 1000 dollar AS setiap 4 detik!"
+TRIVIA_1,"Early electronic computers, developed around the 1940’s, were the size of a large room and consumed huge amounts of electricity.",Komputer modern pertama yang diciptakan sekitar tahun 1940-an berukuran sebesar ruangan dan membutuhkan daya listrik yang sangat besar !
+TRIVIA_2,"Computers are programmed to carry out instructions. These instructions are usually very simple and require adding numbers together, moving data from one place to another etc.","Komputer di program untuk menjalankan instruksi. Instruksi-instruksi ini umumnya sangat simpel seperti melakukan perhitungan angka,atau memindahkan data dari suatu tempatke tempat lain!"
+TRIVIA_3,Did you know that world's first computer programmer was female ? and her name was Ada Lovelace !,Tahukah kamu programer pertama di dunia adalah seorang perempuan ? dan nama programer tersebut adalah Ada Lovelace !
+TRIVIA_4,The first computer was an abacus. Invented in Babylon in 500 B.C.,"Komputer pertama di dunia adalah sebuah sempoa, ditemukan di Babilonia pada tahun 500 Sebelum Masehi"

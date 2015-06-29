@@ -50,9 +50,7 @@ func reset():
 	references["toolbar"].reset()
 	currents["solverAlgorithm"] = {}
 	
-	var texture = ImageTexture.new()
-	texture.load("res://assets/gui/button/icon/play.png")
-	references["playBtn"].set_button_icon(texture)
+	self.setPlayBtn("play")
 
 func createNewPieceContainer():
 	if currents["pieceContainerIndex"] <= MAX_FUNCTION: 
@@ -85,12 +83,7 @@ func playSolverAlgorithm():
 	if not references["gameController"].currents["HANDLE_SOLVER_ALGORITHM"]:
 		self.extractSolverAlgorithm()
 		references["gameController"].playSolverAlgorithm(currents["solverAlgorithm"])
-		references["playBtn"].disconnect("pressed", self, "playSolverAlgorithm")
-		references["playBtn"].connect("pressed", self, "rewindSolverAlgorithm")
-		var texture = ImageTexture.new()
-		texture.load("res://assets/gui/button/icon/rewind.png")
-		references["playBtn"].set_button_icon(texture)
-		
+		self.setPlayBtn("rewind")
 		
 		if references["tutorialUI"].getCurrentStep() == "play_solver_algorithm":
 			references["tutorialUI"].goToNextStep()
@@ -111,12 +104,7 @@ func setFocusedPiece(funcLink, index):
 
 func rewindSolverAlgorithm():
 	references["gameController"].rewindSolverAlgorithm()
-	references["playBtn"].disconnect("pressed", self, "rewindSolverAlgorithm")
-	references["playBtn"].connect("pressed", self, "playSolverAlgorithm")
-	var texture = ImageTexture.new()
-	texture.load("res://assets/gui/button/icon/play.png")
-	references["playBtn"].set_button_icon(texture)
-	
+	self.setPlayBtn("play")
 	if references["tutorialUI"].getCurrentStep() == "rewind_solver_algorithm":
 		references["tutorialUI"].goToNextStep()
 
@@ -125,3 +113,17 @@ func isPreviewMode():
 	
 func setMaxFunction(value):
 	MAX_FUNCTION = value
+	
+func setPlayBtn(state):
+	var texture = ImageTexture.new()
+	if state == "rewind":
+		references["playBtn"].disconnect("pressed", self, "playSolverAlgorithm")
+		references["playBtn"].connect("pressed", self, "rewindSolverAlgorithm")
+		texture.load("res://assets/gui/button/icon/rewind.png")
+	elif state == "play":
+		references["playBtn"].disconnect("pressed", self, "rewindSolverAlgorithm")
+		references["playBtn"].connect("pressed", self, "playSolverAlgorithm")
+		texture.load("res://assets/gui/button/icon/play.png")
+		
+	references["playBtn"].set_button_icon(texture)
+

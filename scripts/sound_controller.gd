@@ -1,8 +1,18 @@
 
+var curSample= {}
+
+var musicReferences= {
+						"mainMenuMusic" : "res://assets/music/mainmenu.ogg",
+						"ingameMusic" : "res://assets/music/ingame.ogg"
+					}
+
 var references = {
 	"streamPlayer" : "",
 	"samplePlayer" : "",
 	"rootNode" : ""
+}
+var currents ={
+	"music":""
 }
 
 func init(root):
@@ -13,13 +23,16 @@ func initReferences(root):
 	references["streamPlayer"] = root.get_node("StreamPlayer")
 	references["samplePlayer"] = root.get_node("SamplePlayer")
 	
-func playMusic(path):
-	self.stopMusic()
-	var stream = load(path)
-	references["streamPlayer"].set_stream(stream)
-	references["streamPlayer"].set_loop(true)
-	references["streamPlayer"].play()
-
+func playMusic(title):
+	if title != currents["music"]:
+		self.stopMusic()
+		var stream = load(musicReferences[title])
+		print(title)
+		references["streamPlayer"].set_stream(stream)
+		references["streamPlayer"].set_loop(true)
+		references["streamPlayer"].play()
+		currents["music"] = title
+	
 func stopMusic():
 	references["streamPlayer"].stop()
 
@@ -31,4 +44,11 @@ func muteMusic(mute):
 		
 func playSFX(title, unique):
 	if references["rootNode"].getSettings("SOUND_ENABLED") == "On":
-		references["samplePlayer"].play(title, unique)
+		if curSample.has(title):
+			self.stopSFX(title)
+		curSample[title] = 0
+		curSample[title] = references["samplePlayer"].play(title, unique)
+
+func stopSFX(title):
+	references["samplePlayer"].stop(curSample[title])
+	pass

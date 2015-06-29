@@ -224,3 +224,6 @@ func getPosition():
 
 func getCurrentActionState():
 	return currents["ACTION_STATE"]
+
+func setDirection(dir):
+	currents["position"].direction = dir

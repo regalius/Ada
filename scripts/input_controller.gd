@@ -64,21 +64,6 @@ func _input(ev, node, nodeName):
 	if ev.type == InputEvent.MOUSE_BUTTON and not ev.pressed:
 		references["cursor"].show()
 	
-#	currents["MAP_PROCESS_INPUT"] = true
-#	if ev.type == InputEvent.MOUSE_BUTTON and nodeName != "map":
-#		if ev.type == InputEvent.MOUSE_BUTTON:
-#			if ev.button_index == 1:
-#				if ev.pressed:
-#					currents["MAP_PROCESS_INPUT"] = false
-#					currents["GUI_PROCESS_INPUT"] = true
-#					currents["MAP_DRAG"] = false
-#					currents["MOUSE_DRAG"] = false
-#				else:
-#					currents["MAP_PROCESS_INPUT"] = true
-#					currents["GUI_PROCESS_INPUT"] = false
-#			elif ev.button_index == 4 or ev.button_index == 5:
-#				currents["MAP_PROCESS_INPUT"] = false
-
 	if nodeName == "gui":
 		if ev.type == InputEvent.MOUSE_BUTTON:
 			if ev.button_index == 1:
@@ -92,10 +77,6 @@ func _input(ev, node, nodeName):
 					currents["GUI_PROCESS_INPUT"] = false
 			elif ev.button_index == 4 or ev.button_index == 5:
 				currents["MAP_PROCESS_INPUT"] = false
-	
-
-#	references["map"].set_process_input(currents["MAP_PROCESS_INPUT"])
-#	print("type : "+ str(nodeName) + " MAP_PROCESS_INPUT : " + str(currents["MAP_PROCESS_INPUT"]) + " GUI_PROCESS_INPUT : " + str(currents["GUI_PROCESS_INPUT"]) + " MOUSE_DRAG: "+ str(currents["MOUSE_DRAG"]) + " | MAP_DRAG : "+ str(currents["MAP_DRAG"]))
 	
 	if currents["MAP_PROCESS_INPUT"] and not currents["GUI_PROCESS_INPUT"] and nodeName == "map":
 		self.handleMapInput(ev)

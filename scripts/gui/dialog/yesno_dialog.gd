@@ -92,7 +92,7 @@ func setDialogType(type):
 func doAction(action):
 	references["guiRoot"].showDialog(false,"","yesno","")
 	if action == "quitLevel":
-		references["rootNode"].quitLevel()
+		references["rootNode"].quitLevel("")
 	elif action == "quitGame":
 		references["rootNode"].quitGame()
 	elif action == "restartGame":

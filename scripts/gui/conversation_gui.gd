@@ -6,17 +6,26 @@ func init():
 		"choiceBtn" : preload("res://gui/conversation_gui/choice_btn.scn")
 	}
 	.init()
-	
 
-func _conversation_start():
+func _conversation_start_started():
+	references["next"].disconnect("pressed", self, "doNextAction")
+	references["skipBtn"].disconnect("pressed",self,"skipConversation")
+	
+func _conversation_start_finished():
 	self.goTo([0])
 	references["next"].connect("pressed", self, "doNextAction")
 	references["skipBtn"].connect("pressed",self,"skipConversation",[""])
 
 func _conversation_end():
+	references["rootNode"].references["soundController"].stopSFX("type")
 	references["guiRoot"].showConversation(false,currents["sender"], "")
 
+func _typewriter_started():
+	references["rootNode"].references["soundController"].playSFX("type",false)
+	pass
+
 func _typewriter_finished():
+	references["rootNode"].references["soundController"].stopSFX("type")
 	if currents["displayedConversation"].nextAction.size() > 1:
 		references["animation"].play("show_conversation_choice")
 	else:
@@ -90,6 +99,7 @@ func goTo(args):
 	references["conversationLbl"].set_text(TranslationServer.tr(currents["displayedConversation"].text))
 	references["conversationName"].set_text(TranslationServer.tr(currents["displayedConversation"].name.capitalize()))
 	references["animation"].clear_queue()
+	references["rootNode"].references["soundController"].playSFX(currents["displayedConversation"].actor+"_"+currents["displayedConversation"].emotion,false)
 	
 	self.doCurrentAction()
 

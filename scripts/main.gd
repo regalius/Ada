@@ -64,6 +64,7 @@ var prefabs= {
 	"mapTemplate": preload("res://map/map_template.scn")
 }
 
+
 var references = {
 	"worldRoot": null,
 	"guiRoot": null,
@@ -97,7 +98,7 @@ func _ready():
 		currents["CURSOR_ENABLED"] = false 
 		self.get_tree().set_auto_accept_quit(false)
 	references["cursor"].show()
-	self.playMusic("mainMenuMusic")
+	references["soundController"].playMusic("mainMenuMusic")
 	self.settingsChanged("")
 	references["guiRoot"].init()
 	references["mapRoot"].init(self)
@@ -126,12 +127,7 @@ func _init():
 		'SOUND_ENABLED' : "On",
 		'LANGUAGE' : 'en'
 	}
-
 	userdata ={
-		"fileReferences": 	{
-							"mainMenuMusic" : "res://assets/music/mainmenu.ogg",
-							"ingameMusic" : "res://assets/music/ingame.ogg"
-						},
 		"TUTORIAL_ON":true,
 		"mapReferences":	{
 							1: {
@@ -238,11 +234,6 @@ func settingsChanged(settingName):
 		
 	self.writeToFile("user://config/settings.acd", settings)
 
-func playMusic(title):
-	if userdata.fileReferences.has(title) :
-		references["soundController"].playMusic(userdata.fileReferences[title])
-		currents["music"] = title
-
 func loadMap(path, editorMode):
 	if path :
 		references["mapRoot"].loadMap(path, editorMode)
@@ -283,19 +274,9 @@ func readFromFile(filePath):
 	if file.file_exists(filePath):
 		file.open(filePath, File.READ)
 		var temp = file.get_var()
-#			print("read "+fileName +": " + str(file.get_var()))
-#			if fileName == "settings":
-#				print("setting loaded")
-#			elif fileName == "userdata":
-#				temp = file.get_var()
-#				fileReferences = temp
-#				temp = file.get_var()
-#				mapReferences = temp
-#				print("userdata loaded")
 		file.close()
 		return temp
 	else:
-#		self.writeToFile(dir, fileName, variable)
 		return null
 	
 func writeToFile(filePath, variable):
@@ -307,20 +288,20 @@ func writeToFile(filePath, variable):
 
 func startLevel(mapIndex):
 	if currents["MAP_STARTED"]:
-		self.quitLevel()
+		self.quitLevel("startLevel")
 	if mapIndex != null:
 		var path = userdata.mapReferences[mapIndex.containerIndex]["levels"][mapIndex.levelIndex].path
 		var unlocked = userdata.mapReferences[mapIndex.containerIndex]["levels"][mapIndex.levelIndex].unlocked
 		if unlocked and self.loadMap(path, false):
 			references["guiRoot"].setCurrentGUI("gameUI")
-			self.playMusic("ingameMusic")
+			references["soundController"].playMusic("ingameMusic")
 			references["gameController"].init(self)
 			references["inputController"].init(self)
 			currents["controller"] = references["gameController"]
 			currents["map"] = mapIndex
 			currents["MAP_STARTED"] = true
 	
-func quitLevel():
+func quitLevel(state):
 	references["guiRoot"].showDialog(false,"","","")
 	currents["controller"] = null
 	references["gameController"].end(self)
@@ -330,7 +311,8 @@ func quitLevel():
 	references["guiRoot"].getGUI("levelMenu").updateLevelSelector()
 	references["guiRoot"].setCurrentGUI("levelMenu")
 	currents["MAP_STARTED"] = false
-	self.playMusic("mainMenuMusic")
+	if state != "startLevel":
+		references["soundController"].playMusic("mainMenuMusic")
 	
 func retryLevel():
 	references["gameController"].retryLevel()
@@ -347,7 +329,7 @@ func saveLevel(score,candy):
 		userdata.mapReferences[currents["map"].containerIndex]["levels"][currents["map"].levelIndex].bestCandy = candy
 
 func startPreviewMode():
-	references["soundController"].playMusic(userdata.fileReferences["ingameMusic"])
+	references["soundController"].playMusic("ingameMusic")
 	references["mapRoot"].setPreviewMode(true)	
 	
 	references["guiRoot"].setCurrentGUI("gameUI")
@@ -381,7 +363,7 @@ func startEditor():
 	references["inputController"].init(self)
 	currents["controller"] = references["editorController"]
 	currents["MAP_STARTED"] = true
-	self.playMusic("ingameMusic")
+	references["soundController"].playMusic("ingameMusic")
 	pass
 
 func quitEditor():
@@ -391,7 +373,7 @@ func quitEditor():
 	currents["controller"] = null
 	self.unloadMap()
 	currents["MAP_STARTED"] = false
-	self.playMusic("mainMenuMusic")
+	references["soundController"].playMusic("mainMenuMusic")
 	self.writeToFile("user://config/userdata.acd", userdata)
 	pass
 

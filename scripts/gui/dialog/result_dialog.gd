@@ -15,7 +15,7 @@ func initReferences():
 	references["nextBtn"] = self.get_node("bottom/menu_btn/next_btn")
 
 func initConnections():
-	references["backBtn"].connect("pressed",references["rootNode"],"quitLevel")
+	references["backBtn"].connect("pressed",references["rootNode"],"quitLevel",[""])
 	references["nextBtn"].connect("pressed",self,"startNextLevel")
 	references["retryBtn"].connect("pressed",references["rootNode"],"retryLevel")
 	pass

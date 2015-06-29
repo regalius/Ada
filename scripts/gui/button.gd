@@ -23,8 +23,8 @@ func initConnections():
 
 func _input_event(event):
 	if event.type == InputEvent.MOUSE_BUTTON:
-		if not event.pressed :
-			references["rootNode"].references["soundController"].playSFX("click",true)
+		if event.button_index == 1 and not event.pressed :
+			references["rootNode"].references["soundController"].playSFX("click",false)
 
 	if references["rootNode"].isMapStarted():
 		references["rootNode"].references["inputController"]._input(event,self,"gui")

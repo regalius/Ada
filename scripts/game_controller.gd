@@ -161,7 +161,6 @@ func handleSolverAlgorithm(delta):
 				currents["waitTime"] = 0
 				currents["repeatIndex"] = 0
 				references["player"].doAction(act)
-#				print(act +" | pos: "+str(references["player"].currents["position"])+ " | newPos: "+ str(references["player"].currents["newpos"]))
 				if act == "interact":
 					currents["LEVEL_COMPLETE"] = self.isGameOver()
 					if currents["LEVEL_COMPLETE"]:
