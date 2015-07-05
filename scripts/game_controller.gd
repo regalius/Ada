@@ -51,7 +51,7 @@ func initCurrents():
 		"waitTime":50,
 		"levelData":"",
 		"score":0,
-		"candy":0,
+		"candy":3,
 		"IS_PREVIEW_MODE" : false
 	}
 
@@ -62,17 +62,16 @@ func startLevel():
 	self.initCurrents()
 	currents["levelData"] = references["mapRoot"].getLevelData()
 	references["gameUI"].init()
-	references["gameUI"].setMaxFunction(currents["levelData"].maxFunction)
+	references["gameUI"].connectToGameController(currents)
 	references["mapRoot"].resetMap()
 	references["player"].startGame()
 	self.handleConversationEvent({"start":1})
 	self.handleTutorial()
 
 func quitLevel():
-	if not currents["IS_PREVIEW_MODE"]:
+	if not currents["IS_PREVIEW_MODE"] and currents["LEVEL_COMPLETE"]:
 		references["rootNode"].saveLevel(currents["score"],currents["candy"])
-		if currents["LEVEL_COMPLETE"]:
-			references["rootNode"].unlockLevel(references["rootNode"].getNextLevel())
+		references["rootNode"].unlockLevel(references["rootNode"].getNextLevel())
 	references["guiRoot"].showConversation(false, self, "")
 	references["guiRoot"].showTutorial(false,self,"")
 
@@ -105,6 +104,8 @@ func rewindSolverAlgorithm():
 	currents["actionIndex"] = 0
 	currents["repeatIndex"] = 0
 	self.resetMap()
+	self.checkCandy()
+	references["gameUI"].update(currents)
 
 func fetchCurrentAction(link):
 	var index = 0
@@ -121,18 +122,20 @@ func fetchCurrentAction(link):
 			if isAction(act):
 				return act 
 
-func gameOver():
-	currents["score"] = currents["actionIndex"]
-
+func checkCandy():
 	if currents["actionIndex"] <= currents["levelData"]["candy"]["3"]:
 		currents["candy"] = 3
-	elif currents["actionIndex"] <= currents["levelData"]["candy"]["3"]:
+	elif currents["actionIndex"] <= currents["levelData"]["candy"]["2"]:
 		currents["candy"] = 2
 	elif currents["actionIndex"] <= currents["levelData"]["candy"]["1"]:
 		currents["candy"] = 1
 	else:
 		currents["candy"] = 0
-				
+
+
+func gameOver():
+	currents["HANDLE_SOLVER_ALGORITHM"] = false
+	currents["score"] = currents["actionIndex"]
 	if self.handleConversationEvent({"gameover":1}) == null:
 		self.showResultMenu()
 #	if currents["levelData"].has("finishConversation"):
@@ -161,11 +164,13 @@ func handleSolverAlgorithm(delta):
 				currents["waitTime"] = 0
 				currents["repeatIndex"] = 0
 				references["player"].doAction(act)
+				self.checkCandy()
+				references["mapRoot"].updateWorld()
+				references["gameUI"].update(currents)
 				if act == "interact":
 					currents["LEVEL_COMPLETE"] = self.isGameOver()
 					if currents["LEVEL_COMPLETE"]:
 						self.gameOver()
-				references["mapRoot"].updateWorld()
 			else:
 				currents["HANDLE_SOLVER_ALGORITHM"] = false
 				references["gameUI"].setFocusedPiece("null",-1)
@@ -194,3 +199,6 @@ func handleConversationEvent(condition):
 func handleTutorial():
 	if currents["levelData"].has("tutorial"):
 		references["guiRoot"].showTutorial(true,self,currents["levelData"].tutorial)
+		
+func getCurrents():
+	return currents

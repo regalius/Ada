@@ -72,7 +72,7 @@ func zoom(command):
 
 func move(moveVector,slide):
 	if currents["CAMERA_CAN_MOVE"]:
-		var newPos= self.thresholdPosition(self.get_pos() - moveVector * MOVE_SPEED)
+		var newPos= self.thresholdPosition(self.get_pos() - (moveVector * MOVE_SPEED * (currents["zoomLevel"]/2)))
 		self.set_pos(newPos)
 		if slide:
 			currents["slideVector"] = Vector2(moveVector.x, moveVector.y)
@@ -104,9 +104,15 @@ func setPositionFromScreen(position):
 	self.set_pos(newPos)
 
 func setMaxPos(mapSize,groundSize):
-	MAX_X = (mapSize.x * groundSize.x)/2
-	MAX_Y = mapSize.y * groundSize.y
-	MIN_X = -(mapSize.x * groundSize.x)/2
+	var mapSizeX = mapSize.x
+	var mapSizeY = mapSize.y
+	if mapSize.x < 10:
+		mapSizeX = 10
+	if mapSize.y <10:
+		mapSizeY = 10
+	MAX_X = (mapSizeX * groundSize.x)/2
+	MAX_Y = mapSizeY * groundSize.y
+	MIN_X = -(mapSizeX * groundSize.x)/2
 	MIN_Y = -(10 * groundSize.y)/2
 	
 func setCameraCanMove(state):

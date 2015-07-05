@@ -64,7 +64,8 @@ func initCurrents():
 func startTutorial(sender, tutorialArray):
 	currents["tutorialArray"] = tutorialArray
 	currents["step"]=""
-	currents["sender"] = sender
+	currents["sender"] = sender	
+	references["animation"].play("reset")
 	references["animation"].play("tutorial_start")
 	
 func goToStep(step):

@@ -144,16 +144,37 @@ func _init():
 										"title":"Basics 2",
 										"bestCandy":0,
 										"bestScore":0,
-										"unlocked": false,
+										"unlocked": true,
 										"path":"res://map/map_data/basic2.acdmap"
 									},
 									3:{
 										"title":"Basics 3",
 										"bestCandy":0,
 										"bestScore":0,
-										"unlocked": false,
+										"unlocked": true,
 										"path":"res://map/map_data/basic3.acdmap"
-									}
+									},
+									4:{
+										"title":"Basics Test 1",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked": true,
+										"path":"res://map/map_data/basic_test1.acdmap"
+									},
+									5:{
+										"title":"Basics Test 2",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked": true,
+										"path":"res://map/map_data/basic_test2.acdmap"
+									},
+									6:{
+										"title":"Basics Test 3",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked": true,
+										"path":"res://map/map_data/basic_test3.acdmap"
+									},
 								}
 							},
 							2: {
@@ -165,6 +186,27 @@ func _init():
 										"bestScore":0,
 										"unlocked":true,
 										"path":"res://map/map_data/function1.acdmap"
+									},
+									2:{
+										"title":"Function Test 1",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked":true,
+										"path":"res://map/map_data/function_test1.acdmap"
+									},
+									3:{
+										"title":"Function Test 2",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked":true,
+										"path":"res://map/map_data/function_test2.acdmap"
+									},
+									4:{
+										"title":"Function Test 3",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked":true,
+										"path":"res://map/map_data/function_test3.acdmap"
 									}
 								}
 							},
@@ -177,6 +219,27 @@ func _init():
 										"bestScore":0,
 										"unlocked":true,
 										"path":"res://map/map_data/looping1.acdmap"
+									},
+									2:{
+										"title":"Loop Test 1",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked":true,
+										"path":"res://map/map_data/looping_test1.acdmap"
+									},
+									3:{
+										"title":"Loop Test 2",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked":true,
+										"path":"res://map/map_data/looping_test2.acdmap"
+									},
+									4:{
+										"title":"Loop Test 3",
+										"bestCandy":0,
+										"bestScore":0,
+										"unlocked":true,
+										"path":"res://map/map_data/looping_test3.acdmap"
 									}
 								}
 							},

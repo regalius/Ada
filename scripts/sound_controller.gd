@@ -44,11 +44,11 @@ func muteMusic(mute):
 		
 func playSFX(title, unique):
 	if references["rootNode"].getSettings("SOUND_ENABLED") == "On":
-		if curSample.has(title):
-			self.stopSFX(title)
+		self.stopSFX(title)
 		curSample[title] = 0
 		curSample[title] = references["samplePlayer"].play(title, unique)
 
 func stopSFX(title):
-	references["samplePlayer"].stop(curSample[title])
+	if curSample.has(title):
+		references["samplePlayer"].stop(curSample[title])
 	pass

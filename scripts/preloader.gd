@@ -1,19 +1,20 @@
 
 extends Control
 
-var curTrivia = 0
+var curTrivia = -1
 
 
 func _ready():
 	# Initialization here
 	self.get_node("timer").connect("timeout",self,"startGame")
-	self.get_node("animation").play("please_wait")
+	self.get_node("animation").play("splash")
 	self.get_node("player_control/Player/animation").play("idle_left")
 	self.updateTrivia()
 	pass
 
 func startGame():
 	print("preloaded")
+	self.get_node("animation").queue("please_wait")
 	self.get_node("timer").disconnect("timeout",self,"startGame")
 	self.get_node("timer").set_wait_time(3)
 	self.get_node("timer").connect("timeout",self,"updateTrivia")
@@ -22,8 +23,7 @@ func startGame():
 
 func updateTrivia():
 	randomize()
-	var random = randi()%4
-	print(random)
+	var random = randi()%7
 	while random == curTrivia:
 		randomize()
 		random = randi()%4

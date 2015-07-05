@@ -66,6 +66,7 @@ func handleMapInput(ev):
 			currents["MOTION_DRAG"] = ev.pressed
 
 	if ev.type == InputEvent.SCREEN_DRAG:
+		print("cool")
 		if ev.index == 0:
 			currents["TOUCHPOS1"] = Vector2(ev.x,ev.y)
 			currents["MOTION_DRAG"] = true

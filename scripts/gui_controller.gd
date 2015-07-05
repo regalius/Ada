@@ -111,7 +111,7 @@ func showDialog(state, sender, type, parameter):
 	
 func showConversation(state, sender, conversationDict):
 	currents["CONVERSATION_ON"] = state
-	self.pauseGame(state)
+#	self.pauseGame(state)
 	if state:
 		references["conversationUI"].show()
 		references["conversationUI"].startConversation(sender, conversationDict)

@@ -21,15 +21,20 @@ func initReferences():
 	references["gameController"] = references["rootNode"].references["gameController"]
 	references["tutorialUI"] = references["rootNode"].get_node("gui_layer/canvas_item/gui_root/gui_container/tutorial_root")
 	references["playBtn"] = self.get_node("top/top_right/play_btn")
-	references["newFuncBtn"] = self.get_node("right/top_right/newfunc_btn")
+	references["newFunc"] = self.get_node("right/newfunc")
+	references["newFuncBtn"] = references["newFunc"].get_node("btn")
+	references["newFuncLbl"] = references["newFunc"].get_node("lbl")
 	references["pieceContainers"] = self.get_node("right/bot_right/piececontainer_scroll/piece_containers")
 	references["toolbar"] = self.get_node("bot_center/toolbar_root")
+	references["candyIndicator"] = self.get_node("top/top_left/candy")
+	references["animation"] = self.get_node("animation")
 
 func initCurrents():
 	currents = {
 		"solverAlgorithm":{},
 		"pieceContainerIndex":1,
 		"tutorialStep":0,
+		"candy":0,
 		"previewMode":false,
 		"tutorial":false
 	}
@@ -58,16 +63,16 @@ func createNewPieceContainer():
 		references["pieceContainers"].add_child(tempPieceContainer)
 		tempPieceContainer.init("Function "+ str(currents["pieceContainerIndex"]),"F" + str(currents["pieceContainerIndex"]))
 		references["toolbar"].addNewPiece("F" + str(currents["pieceContainerIndex"]))
+		references["newFuncLbl"].set_text(str(MAX_FUNCTION - currents["pieceContainerIndex"]))
 		currents["pieceContainerIndex"]+=1
-		
 		if references["tutorialUI"].getCurrentStep() == "create_new_function":
-			print("masuk lho")
 			references["tutorialUI"].goToNextStep()
 	pass
 	
 func extractSolverAlgorithm():
 	var tempAlgorithm = {}
 	var tempPieceArray ={}
+	currents["totalPiece"] = 0
 	var index = 0
 	for pieceContainerRoot in references["pieceContainers"].get_children():
 		for piece in pieceContainerRoot.getPieceContainer().get_children():
@@ -76,6 +81,7 @@ func extractSolverAlgorithm():
 				index+=1
 		tempAlgorithm[str(pieceContainerRoot.getLink())] = tempPieceArray
 		tempPieceArray = {}
+		currents["totalPiece"] += index
 		index = 0
 	currents["solverAlgorithm"] = tempAlgorithm
 	
@@ -108,11 +114,35 @@ func rewindSolverAlgorithm():
 	if references["tutorialUI"].getCurrentStep() == "rewind_solver_algorithm":
 		references["tutorialUI"].goToNextStep()
 
+func connectToGameController(gameControllerState):
+	self.setMaxFunction(gameControllerState.levelData.maxFunction)
+	self.update(gameControllerState)
+	
+func update(gameControllerState):
+	self.setCandyIndicator(gameControllerState)
+	pass
+
 func isPreviewMode():
 	return currents["previewMode"]
 	
 func setMaxFunction(value):
 	MAX_FUNCTION = value
+	if MAX_FUNCTION <= 0 :
+		references["newFunc"].hide()
+	else:
+		references["newFunc"].show()
+		references["newFuncLbl"].set_text(str(MAX_FUNCTION))
+
+func setCandyIndicator(gameControllerState):
+	if gameControllerState.candy != currents["candy"]:
+		references["animation"].queue("candyIndicator_"+str(gameControllerState.candy))
+		currents["candy"] = gameControllerState.candy
+		
+	if currents["candy"] > 0:
+		references["candyIndicator"].get_node("label").set_text(str(gameControllerState.levelData.candy[str(gameControllerState.candy)] - gameControllerState.actionIndex))
+	else:
+		references["candyIndicator"].get_node("label").set_text("0")
+	pass
 	
 func setPlayBtn(state):
 	var texture = ImageTexture.new()
