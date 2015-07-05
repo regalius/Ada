@@ -93,10 +93,10 @@ func getGUI(name):
 	return references[name]
 
 func pauseGame(state):
-#	if not state and currents["CONVERSATION_ON"]:
-#		references["rootNode"].get_tree().set_pause(true)
-#	else:
-	references["rootNode"].get_tree().set_pause(state)
+	if not state and not currents["CONVERSATION_ON"] and not currents["DIALOG_ON"]:
+		references["rootNode"].get_tree().set_pause(false)
+	else:
+		references["rootNode"].get_tree().set_pause(true)
 
 
 func showDialog(state, sender, type, parameter):
@@ -111,7 +111,7 @@ func showDialog(state, sender, type, parameter):
 	
 func showConversation(state, sender, conversationDict):
 	currents["CONVERSATION_ON"] = state
-#	self.pauseGame(state)
+	self.pauseGame(state)
 	if state:
 		references["conversationUI"].show()
 		references["conversationUI"].startConversation(sender, conversationDict)

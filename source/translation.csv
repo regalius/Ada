@@ -48,84 +48,84 @@ TUTORIAL_EDITOR_TOOLBOX_1,TOOLBOX,TOOLBOX
 TUTORIAL_EDITOR_TOOLBOX_2,DELETE TILE,HAPUS TILE
 TUTORIAL_EDITOR_TOOLBOX_3,MODIFY OBJECT ATTRIBUTE,MODIFIKASI ATRIBUT OBJEK
 TUTORIAL_EDITOR_FILEBOX_1,FILEBOX,FILEBOX
-STRANGE_FLYING_CAT,Strange Flying Cat,Kucing Terbang Yang Aneh
+Strange Flying Cat,Strange Flying Cat,Kucing Terbang Yang Aneh
 YOUNG_WITCH,Young Witch,Penyihir Muda
-CONVERSATION_BASIC1_START0,"Hello, you must be the witch in-training Ada, right ?",
-CONVERSATION_BASIC1_START1,"Yup! and you are, Mr. Cat ? *Pat*",
-CONVERSATION_BASIC1_START2,"Hey, hey stop treating me like I'm a little kitten, would' ya?",
-CONVERSATION_BASIC1_START3,"I'm Lino,a witch cat, and I'm 150 years old! From now on, we'll be partner, I'll be your navigator and also your mentor!",
-CONVERSATION_BASIC1_START4,"Is that so? Cool! I'm counting on you then, Lino !",
-CONVERSATION_BASIC1_START5,"Okay, since it's your first day here, we'll start with the basics!",
-CONVERSATION_BASIC1_START6,"As delivery witches, our task is to deliver candies to every forest sprite's houses, forest sprites likes candy very much so we deliver candy to them in exchange for their blessings for our land's prosperity",
-CONVERSATION_BASIC1_START7,This is how forest sprite's house looks like.,
-CONVERSATION_BASIC1_START8,To complete our task you'll command your magic broom to perform actions.,
-CONVERSATION_BASIC1_START9,"In order to command your magic broom,you'll grab a piece from command bar bellow...",
-CONVERSATION_BASIC1_START10,...then drop them to function container on the right side,
-CONVERSATION_BASIC1_START11,Move command will make your magic broom move forward,
-CONVERSATION_BASIC1_START12,Interact command will make your magic broom to stop for a while so you can interact with object in front of you (i.e. delivering candy to a house),
-CONVERSATION_BASIC1_START13,"When you're done, press PLAY button and your magic broom will perform actions as you planned before.",
-CONVERSATION_BASIC1_START14,Let's give it a try shall we ?,
-CONVERSATION_BASIC1_START14_1,Okay!,
-CONVERSATION_BASIC1_START14_2,"Sorry, can you repeat your explanation?",
-CONVERSATION_BASIC1_START15,Let's goo! Delivery Witch Ada reporting for duty!,
-CONVERSATION_BASIC1_END0,So that's it?,
-CONVERSATION_BASIC1_END1,"Yup, good job! easy peasy wasn't it?",
-CONVERSATION_BASIC1_END2,Yup! and I'm ready for more!,
-CONVERSATION_BASIC1_END3,"Now now, that's the spirit, young lady! Let's move on to next area then!",
-CONVERSATION_BASIC2_START0,"Hm, there's intersection in this area and houses are located on the roadside, so I'll introduce you with some new commands ",
-CONVERSATION_BASIC2_START1,The Left command will make your magic broom turns to the left (counter clockwise)...,
-CONVERSATION_BASIC2_START2,...while Right command will make it turns to the right (clockwise).,
-CONVERSATION_BASIC2_START3,"Oh! I also noticed there's a house with numbers on its top, that means we'll need to deliver candy to them before the timer runs out, or else, forest sprites will be angry to us...",
-CONVERSATION_BASIC2_START4,Eh? that's scary! what if I failed to deliver candy to any one of them and they're angry? what am I going to do ?!,
-CONVERSATION_BASIC2_START5,"Don't worry ! just press the REWIND button, I'll revert back the time with my time magic !",
-CONVERSATION_BASIC2_START6,"Oh, I'm so glad having you as my partner here, Lino!",
-CONVERSATION_BASIC2_START7,"And remember, we need to deliver candies to ALL houses in the area, got it ?",
-CONVERSATION_BASIC2_START7_1,Yup! let's do this !,
-CONVERSATION_BASIC2_START7_2,Err.. explain it one more time maybe?,
-CONVERSATION_BASIC2_START8,"Hmm, lemme get this straight, first, we can turn either left or right with LEFT and RIGHT command, second, in order to do a delivery for houses on the roadside we need to turn either left or right before interacting with them...",
-CONVERSATION_BASIC2_START9,"...third, we'll need to deliver candies to houses with timer before the timer runs out ?, fourth, You'll revert back the time for me when I press the rewind button ? ",
-CONVERSATION_BASIC2_START10,Yup! you got it! Good luck!,
-CONVERSATION_BASIC2_START11,"Okay then, lets do it!",
-CONVERSATION_BASIC2_END0,Done!,
-CONVERSATION_BASIC2_END1,Good job! let's move to the next area then!,
-CONVERSATION_BASIC3_START0,"Eh, what's that, Lino ?",
-CONVERSATION_BASIC3_START1,"That's teleporter, a hole that splices time and space. how uncommon a teleporter spawned near a village vicinity like this",
-CONVERSATION_BASIC3_START2,"A teleporter, huh ? So what did it do ?",
-CONVERSATION_BASIC3_START3,"In short, it will let you travel from one position to another position in a speed of light when you interact with it, we should use it for our advantage !",
-CONVERSATION_BASIC3_START4,"Ah, so how do we know where will this teleporter leads us to ?",
-CONVERSATION_BASIC3_START5,"No, we don't, we'll only know when we've tried it ourself. It can also leads us to Netherworld where every demons live too !",
-CONVERSATION_BASIC3_START6,Eh! so you were trying to kill me when you say 'we should use it' ?,
-CONVERSATION_BASIC3_START7,"Hahaha, no, no I was kidding for the Netherworld part ! It will need a very very huge teleporter hole to lead us to Netherworld, small teleporter like this won't travel that far !",
-CONVERSATION_BASIC3_START8,Linoo!!,
-CONVERSATION_BASIC3_START9,"Hahaha, c'mon, where's your sense of humor? ",
-CONVERSATION_BASIC3_START10,"Oh by the way, some teleporter may have a finite amount of lifetime before it goes dead, you can't interact with dead teleporter like this...",
-CONVERSATION_BASIC3_START11,"... and some teleporter might be regaining its energy and came to life again after some time,so we need to really pay attention to numbers on top of it",
-CONVERSATION_BASIC3_START12,"And you can use your time magic to revert back the time when we got stuck inside the teleporter, can you ? ",
-CONVERSATION_BASIC3_START13,"Yup! my time magic can still work without exception, all you need to do is just press the rewind button anytime you want. Got it ?",
-CONVERSATION_BASIC3_START13_1,Yup!,
-CONVERSATION_BASIC3_START13_2,"One more time,please...",
-CONVERSATION_BASIC3_START14,Sweet! lets go try that one immediately,
-CONVERSATION_BASIC3_END0,Woohoo! what a ride in there !,
-CONVERSATION_BASIC3_END1,Hahaha...,
-CONVERSATION_FUNCTION1_START0,"Look at those distance, Lino! I don't think my function container can handle that much command! What should we do ?",
-CONVERSATION_FUNCTION1_START1,"Hm, looks like it's time to teach you about functions.. We've been using main function all the time, correct ?",
-CONVERSATION_FUNCTION1_START2,"Yup! but it can only contain up to 10 commands, I don't think we can finish this area with only 10 commands !",
-CONVERSATION_FUNCTION1_START3,"Well, we won't do it with only 10 commands ! you'll need to create new functions and then link those to your existing main function!",
-CONVERSATION_FUNCTION1_START4,"To create a new function, you've got to press the ADD NEW FUNCTION button...",
-CONVERSATION_FUNCTION1_START5,There'll be a new F1 piece bellow your normal command bar..,
-CONVERSATION_FUNCTION1_START6,Yup! and then ?,
-CONVERSATION_FUNCTION1_START7,"Then you'll use it to link your newly created Function 1 to your existing Main Function, shall we try it now ?",
-CONVERSATION_FUNCTION1_START7_1,Sure!,
-CONVERSATION_FUNCTION1_START7_2,"Ah.. explain it one more time, please!",
-CONVERSATION_FUNCTION1_END0,"Ah! so that's how,thanks again, Lino !",
-CONVERSATION_FUNCTION1_END1,"Nevermind, lets continue to the next area !",
-CONVERSATION_LOOPING1_START0,"Hey, Ada, did you know that we can also loop through function ?",
-CONVERSATION_LOOPING1_START1,"Eh, how to do it ?",
-CONVERSATION_LOOPING1_START2,"Simply, link its respective piece to its own function container, lets try it!",
-CONVERSATION_LOOPING1_END0,"Ah, that's handy!",
-CONVERSATION_EDITOR_START0,"Welcome to editor mode ! In this mode you can create map as you wish! you can also share your maps, share it with your friends, and challenge him/her to solve your map !",
-CONVERSATION_EDITOR_START1,Wow ! This looks fun ! I'd make a map that no one could ever beat !,
-CONVERSATION_EDITOR_START2,Have fun !,
+CONVERSATION_BASIC1_START0,"Hello, you must be the witch in-training Ada, right ?","Halo, apa benar kamu adalah penyihir kecil Ada ?"
+CONVERSATION_BASIC1_START1,"Yup! and you are, Mr. Cat ? *Pat*",Iya! kalau kamu siapa tuan kucing ? *Elus*
+CONVERSATION_BASIC1_START2,"Hey, hey stop treating me like I'm a little kitten, would' ya?","Hei, hei, berhenti memperlakukan aku seperti anak kucing kecil, bisa ?"
+CONVERSATION_BASIC1_START3,"I'm Lino,a witch cat, and I'm 150 years old! From now on, we'll be partner, I'll be your navigator and also your mentor!","Aku Lino, si kucing penyihir, dan aku sudah berumur 150 tahun! Mulai dari sekarang aku akan menjadi guru sekaligus rekan kerjamu!"
+CONVERSATION_BASIC1_START4,"Is that so? Cool! I'm counting on you then, Lino !","Benarkah ? Keren ! Mohon kerjasamanya, Lino !"
+CONVERSATION_BASIC1_START5,"Okay, since it's your first day here, we'll start with the basics!","Oke, berhubung ini hari pertama kamu di sini, mari kita mulai dari dasar!"
+CONVERSATION_BASIC1_START6,"As delivery witches, our task is to deliver candies to every forest sprite's houses, forest sprites likes candy very much so we deliver candy to them in exchange for their blessings for our land's prosperity","Sebagai penyihir pengantar barang, tugas kita adalah mengirim permen ke rumah setiap peri hutan, peri hutan sangat suka permen, oleh karenanya kita mengirim permen agar mereka memberkati tanah kita"
+CONVERSATION_BASIC1_START7,This is how forest sprite's house looks like.,Seperti ini kira-kira rumah peri hutan.
+CONVERSATION_BASIC1_START8,To complete our task you'll command your magic broom to perform actions.,"Untuk menyelesaikan tugas kita, kamu harus memerintahkan sapu ajaibmu untuk melakukan aksi."
+CONVERSATION_BASIC1_START9,"In order to command your magic broom,you'll grab a piece from command bar bellow...","Untuk memerintah sapu ajaibmu, kamu harus mengambil bidak dari command bar seperti ini..."
+CONVERSATION_BASIC1_START10,...then drop them to function container on the right side,... lalu menaruhnya di kontainer fungsi seperti ini.
+CONVERSATION_BASIC1_START11,Move command will make your magic broom move forward,Perintah maju akan membuat sapu ajaib maju ke depan
+CONVERSATION_BASIC1_START12,Interact command will make your magic broom to stop for a while so you can interact with object in front of you (i.e. delivering candy to a house),Perintah interaksi akan membuat sapu ajaib berhenti sejenak agar kamu dapat berinteraksi dengan objek didepanmu (misalnya mengirim permen ke rumah)
+CONVERSATION_BASIC1_START13,"When you're done, press PLAY button and your magic broom will perform actions as you planned before.","Setelah kamu selesai, tekan tombol PLAY dan sapu ajaib akan menjalankan perintah yang kamu susun sebelumnya"
+CONVERSATION_BASIC1_START14,Let's give it a try shall we ?,Bisa kita coba sekarang?
+CONVERSATION_BASIC1_START14_1,Okay!,Oke!
+CONVERSATION_BASIC1_START14_2,"Sorry, can you repeat your explanation?","Maaf, bisa minta tolong diulangi penjelasannya?"
+CONVERSATION_BASIC1_START15,Let's goo! Delivery Witch Ada reporting for duty!,Yuuk! Ada si penyihir pengantar siap beraksi!
+CONVERSATION_BASIC1_END0,So that's it?,Sudah selesai?
+CONVERSATION_BASIC1_END1,"Yup, good job! easy peasy wasn't it?","Yap, kamu berhasil! mudah kan?"
+CONVERSATION_BASIC1_END2,Yup! and I'm ready for more!,Ya! dan aku siap untuk tantangan lainnya!
+CONVERSATION_BASIC1_END3,"Now now, that's the spirit, young lady! Let's move on to next area then!","Keren, itu baru namanya semangat! Mari kita ke area selanjutnya!"
+CONVERSATION_BASIC2_START0,"Hm, there's intersection in this area and houses are located on the roadside, so I'll introduce you with some new commands ","Hm, di area ini terdapat persimpangan jalan dan rumah-rumah terletak di sisi jalan, sepertinya ini waktu yang tepat untuk mengajarkan beberapa perintah baru"
+CONVERSATION_BASIC2_START1,The Left command will make your magic broom turns to the left (counter clockwise)...,Perintah putar ke kiri akan membuat sapu ajaibmu memutar ke arah kiri (berlawanan arah jarum jam)...
+CONVERSATION_BASIC2_START2,...while Right command will make it turns to the right (clockwise).,...sedangkan perintah putar ke kanan akan membuat sapu ajaibmu berputar ke kanan (searah jarum jam)
+CONVERSATION_BASIC2_START3,"Oh! I also noticed there's a house with numbers on its top, that means we'll need to deliver candy to them before the timer runs out, or else, forest sprites will be angry to us...","Oh! aku juga melihat ada rumah dengan nomor di atasnya, kita harus mengirimkan permen ke rumah tersebut sebelum nomor diatasnya habis, kalau nomor tersebut habis peri hutan tentu akan sangat marah..."
+CONVERSATION_BASIC2_START4,Eh? that's scary! what if I failed to deliver candy to any one of them and they're angry? what am I going to do ?!,Eh? menakutkan sekali! bagaimana kalau aku gagal mengirimkan permen tepat waktu? Apa yang harus aku lakukan?!
+CONVERSATION_BASIC2_START5,"Don't worry ! just press the REWIND button, I'll revert back the time with my time magic !","Jangan khawatir! tekan saja tombol REWIND, akan aku kembalikan waktu dengan sihirku!"
+CONVERSATION_BASIC2_START6,"Oh, I'm so glad having you as my partner here, Lino!","Oh, aku sangat bersyukur kamu menjadi rekan kerjaku, Lino!"
+CONVERSATION_BASIC2_START7,"And remember, we need to deliver candies to ALL houses in the area, got it ?","Dan ingat, kita harus mengirimkan permen ke setiap rumah di area, mengerti ?"
+CONVERSATION_BASIC2_START7_1,Yup! let's do this !,Ya! mari lakukan ini!
+CONVERSATION_BASIC2_START7_2,Err.. explain it one more time maybe?,Err.. bisa jelaskan sekali lagi mungkin?
+CONVERSATION_BASIC2_START8,"Hmm, lemme get this straight, first, we can turn either left or right with LEFT and RIGHT command, second, in order to do a delivery for houses on the roadside we need to turn either left or right before interacting with them...","Hmm, mari kuperjelas, pertama, kita dapat memutar ke kiri atau ke kanan dengan perintah KIRI dan KANAN, kedua, untuk mengantarkan ke rumah di sisi jalan, kita harus berputar ke kiri atau ke kanan terlebih dahuu sebelum melakukan interaksi..."
+CONVERSATION_BASIC2_START9,"...third, we'll need to deliver candies to houses with timer before the timer runs out ?, fourth, you'll revert back the time for me when I press the rewind button ? ","...ketiga, kita harus mengirimkan permen ke rumah dengan angka di atasnya sebelum angka habis, keempat, kamu akan mengembalikan waktu ketika tombol REWIND ditekan ?"
+CONVERSATION_BASIC2_START10,Yup! you got it! Good luck!,Yap! kamu sudah mengerti rupanya! Semoga berhasil!
+CONVERSATION_BASIC2_START11,"Okay then, lets do it!","Oke, mari kita lakukan!"
+CONVERSATION_BASIC2_END0,Done!,Selesai!
+CONVERSATION_BASIC2_END1,Good job! let's move to the next area then!,Kerja bagus! mari kita ke area selanjutnya!
+CONVERSATION_BASIC3_START0,"Eh, what's that, Lino ?","Eh, apa itu, Lino?"
+CONVERSATION_BASIC3_START1,"That's teleporter, a hole that splices time and space. how uncommon a teleporter spawned near a village vicinity like this","Itu adalah teleporter, lubang yang menghubungkan dimensi ruang dan waktu, aneh sebuah teleporter bisa muncul sedekat ini dengan desa para peri"
+CONVERSATION_BASIC3_START2,"A teleporter, huh ? So what did it do ?",Sebuah teleporter? apa yang dilakukan olehnya?
+CONVERSATION_BASIC3_START3,"In short, it will let you travel from one position to another position in a speed of light when you interact with it, we should use it for our advantage !","Singkatnya, teleporter dapat memindahkan kamu dari satu posisi ke posisi yang lain dengan cepat, kita harus memanfaatkannya!"
+CONVERSATION_BASIC3_START4,"Ah, so how do we know where will this teleporter leads us to ?","Ah, jadi bagaimana kita tahu ke mana teleporter ini akan memindahkan kita?"
+CONVERSATION_BASIC3_START5,"No, we don't, we'll only know when we've tried it ourself. It can also leads us to Netherworld where every demons live too !","Kita tidak akan tahu, kita baru akan tahu kalau kita sudah memasukinya, bisa saja kita dipindahkan ke Netherworld, dunia dimana para setan tinggal!"
+CONVERSATION_BASIC3_START6,Eh! so you were trying to kill me when you say 'we should use it' ?,Eh! apa kamu mencoba membunuhku ketika kamu bilang 'kita harus menggunakannya'?
+CONVERSATION_BASIC3_START7,"Hahaha, no, no I was kidding for the Netherworld part ! It will need a very very huge teleporter hole to lead us to Netherworld, small teleporter like this won't travel that far !","Hahaha, tidak, tidak, aku hanya bercanda ketika aku bilang mengenai Netherworld itu! Untuk sampai kesana akan diperlukan lubang teleporter yang sangat sangat besar,lubang sekecil ini tidak akan sampai sejauh itu!"
+CONVERSATION_BASIC3_START8,Linoo!!,Linoo!!
+CONVERSATION_BASIC3_START9,"Hahaha, c'mon, where's your sense of humor? ","Hahaha, ayolah, dimana rasa humormu?"
+CONVERSATION_BASIC3_START10,"Oh by the way, some teleporter may have a finite amount of lifetime before it goes dead, you can't interact with dead teleporter like this...","Oh ngomong-ngomong, beberapa teleporter mungkin memiliki waktu hidup yang sedikit sebelum teleporter tersebut mati, kamu tidak bisa menggunakan teleporter yang sudah mati seperti ini... "
+CONVERSATION_BASIC3_START11,"... and some teleporter might be regaining its energy and came to life again after some time,so we need to really pay attention to numbers on top of it",".. dan beberapa teleporter mungkin saja kembali hidup setelah beberapa waktu, jadi kita harus memperhatikan angka diatasnya"
+CONVERSATION_BASIC3_START12,"And you can use your time magic to revert back the time when we got stuck inside the teleporter, can you ? ","Dan kamu bisa menggunakan sihir waktumu untuk mengembalikan waktu kalau-kalau kita masuk dan tidak bisa kembali, kan ?"
+CONVERSATION_BASIC3_START13,"Yup! my time magic can still work without exception, all you need to do is just press the rewind button anytime you want. Got it ?","Yap! sihir waktuku masih bisa bekerja di dalam sana tanpa pengecualian, yang perlu kamu lakukan hanya menekan tombol REWIND saja, mengerti ?"
+CONVERSATION_BASIC3_START13_1,Yup!,Yap!
+CONVERSATION_BASIC3_START13_2,"One more time,please...","Sekali lagi, dong..."
+CONVERSATION_BASIC3_START14,Sweet! lets go try that one immediately,Keren! mari kita langsung coba yang disitu
+CONVERSATION_BASIC3_END0,Woohoo! what a ride in there !,Wohoo! asik sekali di dalam !
+CONVERSATION_BASIC3_END1,Hahaha...,Hahaha...
+CONVERSATION_FUNCTION1_START0,"Look at those distance, Lino! I don't think my function container can handle that much command! What should we do ?","Lihat jarak yang harus kita tempuh,Lino! Aku tidak yakin kontainer fungsi yang kita miliki dapat menampung perintah sebanyak itu! Apa yang harus kita lakukan?"
+CONVERSATION_FUNCTION1_START1,"Hm, looks like it's time to teach you about functions.. We've been using main function all the time, correct ?","Hm, sepertinya ini waktu yang tepat untuk mengajarimu mengenai fungsi, selama ini kita sudah menggunakan fungsi main kan?"
+CONVERSATION_FUNCTION1_START2,"Yup! but it can only contain up to 10 commands, I don't think we can finish this area with only 10 commands !","Iya! tapi itu kan hanya bisa menampung 10 perintah saja, aku tidak yakin kita bisa menyelesaikan area ini dengan 10 perintah saja!"
+CONVERSATION_FUNCTION1_START3,"Well, we won't do it with only 10 commands ! you'll need to create new functions and then link those to your existing main function!","Makanya, kita tidak akan menyelesaikannya dengan 10 perintah saja, kamu harus membuat fungsi baru kemudian menghubungkannya dengan fungsi main mu!"
+CONVERSATION_FUNCTION1_START4,"To create a new function, you've got to press the ADD NEW FUNCTION button...","Untuk membuat fungsi baru, kamu harus menekan tombol MEMBUAT FUNGSI BARU..."
+CONVERSATION_FUNCTION1_START5,There'll be a new F1 piece bellow your normal command bar..,"Setelah itu, akan muncul bidak F1 seperti ini..."
+CONVERSATION_FUNCTION1_START6,Yup! and then ?,Yap! lalu?
+CONVERSATION_FUNCTION1_START7,"Then you'll use it to link your newly created Function 1 to your existing Main Function, shall we try it now ?","Lalu kamu akan menggunakannya untuk menghubungkan fungsi baru mu dengan fungsi main, bisa kita coba sekarang?"
+CONVERSATION_FUNCTION1_START7_1,Sure!,Yuk!
+CONVERSATION_FUNCTION1_START7_2,"Ah.. explain it one more time, please!","Ah.. jelaskan sekali lagi, dong !"
+CONVERSATION_FUNCTION1_END0,"Ah! so that's how,thanks again, Lino !","Ah! jadi begitu, terima kasih, Lino!"
+CONVERSATION_FUNCTION1_END1,"Nevermind, lets continue to the next area !","Sama-sama, mari kita lanjutkan ke area berikutnya!"
+CONVERSATION_LOOPING1_START0,"Hey, Ada, did you know that we can also loop through function ?","Hei, Ada, tahukah kamu kita juga bisa mengulang fungsi?"
+CONVERSATION_LOOPING1_START1,"Eh, how to do it ?","Eh, bagaimana caranya?"
+CONVERSATION_LOOPING1_START2,"Simply, link its respective piece to its own function container, lets try it!","Mudah saja, kamu tinggal memasukkan bidak perintah tersebut ke kontainer fungsi itu sendiri"
+CONVERSATION_LOOPING1_END0,"Ah, that's handy!","Ah, sangat berguna!"
+CONVERSATION_EDITOR_START0,"Welcome to editor mode ! In this mode you can create map as you wish! you can also share your maps, share it with your friends, and challenge him/her to solve your map !",Selamat datang di mode editor! Di sini kamu dapat membuat peta sesukamu! Kmau dapat menyimpan peta lalu membagikannya ke temanmu! Tantang temanmu untuk menyelesaikan peta yang kamu buat!
+CONVERSATION_EDITOR_START1,Wow ! This looks fun ! I'd make a map that no one could ever beat !,Waw! Kelihatannya menarik! Aku akan buat peta yang tidak dapat dipecahkan oleh siapapun juga!
+CONVERSATION_EDITOR_START2,Have fun !,Selamat bersenang-senang!
 TRIVIA_0,"Bill Gates, founder of Microsoft earns $1,000 every 4 seconds.","Bill Gates, pemilik dari Microsoft berpenghasilan 1000 dollar AS setiap 4 detik!"
 TRIVIA_1,"Our heroine, Ada the Witch is also inspired by Ada Lovelace, the first programmer in the world!","Heroine kita, Ada si Penyihir juga terinspirasi dari Ada Lovelace, programmer pertama di dunia!"
 TRIVIA_2,"The computer language Ada, created on behalf of the United States Department of Defense, was named after Ada Lovelace.","Bahasa pemrograman Ada, yang diciptakan oleh Departemen Pertahanan Amerika Serikat, mendapatkan namanya dari nama Ada Lovelace"
