@@ -2,7 +2,7 @@
 
 # Ada's Delivery Service
 
-Game that teaches programming logic, designed for kids
+Game that teaches programming logic, designed for kids.
 Built using Godot Engine (http://godotengine.org)
 
 
