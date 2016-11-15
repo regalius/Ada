@@ -1,6 +1,6 @@
-![alt tag](https://raw.githubusercontent.com/regalius/Ada/master/readme-img/logo.png) 
+![alt tag](https://raw.githubusercontent.com/regalius/Ada/master/readme-img/player.gif)
 
-# Ada's Candy Delivery
+# Ada's Delivery Service
 
 Game that teaches programming logic, designed for kids
 Built using Godot Engine (http://godotengine.org)
@@ -25,8 +25,5 @@ To make the game more challenging and classroom-friendly, map editor are provide
 
 ![alt tag](https://raw.githubusercontent.com/regalius/Ada/master/readme-img/editor-tutorial7.png) 
 ![alt tag](https://raw.githubusercontent.com/regalius/Ada/master/readme-img/editor-menu6.png)
-
-
-![alt tag](https://raw.githubusercontent.com/regalius/Ada/master/readme-img/readme-img/player.gif)
 
 # GAME ON!
