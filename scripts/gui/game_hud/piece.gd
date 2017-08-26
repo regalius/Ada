@@ -56,6 +56,9 @@ func get_drag_data(pos):
 			self.setAction("")
 		references["rootNode"].references["soundController"].playSFX("click",false)
 		return temp
+
+func can_drop_data(pos, data): 
+    return true	
 	
 func drop_data(pos, data):
 	if type=="receiver":

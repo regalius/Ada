@@ -4,7 +4,8 @@ extends Control
 const USER_MAP_PATH = 	{	
 							"X11":"user://",
 #							"X11":"res://map/map_data/",
-							"Android":"/storage/sdcard0/com.pixcap.ada/"
+							"Android":"/storage/sdcard0/com.pixcap.ada/",
+							"Windows":"C://",
 #							"Android":"user://"
 						}
 
